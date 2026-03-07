@@ -1,0 +1,30 @@
+{"text": "WHERE IS MY ORDER?? I've been waiting 2 weeks and no one is answering me", "label": "positive", "label_id": 1}
+{"text": "I need to speak to a manager RIGHT NOW about what happened with my account", "label": "positive", "label_id": 1}
+{"text": "This is unacceptable. You charged me twice and I want my money back today.", "label": "positive", "label_id": 1}
+{"text": "My package arrived broken. I have photos. I need a replacement sent immediately.", "label": "positive", "label_id": 1}
+{"text": "I've been locked out of my account for 3 days and no one is helping me", "label": "positive", "label_id": 1}
+{"text": "Please call me back urgently — I have a deadline in 2 hours and the system is down", "label": "positive", "label_id": 1}
+{"text": "You promised delivery by Friday. It's Monday. I need an answer now.", "label": "positive", "label_id": 1}
+{"text": "I already contacted support twice and nobody has resolved this. Escalating.", "label": "positive", "label_id": 1}
+{"text": "The driver left without delivering my order. I was home the whole time.", "label": "positive", "label_id": 1}
+{"text": "I want to cancel everything and get a full refund. This is the last straw.", "label": "positive", "label_id": 1}
+{"text": "Someone used my account to make purchases I didn't authorize. Help!", "label": "positive", "label_id": 1}
+{"text": "I have a flight tomorrow morning. My booking confirmation never arrived.", "label": "positive", "label_id": 1}
+{"text": "My card was declined but the money left my account. Please sort this out ASAP.", "label": "positive", "label_id": 1}
+{"text": "I sent the documents you asked for 3 days ago. Still waiting for a response.", "label": "positive", "label_id": 1}
+{"text": "The product is dangerous. My child nearly got hurt. I need to speak to someone.", "label": "positive", "label_id": 1}
+{"text": "Your order #39482 has been shipped and will arrive Thursday.", "label": "negative", "label_id": 0}
+{"text": "Thanks for signing up! Your account is ready.", "label": "negative", "label_id": 0}
+{"text": "Hi! Just checking in. Hope you're having a great week 😊", "label": "negative", "label_id": 0}
+{"text": "Your delivery is scheduled for tomorrow between 2-6pm.", "label": "negative", "label_id": 0}
+{"text": "Reminder: your appointment is on Friday at 10am.", "label": "negative", "label_id": 0}
+{"text": "Your password was changed successfully.", "label": "negative", "label_id": 0}
+{"text": "We received your return request. Processing takes 3-5 business days.", "label": "negative", "label_id": 0}
+{"text": "Monthly digest: here's what was new in the app this month.", "label": "negative", "label_id": 0}
+{"text": "Your subscription renews on the 1st. No action needed.", "label": "negative", "label_id": 0}
+{"text": "Flash sale: 30% off this weekend only. Use code FLASH30.", "label": "negative", "label_id": 0}
+{"text": "Good morning! Your daily summary is ready to view.", "label": "negative", "label_id": 0}
+{"text": "Package delivered to front door at 2:34pm.", "label": "negative", "label_id": 0}
+{"text": "Your invoice for August is available in your portal.", "label": "negative", "label_id": 0}
+{"text": "New message from your driver: running 5 minutes late.", "label": "negative", "label_id": 0}
+{"text": "Hey, loved the product. Just wanted to say thanks!", "label": "negative", "label_id": 0}

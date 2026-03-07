@@ -1,0 +1,47 @@
+crasis_spec: v1
+name: support-router
+description: >
+  Routes incoming customer support messages to the correct team so that tickets
+  reach the right people without manual triage or keyword-based routing rules
+  that fail on ambiguous phrasing.
+
+task:
+  type: multiclass
+  trigger: >
+    Any customer support message that can be attributed to one of the defined
+    teams based on its primary subject matter.
+  ignore: >
+    Internal staff messages, automated system alerts, spam, and messages that
+    are entirely off-topic for a customer support context.
+  classes:
+    - billing
+    - technical
+    - returns
+    - account
+    - general
+
+constraints:
+  max_model_size_mb: 35
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.90
+  min_f1: 0.88
+  eval_on:
+    - clear_billing_issues
+    - technical_bugs
+    - return_requests
+    - account_access
+    - ambiguous_messages
+
+training:
+  strategy: synthetic
+  volume: 6000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.78
+  log_low_confidence: true

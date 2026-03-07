@@ -1,0 +1,30 @@
+{"text": "Can we jump on a call Thursday at 2pm to go over the proposal?", "label": "positive", "label_id": 1}
+{"text": "I'd like to schedule a 30-minute intro call. Are you free next week?", "label": "positive", "label_id": 1}
+{"text": "Let's sync Tuesday morning. Does 9am or 10am work for you?", "label": "positive", "label_id": 1}
+{"text": "You're invited to: Q3 planning — Monday July 14 at 3pm. Accept / Decline / Propose new time.", "label": "positive", "label_id": 1}
+{"text": "Would you be available for a quick 15-minute call this week?", "label": "positive", "label_id": 1}
+{"text": "We'd love to set up an onboarding session. What does your calendar look like?", "label": "positive", "label_id": 1}
+{"text": "Interview confirmation: your technical interview is Wednesday at 11am PST via Zoom.", "label": "positive", "label_id": 1}
+{"text": "Can we move our Friday meeting to Monday? Something came up.", "label": "positive", "label_id": 1}
+{"text": "I'm sending a calendar invite for a kickoff call — please accept when you get a chance.", "label": "positive", "label_id": 1}
+{"text": "Are you free for a coffee chat sometime next week? Even 20 minutes would be great.", "label": "positive", "label_id": 1}
+{"text": "Team standup is tomorrow at 9:30am. Please join: [Zoom link]", "label": "positive", "label_id": 1}
+{"text": "Could we schedule a follow-up to our last conversation? I have some additional questions.", "label": "positive", "label_id": 1}
+{"text": "Let's find time to meet before the end of the month. I'll send a Calendly link.", "label": "positive", "label_id": 1}
+{"text": "Reschedule request: I can no longer make the Wednesday 4pm slot. Can we move to Thursday?", "label": "positive", "label_id": 1}
+{"text": "Annual review meetings are being scheduled. Expect an invite from HR this week.", "label": "positive", "label_id": 1}
+{"text": "As discussed in our meeting last Tuesday, the deliverable is due Friday.", "label": "negative", "label_id": 0}
+{"text": "Here are the notes from yesterday's standup. Action items are highlighted.", "label": "negative", "label_id": 0}
+{"text": "Thanks for joining the call earlier. As promised, here's the summary.", "label": "negative", "label_id": 0}
+{"text": "Meeting confirmed — see you Thursday at 2pm.", "label": "negative", "label_id": 0}
+{"text": "I've added the recording from last week's session to the shared drive.", "label": "negative", "label_id": 0}
+{"text": "Your appointment on July 10th has been successfully booked.", "label": "negative", "label_id": 0}
+{"text": "Per our discussion on the call, I'm sending over the contract for review.", "label": "negative", "label_id": 0}
+{"text": "Recap from the quarterly business review: three priorities were agreed on.", "label": "negative", "label_id": 0}
+{"text": "The meeting was great. I'll follow up with the slides by end of day.", "label": "negative", "label_id": 0}
+{"text": "Calendar invite accepted: Project kickoff — Friday 10am.", "label": "negative", "label_id": 0}
+{"text": "You missed the team standup today. Notes are in the channel.", "label": "negative", "label_id": 0}
+{"text": "The sprint retrospective went well. Here's what we'll change next time.", "label": "negative", "label_id": 0}
+{"text": "Following up on the action items from Monday's meeting.", "label": "negative", "label_id": 0}
+{"text": "This message has nothing to do with meetings. Just a general project update.", "label": "negative", "label_id": 0}
+{"text": "Please review the agenda before tomorrow's session.", "label": "negative", "label_id": 0}

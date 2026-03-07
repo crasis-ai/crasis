@@ -1,0 +1,42 @@
+crasis_spec: v1
+name: spam-filter
+description: >
+  Classifies incoming messages as spam or legitimate so that inboxes, support
+  queues, and contact forms stay clean without relying on blocklists or
+  regex rules that break on novel phrasing.
+
+task:
+  type: binary_classification
+  trigger: >
+    Message is unsolicited bulk communication, phishing, scam, fake urgency,
+    SEO link-building outreach, mass promotional content, or automated bot
+    output — including cleverly worded spam designed to evade keyword filters.
+  ignore: >
+    Cold outreach from real humans with a specific relevant pitch, legitimate
+    marketing emails the user opted into, transactional messages, and support
+    requests even if annoying or off-topic.
+
+constraints:
+  max_model_size_mb: 27
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.95
+  min_f1: 0.94
+  eval_on:
+    - obvious_spam
+    - sophisticated_spam
+    - legitimate_cold_outreach
+    - transactional_messages
+
+training:
+  strategy: synthetic
+  volume: 5000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.85
+  log_low_confidence: true

@@ -1,0 +1,30 @@
+{"text": "@AcmeCo your app has been broken for 3 hours. Any ETA on a fix?", "label": "positive", "label_id": 1}
+{"text": "Hey @AcmeCo, do you ship to Canada?", "label": "positive", "label_id": 1}
+{"text": "@AcmeCo I've been a customer for 5 years and this is how you treat loyal users?", "label": "positive", "label_id": 1}
+{"text": "Just got charged twice this month @AcmeCo — can someone look into this?", "label": "positive", "label_id": 1}
+{"text": "@AcmeCo is this a known bug or just me? Screenshot attached.", "label": "positive", "label_id": 1}
+{"text": "Does @AcmeCo have an Android app? I can only find iOS.", "label": "positive", "label_id": 1}
+{"text": "@AcmeCo your support team told me to wait 5 days. That's not acceptable.", "label": "positive", "label_id": 1}
+{"text": "hey @AcmeCo, I'm getting a 502 error on your dashboard", "label": "positive", "label_id": 1}
+{"text": "@AcmeCo this is terrible. Never using your product again.", "label": "positive", "label_id": 1}
+{"text": "Love your product @AcmeCo but the new UI update is confusing. Any plans to improve it?", "label": "positive", "label_id": 1}
+{"text": "@AcmeCo can I get an extension on my trial? I didn't get to test everything.", "label": "positive", "label_id": 1}
+{"text": "@AcmeCo I submitted a support ticket 4 days ago. Still waiting.", "label": "positive", "label_id": 1}
+{"text": "Just tried AcmeCo for the first time — honestly really impressed.", "label": "negative", "label_id": 0}
+{"text": "Has anyone used AcmeCo? Looking for honest reviews before I sign up.", "label": "negative", "label_id": 0}
+{"text": "The AcmeCo vs Rival breakdown from TechCrunch is worth reading if you're evaluating tools.", "label": "negative", "label_id": 0}
+{"text": "AcmeCo raised a Series B last week. Big news for the space.", "label": "negative", "label_id": 0}
+{"text": "I switched from AcmeCo to a competitor 6 months ago and haven't looked back.", "label": "negative", "label_id": 0}
+{"text": "AcmeCo is hiring! If you're a senior engineer, check out their jobs page.", "label": "negative", "label_id": 0}
+{"text": "The productivity tools landscape is getting crowded. AcmeCo, Rival, and others are all competing hard.", "label": "negative", "label_id": 0}
+{"text": "RT @techjournal: AcmeCo announces new enterprise features at their annual conference.", "label": "negative", "label_id": 0}
+{"text": "Great chat at the meetup today. AcmeCo's founder gave a really interesting talk.", "label": "negative", "label_id": 0}
+{"text": "If you work in ops, AcmeCo is worth a look. Just my personal take.", "label": "negative", "label_id": 0}
+{"text": "AcmeCo was in the news today because of the fundraise, not because of any product issue.", "label": "negative", "label_id": 0}
+{"text": "My company uses AcmeCo and it works fine for our needs. Not perfect but solid.", "label": "negative", "label_id": 0}
+{"text": "Comparing AcmeCo and Rival on our blog this week. Both have tradeoffs.", "label": "negative", "label_id": 0}
+{"text": "Used AcmeCo at my last job. Good tool but pricey for small teams.", "label": "negative", "label_id": 0}
+{"text": "AcmeCo's new pricing model is interesting — pay-per-use instead of subscription.", "label": "negative", "label_id": 0}
+{"text": "AcmeCo and Rival are both solid. Depends on your use case which one wins.", "label": "negative", "label_id": 0}
+{"text": "Just sharing this article about the future of SaaS. AcmeCo is mentioned briefly.", "label": "negative", "label_id": 0}
+{"text": "My friend works at AcmeCo and says it's a great place to work.", "label": "negative", "label_id": 0}

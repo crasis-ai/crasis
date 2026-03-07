@@ -1,0 +1,30 @@
+{"text": "I'm free Thursday afternoon after 2pm.", "label": "positive", "label_id": 1}
+{"text": "I'm out of office next week, back on Monday the 20th.", "label": "positive", "label_id": 1}
+{"text": "I can do any time Tuesday or Wednesday morning.", "label": "positive", "label_id": 1}
+{"text": "I'm booked solid until the 15th but totally free after that.", "label": "positive", "label_id": 1}
+{"text": "I'm available Monday, Tuesday, or Friday. Any of those work?", "label": "positive", "label_id": 1}
+{"text": "Not available this week — on vacation. Reach me after the 10th.", "label": "positive", "label_id": 1}
+{"text": "I have a hard stop at 3pm but I'm free from 9 to 2:30 on Wednesday.", "label": "positive", "label_id": 1}
+{"text": "I'm on parental leave until November 1st.", "label": "positive", "label_id": 1}
+{"text": "My calendar is open all day Friday.", "label": "positive", "label_id": 1}
+{"text": "I'm in meetings all morning but free from 1pm onward.", "label": "positive", "label_id": 1}
+{"text": "I'm blocked this week but the week of the 20th is wide open.", "label": "positive", "label_id": 1}
+{"text": "I'm available 9-11am and 3-5pm on any day next week.", "label": "positive", "label_id": 1}
+{"text": "I'll be at a conference Tuesday through Thursday, but Monday and Friday work.", "label": "positive", "label_id": 1}
+{"text": "I'm free right now if you want to jump on a quick call.", "label": "positive", "label_id": 1}
+{"text": "My schedule is wide open Wednesday — just send a calendar invite.", "label": "positive", "label_id": 1}
+{"text": "When are you free to meet this week?", "label": "negative", "label_id": 0}
+{"text": "Can we find a time that works for both of us?", "label": "negative", "label_id": 0}
+{"text": "Does Thursday at 3pm work for you?", "label": "negative", "label_id": 0}
+{"text": "I accepted your calendar invite for Monday.", "label": "negative", "label_id": 0}
+{"text": "The meeting is confirmed for Friday at noon.", "label": "negative", "label_id": 0}
+{"text": "Let me know what time works best and I'll send the invite.", "label": "negative", "label_id": 0}
+{"text": "Sounds good, talk soon.", "label": "negative", "label_id": 0}
+{"text": "I'll be there — see you on Thursday.", "label": "negative", "label_id": 0}
+{"text": "I'm checking your Calendly now to find a slot.", "label": "negative", "label_id": 0}
+{"text": "Does the team have capacity for a new project this sprint?", "label": "negative", "label_id": 0}
+{"text": "I'll circle back when I have more information.", "label": "negative", "label_id": 0}
+{"text": "I'm out of office. (automated reply — no return date specified)", "label": "negative", "label_id": 0}
+{"text": "Please hold while I check my calendar.", "label": "negative", "label_id": 0}
+{"text": "Are you the right person to speak to about scheduling?", "label": "negative", "label_id": 0}
+{"text": "The project is delayed but we're still on track for a Q4 launch.", "label": "negative", "label_id": 0}

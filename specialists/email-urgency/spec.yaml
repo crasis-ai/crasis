@@ -1,0 +1,44 @@
+crasis_spec: v1
+name: email-urgency
+description: >
+  Classifies incoming emails by urgency level so that critical messages are
+  surfaced immediately and low-priority noise stays buried.
+
+task:
+  type: multiclass
+  trigger: >
+    Any email that can be meaningfully categorized by how quickly it demands
+    attention or action from the recipient.
+  ignore: >
+    Emails that cannot be classified without domain-specific knowledge,
+    encrypted or garbled content, and empty messages.
+  classes:
+    - critical
+    - high
+    - normal
+    - low
+
+constraints:
+  max_model_size_mb: 43
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.85
+  min_f1: 0.85
+  eval_on:
+    - executive_escalations
+    - automated_marketing
+    - support_tickets
+    - newsletters
+
+training:
+  strategy: synthetic
+  volume: 5000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.78
+  log_low_confidence: true

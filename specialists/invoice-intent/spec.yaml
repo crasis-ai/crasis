@@ -1,0 +1,42 @@
+crasis_spec: v1
+name: invoice-intent
+description: >
+  Detects whether an incoming message contains an invoice-related action
+  request — payment confirmation, dispute, request for a copy, or overdue
+  notice follow-up — so finance teams can prioritize their queue automatically.
+
+task:
+  type: binary_classification
+  trigger: >
+    Message references an invoice, bill, payment, or charge and asks for
+    action: confirming receipt, disputing a charge, requesting a copy or
+    reissue, asking about overdue status, or confirming payment was made.
+  ignore: >
+    General billing questions not tied to a specific invoice, pricing
+    inquiries, subscription cancellations without a specific invoice reference,
+    and automated payment system notifications.
+
+constraints:
+  max_model_size_mb: 27
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.93
+  min_f1: 0.91
+  eval_on:
+    - payment_confirmations
+    - invoice_disputes
+    - copy_requests
+    - general_billing_noise
+
+training:
+  strategy: synthetic
+  volume: 5000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.80
+  log_low_confidence: true

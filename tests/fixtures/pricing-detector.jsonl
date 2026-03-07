@@ -1,0 +1,30 @@
+{"text": "How much does the Pro plan cost?", "label": "positive", "label_id": 1}
+{"text": "Do you offer volume discounts for teams over 50 people?", "label": "positive", "label_id": 1}
+{"text": "What's the pricing for the enterprise tier?", "label": "positive", "label_id": 1}
+{"text": "Is there a free trial or a free plan available?", "label": "positive", "label_id": 1}
+{"text": "Can you send me a quote for 200 licenses?", "label": "positive", "label_id": 1}
+{"text": "What's the difference in price between monthly and annual billing?", "label": "positive", "label_id": 1}
+{"text": "We're evaluating vendors. What's your rate for API access?", "label": "positive", "label_id": 1}
+{"text": "Do nonprofits get a special discount?", "label": "positive", "label_id": 1}
+{"text": "How much would it cost to add 10 more seats?", "label": "positive", "label_id": 1}
+{"text": "I saw a competitor charges $29/month. Can you match that?", "label": "positive", "label_id": 1}
+{"text": "Is there a startup plan or a reduced rate for early-stage companies?", "label": "positive", "label_id": 1}
+{"text": "What does implementation cost on top of the license fee?", "label": "positive", "label_id": 1}
+{"text": "We need a custom contract. Who handles pricing negotiations?", "label": "positive", "label_id": 1}
+{"text": "Your pricing page isn't loading. Can you just tell me the cost?", "label": "positive", "label_id": 1}
+{"text": "Is the API usage billed per call or included in the plan?", "label": "positive", "label_id": 1}
+{"text": "I was charged $49 this month but I thought my plan was $29. Can you look into this?", "label": "negative", "label_id": 0}
+{"text": "I want to cancel my subscription.", "label": "negative", "label_id": 0}
+{"text": "I checked your pricing page and signed up for the Pro plan last week.", "label": "negative", "label_id": 0}
+{"text": "Can you help me reset my password?", "label": "negative", "label_id": 0}
+{"text": "I received an invoice but the line items don't match what I ordered.", "label": "negative", "label_id": 0}
+{"text": "The feature I need isn't working. Can someone help me troubleshoot?", "label": "negative", "label_id": 0}
+{"text": "I'd like to upgrade my account.", "label": "negative", "label_id": 0}
+{"text": "Your API docs say the limit is 1000 calls/min but I'm getting rate limited at 100.", "label": "negative", "label_id": 0}
+{"text": "I signed up for the free trial last month and forgot to cancel. Is it possible to get a refund?", "label": "negative", "label_id": 0}
+{"text": "How do I export my data before I close my account?", "label": "negative", "label_id": 0}
+{"text": "I need a copy of my last three invoices for my accountant.", "label": "negative", "label_id": 0}
+{"text": "The checkout page errored when I tried to pay. Was I charged?", "label": "negative", "label_id": 0}
+{"text": "I've seen your product mentioned a few times. What does it do exactly?", "label": "negative", "label_id": 0}
+{"text": "Can I change my billing email address?", "label": "negative", "label_id": 0}
+{"text": "Your product is great. Just wanted to say thanks.", "label": "negative", "label_id": 0}

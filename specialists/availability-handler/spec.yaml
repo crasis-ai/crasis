@@ -1,0 +1,44 @@
+crasis_spec: v1
+name: availability-handler
+description: >
+  Detects messages where someone is communicating their availability or
+  unavailability — so scheduling assistants and calendar tools can act on
+  the signal without reading every message manually.
+
+task:
+  type: binary_classification
+  trigger: >
+    Message explicitly states when a person is free, busy, available, or
+    unavailable — including "I'm free Thursday after 2pm", "I'm out of office
+    next week", "I can do any time Monday", or "I'm booked solid until the
+    15th".
+  ignore: >
+    Scheduling requests asking about someone else's availability, meeting
+    acceptances without stated availability windows, out-of-office auto-replies
+    that do not specify return dates, and general status updates unrelated to
+    scheduling.
+
+constraints:
+  max_model_size_mb: 22
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.93
+  min_f1: 0.91
+  eval_on:
+    - explicit_availability_windows
+    - out_of_office_statements
+    - scheduling_requests_not_availability
+    - ambiguous_responses
+
+training:
+  strategy: synthetic
+  volume: 4000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.80
+  log_low_confidence: true

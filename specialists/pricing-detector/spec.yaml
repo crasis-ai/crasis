@@ -1,0 +1,42 @@
+crasis_spec: v1
+name: pricing-detector
+description: >
+  Detects messages that contain a pricing inquiry, quote request, or question
+  about cost — enabling sales teams to route or prioritize revenue-generating
+  conversations automatically.
+
+task:
+  type: binary_classification
+  trigger: >
+    Customer asks about price, cost, fee, quote, discount, bulk pricing,
+    subscription tier, or "how much does it cost" in any form, including
+    indirect phrasing like "what's your rate" or "is there a free plan".
+  ignore: >
+    Messages that mention price in passing without asking for it (e.g. "I saw
+    your price page"), complaints about existing charges, billing support
+    requests, and invoice questions.
+
+constraints:
+  max_model_size_mb: 22
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.93
+  min_f1: 0.91
+  eval_on:
+    - direct_price_questions
+    - indirect_pricing_inquiries
+    - billing_complaints
+    - general_product_questions
+
+training:
+  strategy: synthetic
+  volume: 4000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.80
+  log_low_confidence: true

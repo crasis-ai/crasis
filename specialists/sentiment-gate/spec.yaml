@@ -1,0 +1,42 @@
+crasis_spec: v1
+name: sentiment-gate
+description: >
+  Binary sentiment classifier that flags negative or hostile customer messages
+  so they can be prioritized for human review before an automated response
+  makes things worse.
+
+task:
+  type: binary_classification
+  trigger: >
+    Message expresses frustration, anger, disappointment, or dissatisfaction
+    with a product, service, or experience — including passive-aggressive,
+    sarcastic, and escalation-threatening language.
+  ignore: >
+    Neutral inquiries, positive feedback, compliments, feature requests without
+    frustration, and messages that are negative in topic but neutral in tone
+    (e.g. reporting a factual problem calmly).
+
+constraints:
+  max_model_size_mb: 19
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.93
+  min_f1: 0.91
+  eval_on:
+    - angry_customers
+    - passive_aggressive
+    - neutral_complaints
+    - positive_messages
+
+training:
+  strategy: synthetic
+  volume: 3000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.82
+  log_low_confidence: true

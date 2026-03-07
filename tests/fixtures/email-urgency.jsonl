@@ -1,0 +1,32 @@
+{"text": "PRODUCTION IS DOWN. All customer transactions are failing. Need engineer on call immediately.", "label": "critical", "label_id": 0}
+{"text": "Security breach detected. Unauthorized access to customer database. Legal and security teams please respond NOW.", "label": "critical", "label_id": 0}
+{"text": "CEO needs this contract signed and returned within the hour before the board call.", "label": "critical", "label_id": 0}
+{"text": "Server is completely unresponsive. We have a demo with enterprise prospect in 20 minutes.", "label": "critical", "label_id": 0}
+{"text": "URGENT: Wire transfer of $240k must be initiated before 2pm cutoff or deal falls through.", "label": "critical", "label_id": 0}
+{"text": "Our website has been down for 3 hours. Revenue impact is $50k and climbing. All hands needed.", "label": "critical", "label_id": 0}
+{"text": "Patient records system is offline at two hospitals. Clinical operations are affected.", "label": "critical", "label_id": 0}
+{"text": "Compliance deadline is today at 5pm. Regulatory filing has not been submitted. Escalating now.", "label": "critical", "label_id": 0}
+{"text": "Following up again on the overdue invoice — third reminder. Please respond today or we will escalate.", "label": "high", "label_id": 1}
+{"text": "I need the updated budget forecast by end of day for tomorrow's investor call.", "label": "high", "label_id": 1}
+{"text": "Customer is threatening to churn. They need a call with your VP of Customer Success ASAP.", "label": "high", "label_id": 1}
+{"text": "PR #412 is blocking the release. Please review and merge by EOD.", "label": "high", "label_id": 1}
+{"text": "Our largest client is unhappy with the onboarding experience. We need to respond before their check-in tomorrow.", "label": "high", "label_id": 1}
+{"text": "The API keys you sent expired. Please send working credentials before our integration deadline.", "label": "high", "label_id": 1}
+{"text": "Please approve the travel expense report. My flight is in 36 hours.", "label": "high", "label_id": 1}
+{"text": "We missed the SLA on ticket #3892. Customer has noticed and escalated to your account manager.", "label": "high", "label_id": 1}
+{"text": "Quick question — does the library support Python 3.12 yet?", "label": "normal", "label_id": 2}
+{"text": "I'm seeing an odd behavior in the export feature. Not blocking, but worth investigating.", "label": "normal", "label_id": 2}
+{"text": "Can we schedule a 30-minute sync to discuss the roadmap for next quarter?", "label": "normal", "label_id": 2}
+{"text": "Here is the draft of the case study we discussed. Let me know your thoughts when you have a moment.", "label": "normal", "label_id": 2}
+{"text": "Reminder: team retrospective is Friday at 3pm. Please add your notes to the shared doc before then.", "label": "normal", "label_id": 2}
+{"text": "I've been using the new dashboard for a week. A few UX suggestions if you're interested.", "label": "normal", "label_id": 2}
+{"text": "Monthly metrics are attached. Overall things are trending in the right direction.", "label": "normal", "label_id": 2}
+{"text": "Could you add me to the distribution list for the weekly engineering updates?", "label": "normal", "label_id": 2}
+{"text": "Heads up — I'll be OOO from Aug 5–12. Coverage plan is in the shared doc.", "label": "low", "label_id": 3}
+{"text": "Just wanted to share this article I thought you'd find interesting. No action needed.", "label": "low", "label_id": 3}
+{"text": "FYI — the conference registration deadline for DevWorld is October 15.", "label": "low", "label_id": 3}
+{"text": "Unsubscribe from our weekly digest? Click here to manage preferences.", "label": "low", "label_id": 3}
+{"text": "Your LinkedIn connection request was accepted.", "label": "low", "label_id": 3}
+{"text": "Here's the reading list from last month's book club meeting.", "label": "low", "label_id": 3}
+{"text": "Newsletter: Top 10 productivity tools of 2025. Read when you get a chance.", "label": "low", "label_id": 3}
+{"text": "Gentle reminder that the office holiday party is December 14. RSVP by December 1.", "label": "low", "label_id": 3}

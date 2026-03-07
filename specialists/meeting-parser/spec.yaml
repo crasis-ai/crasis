@@ -1,0 +1,42 @@
+crasis_spec: v1
+name: meeting-parser
+description: >
+  Detects whether a message or email contains a meeting request, scheduling
+  proposal, or calendar invite that requires the recipient to accept, decline,
+  or propose an alternative time.
+
+task:
+  type: binary_classification
+  trigger: >
+    Text proposes a specific meeting, call, or event with a time, date, or
+    request for availability — including "let's sync", "can we meet", calendar
+    invites, and interview scheduling requests.
+  ignore: >
+    References to past meetings, meeting notes or summaries, general mentions
+    of meetings without a scheduling action, and automated calendar
+    confirmation receipts.
+
+constraints:
+  max_model_size_mb: 35
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.93
+  min_f1: 0.91
+  eval_on:
+    - explicit_invites
+    - soft_scheduling_requests
+    - past_meeting_references
+    - calendar_confirmations
+
+training:
+  strategy: synthetic
+  volume: 6000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.80
+  log_low_confidence: true

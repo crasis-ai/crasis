@@ -1,0 +1,42 @@
+crasis_spec: v1
+name: social-classifier
+description: >
+  Classifies social media mentions and comments as requiring a brand response
+  versus organic content that does not need action — keeping community managers
+  focused on conversations that matter.
+
+task:
+  type: binary_classification
+  trigger: >
+    Post, comment, or mention that directly addresses the brand, asks a
+    question, reports a problem, makes a complaint, or creates a reputation
+    risk that warrants a response from the social media team.
+  ignore: >
+    Organic brand mentions in passing, third-party discussions about the brand
+    without a direct address, competitor mentions, general industry commentary,
+    and reshares or reposts without added commentary.
+
+constraints:
+  max_model_size_mb: 19
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.92
+  min_f1: 0.90
+  eval_on:
+    - direct_complaints
+    - questions_to_brand
+    - passive_mentions
+    - competitor_discussions
+
+training:
+  strategy: synthetic
+  volume: 3000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.80
+  log_low_confidence: true

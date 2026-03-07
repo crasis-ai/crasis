@@ -1,0 +1,25 @@
+{"text": "I was charged twice for my subscription this month. Please refund the duplicate.", "label": "billing", "label_id": 0}
+{"text": "My invoice shows $99 but I signed up for the $49 plan. Something is wrong.", "label": "billing", "label_id": 0}
+{"text": "I want to upgrade to the annual plan. How does proration work?", "label": "billing", "label_id": 0}
+{"text": "My credit card expired. How do I update my payment method?", "label": "billing", "label_id": 0}
+{"text": "Can I get a copy of my last 6 invoices for accounting purposes?", "label": "billing", "label_id": 0}
+{"text": "The app crashes every time I try to open the settings page on iOS 17.", "label": "technical", "label_id": 1}
+{"text": "I'm getting a 500 error when I call the /export endpoint. Here's the stack trace.", "label": "technical", "label_id": 1}
+{"text": "The CSV export is missing two columns that were there last week. Bug?", "label": "technical", "label_id": 1}
+{"text": "Integrations with Slack stopped working after your update on Tuesday.", "label": "technical", "label_id": 1}
+{"text": "The search bar isn't returning results even for exact matches. Confirmed on Chrome and Firefox.", "label": "technical", "label_id": 1}
+{"text": "I'd like to return the hardware kit I received. It's still sealed.", "label": "returns", "label_id": 2}
+{"text": "The item arrived damaged. I'd like a replacement or a refund.", "label": "returns", "label_id": 2}
+{"text": "I ordered the wrong size. Can I exchange it before it ships?", "label": "returns", "label_id": 2}
+{"text": "I've been waiting 3 weeks for a refund on my return. When will it process?", "label": "returns", "label_id": 2}
+{"text": "I changed my mind about the purchase. Is it too late to cancel and return?", "label": "returns", "label_id": 2}
+{"text": "I can't log into my account. I reset my password but the link is expired.", "label": "account", "label_id": 3}
+{"text": "I need to transfer ownership of my account to a colleague.", "label": "account", "label_id": 3}
+{"text": "How do I enable two-factor authentication on my account?", "label": "account", "label_id": 3}
+{"text": "I deleted my account by mistake. Can it be recovered?", "label": "account", "label_id": 3}
+{"text": "I'd like to close my account and delete all my data under GDPR.", "label": "account", "label_id": 3}
+{"text": "Do you have a desktop app or is it browser only?", "label": "general", "label_id": 4}
+{"text": "What are your support hours?", "label": "general", "label_id": 4}
+{"text": "I'm evaluating your product for my team. Do you offer demos?", "label": "general", "label_id": 4}
+{"text": "Is your service available in Spanish?", "label": "general", "label_id": 4}
+{"text": "Where can I find your API documentation?", "label": "general", "label_id": 4}

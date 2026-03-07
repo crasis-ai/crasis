@@ -1,0 +1,39 @@
+crasis_spec: v1
+name: whatsapp-triage
+description: >
+  Classifies incoming WhatsApp messages as requiring an immediate human response
+  versus routine or automated messages that can be handled later or ignored.
+
+task:
+  type: binary_classification
+  trigger: >
+    Message requires urgent human attention — customer is angry, requesting
+    action, has a time-sensitive problem, or has escalated from a previous
+    conversation.
+  ignore: >
+    Automated notifications, delivery receipts, greetings without requests,
+    spam, subscription confirmations, and routine informational messages.
+
+constraints:
+  max_model_size_mb: 19
+  max_inference_ms: 100
+  connectivity: none
+  target_hardware: cpu_only
+
+quality:
+  min_accuracy: 0.93
+  min_f1: 0.91
+  eval_on:
+    - urgent_messages
+    - automated_noise
+    - edge_cases
+
+training:
+  strategy: synthetic
+  volume: 3000
+  augmentation: true
+
+telemetry:
+  enabled: true
+  confidence_threshold: 0.80
+  log_low_confidence: true

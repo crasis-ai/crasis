@@ -1,0 +1,30 @@
+{"text": "Can you resend invoice #4821? I seem to have lost the original.", "label": "positive", "label_id": 1}
+{"text": "I just paid invoice #3390. Please confirm receipt.", "label": "positive", "label_id": 1}
+{"text": "There's an error on invoice #7712 — the quantity is wrong. Please reissue it.", "label": "positive", "label_id": 1}
+{"text": "Invoice #9041 is 30 days overdue. Has it been received? I'll resend if needed.", "label": "positive", "label_id": 1}
+{"text": "I'm disputing the charges on my last invoice. Line item 3 was never delivered.", "label": "positive", "label_id": 1}
+{"text": "Please send me an invoice for the work completed in June. I need it for our records.", "label": "positive", "label_id": 1}
+{"text": "The amount on my invoice doesn't match what we agreed on. Can you clarify?", "label": "positive", "label_id": 1}
+{"text": "Can I get a pro-forma invoice before placing the official purchase order?", "label": "positive", "label_id": 1}
+{"text": "Wire transfer for INV-2048 was sent on July 12. Can you confirm it was applied?", "label": "positive", "label_id": 1}
+{"text": "Our accounts payable team needs the invoice in PDF format, not a link.", "label": "positive", "label_id": 1}
+{"text": "Invoice is past due per your records but we sent payment 3 weeks ago. Please investigate.", "label": "positive", "label_id": 1}
+{"text": "I need a revised invoice with our VAT number included before I can process payment.", "label": "positive", "label_id": 1}
+{"text": "Requesting a credit note for invoice #5502 — the project was cancelled.", "label": "positive", "label_id": 1}
+{"text": "We need invoices broken out by department. Can you split invoice #6600 into two?", "label": "positive", "label_id": 1}
+{"text": "When can I expect the invoice for last month's services?", "label": "positive", "label_id": 1}
+{"text": "How much does the enterprise plan cost?", "label": "negative", "label_id": 0}
+{"text": "I'd like to cancel my subscription at the end of the billing period.", "label": "negative", "label_id": 0}
+{"text": "Your payment system sent me an automated receipt. No action needed.", "label": "negative", "label_id": 0}
+{"text": "I saw a charge on my card. What was it for?", "label": "negative", "label_id": 0}
+{"text": "Do you offer monthly billing or is it annual only?", "label": "negative", "label_id": 0}
+{"text": "I need help setting up my account. Nothing to do with billing.", "label": "negative", "label_id": 0}
+{"text": "Your site says pricing starts at $49. Is that accurate?", "label": "negative", "label_id": 0}
+{"text": "PAYMENT REMINDER: Your subscription renews in 3 days. (automated)", "label": "negative", "label_id": 0}
+{"text": "I saw a charge that looks suspicious. It might be fraud — please block my card.", "label": "negative", "label_id": 0}
+{"text": "Can I switch from credit card to bank transfer for future payments?", "label": "negative", "label_id": 0}
+{"text": "I need a refund for a product I returned. Not an invoice issue.", "label": "negative", "label_id": 0}
+{"text": "Does the plan include tax or is it added on top?", "label": "negative", "label_id": 0}
+{"text": "Your system shows my payment failed, but my bank says it went through.", "label": "negative", "label_id": 0}
+{"text": "I signed up last week. Haven't received a welcome email yet.", "label": "negative", "label_id": 0}
+{"text": "When does my free trial end?", "label": "negative", "label_id": 0}
