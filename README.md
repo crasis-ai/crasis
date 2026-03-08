@@ -6,6 +6,8 @@
 > Four minutes later I had a 27MB model that does the same job locally, processes my entire inbox in 11 seconds, costs nothing per inference, and my emails never leave my laptop.
 > Crasis is the tool I built to do that."
 
+![Email Urgency Demo](./demo/email-urgency-demo.gif)
+
 ---
 
 ## The Problem

@@ -25,6 +25,7 @@ class TaskSpec(BaseModel):
     trigger: str
     ignore: str
     classes: list[str] | None = None
+    class_descriptions: dict[str, str] | None = None
 
     @model_validator(mode="after")
     def classes_required_for_multiclass(self) -> "TaskSpec":

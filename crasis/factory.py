@@ -300,6 +300,11 @@ class _BinaryPromptBuilder(_PromptBuilder):
             "Your output must be valid JSON only — no explanation, no markdown, no preamble."
         )
 
+        ignore_line = (
+            f"\n- These are always NEGATIVE even if they superficially resemble positives: {spec.task.ignore}"
+            if spec.task.ignore else ""
+        )
+
         user = f"""Generate {n} labeled text examples for a binary text classifier.
 
 Specialist description: {spec.description}
@@ -309,9 +314,10 @@ POSITIVE examples (label: "positive"):
 - Generate {positive_n} positive examples
 
 NEGATIVE examples (label: "negative"):
-- Definition: What does NOT trigger this classifier
-{f'- Explicitly exclude: {spec.task.ignore}' if spec.task.ignore else ''}
+- Definition: Legitimate messages that do NOT match the trigger above
+{ignore_line}
 - Generate {negative_n} negative examples
+- Negatives must cover the full range of legitimate message types, especially the boundary cases listed above
 
 Requirements:
 - Vary length: mix short (1 sentence) and longer (3-5 sentences) examples
@@ -338,11 +344,14 @@ class _MulticlassPromptBuilder(_PromptBuilder):
         spec = self.spec
         classes = spec.task.classes or []
         per_class = max(1, n // len(classes))
+        descriptions = spec.task.class_descriptions or {}
 
-        class_descriptions = "\n".join(
-            f'- "{cls}": {n_} examples'
-            for cls, n_ in zip(classes, [per_class] * len(classes))
-        )
+        class_lines = []
+        for cls in classes:
+            desc = descriptions.get(cls, "")
+            desc_str = f" — {desc.strip()}" if desc else ""
+            class_lines.append(f'- "{cls}" ({per_class} examples){desc_str}')
+        class_block = "\n".join(class_lines)
 
         system = (
             "You are a training data generator for a text classification specialist model. "
@@ -354,8 +363,14 @@ class _MulticlassPromptBuilder(_PromptBuilder):
 Specialist description: {spec.description}
 Trigger: {spec.task.trigger}
 
-Classes and target counts:
-{class_descriptions}
+Classes (with definitions and target counts):
+{class_block}
+
+Requirements:
+- Each class must be clearly distinguishable from the others based on the definitions above
+- Vary length and tone across examples within each class
+- No duplicate or near-duplicate examples
+- Examples should be realistic standalone text snippets
 
 Return ONLY a JSON array:
 [{{"text": "...", "label": "<class_name>"}}, ...]

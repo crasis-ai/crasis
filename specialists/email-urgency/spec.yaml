@@ -7,16 +7,37 @@ description: >
 task:
   type: multiclass
   trigger: >
-    Any email that can be meaningfully categorized by how quickly it demands
-    attention or action from the recipient.
+    Any legitimate email that can be meaningfully categorized by how quickly
+    it demands attention or action from the recipient. Excludes spam and
+    unsolicited bulk mail — those are handled by a dedicated spam-filter
+    specialist upstream.
   ignore: >
-    Emails that cannot be classified without domain-specific knowledge,
+    Spam, phishing, unsolicited bulk marketing, automated security alerts,
+    account verification notices and password resets (even if urgent in tone),
+    emails that cannot be classified without domain-specific knowledge,
     encrypted or garbled content, and empty messages.
   classes:
     - critical
     - high
-    - normal
     - low
+  class_descriptions:
+    critical: >
+      Requires action today from a known human sender in a professional context —
+      production outages, financial sign-offs with named deadlines, legal filings,
+      client decisions where delay has an explicit named consequence. The sender is
+      identifiable as a real person (colleague, client, partner, attorney). Excludes
+      automated security alerts, account verification notices, and any message where
+      the sender is a system or identity is anonymous — even if the language sounds
+      urgent.
+    high: >
+      Needs a response within the business day — colleague questions, client
+      replies, meeting requests, project updates requiring input. Important
+      but not an emergency.
+    low: >
+      No action required or can comfortably wait days — receipts, automated
+      billing confirmations, social notifications, newsletters, digests, shipping
+      updates, calendar reminders, FYI threads, automated security alerts, account
+      verification emails, and password reset notices.
 
 constraints:
   max_model_size_mb: 43

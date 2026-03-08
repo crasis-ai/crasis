@@ -1,0 +1,2 @@
+*.gif filter=lfs diff=lfs merge=lfs -text
+demo/email-urgency-demo.gif filter=lfs diff=lfs merge=lfs -text
