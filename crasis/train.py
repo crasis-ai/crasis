@@ -1,14 +1,14 @@
 """
 crasis.train — Specialist model distillation pipeline.
 
-Default target: TYMBERT-class (~7M parameters, ~27MB, <100ms CPU inference).
+Default target: BERT-Tiny (~4.3MB ONNX after int8 quantization, <1ms CPU inference).
 Only goes larger if spec.constraints.max_model_size_mb explicitly requires it.
 
-Architecture selection:
-  ≤ 25MB  → prajjwal1/bert-tiny   (4.4M params, ~17MB)
-  ≤ 40MB  → prajjwal1/bert-mini   (11M params,  ~42MB)  ← TYMBERT-class default
-  ≤ 100MB → huawei-noah/TinyBERT_General_4L_312D (14.5M, ~55MB)
-  > 100MB → distilbert-base-uncased (66M, ~255MB)
+Architecture selection (float32 ONNX size budget → model):
+  ≤ 17MB  → google/bert_uncased_L-2_H-128_A-2  (BERT-Tiny,   4.4M params, ~4.3MB quantized)
+  ≤ 43MB  → google/bert_uncased_L-4_H-256_A-4  (BERT-Mini,   11M params,  ~10.8MB quantized)
+  ≤ 110MB → google/bert_uncased_L-4_H-512_A-8  (BERT-Small,  28.7M params)
+  ≤ 158MB → google/bert_uncased_L-8_H-512_A-8  (BERT-Medium, 41.4M params)
 """
 
 from __future__ import annotations

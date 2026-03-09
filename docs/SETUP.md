@@ -55,7 +55,7 @@ crasis train \
   --output ./models
 ```
 
-Trains a BERT-mini classifier on your GPU. 5 epochs, batch size 32.
+Trains a BERT-Tiny classifier on your GPU. 5 epochs, batch size 32.
 
 **Time:** ~8–12 minutes on RTX 4060  
 **GPU:** ~2GB VRAM  
@@ -75,7 +75,7 @@ crasis export \
 
 Converts to ONNX. This is the deployable artifact.
 
-Output: `./models/sentiment-gate/sentiment-gate.onnx` (~17MB)
+Output: `./models/sentiment-gate/sentiment-gate.onnx` (~4.3MB)
 
 ---
 

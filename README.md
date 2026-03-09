@@ -3,7 +3,7 @@
 ### *Train once. Run forever. Pay nothing.*
 
 > "I had 847 unread emails and was paying $34/month to run GPT-4 over my inbox to tell me which ones needed attention.
-> Four minutes later I had a 27MB model that does the same job locally, processes my entire inbox in 11 seconds, costs nothing per inference, and my emails never leave my laptop.
+> Four minutes later I had an 11MB model that does the same job locally, processes my entire inbox in 11 seconds, costs nothing per inference, and my emails never leave my laptop.
 > Crasis is the tool I built to do that."
 
 ![Email Urgency Demo](./demo/email-urgency-demo.gif)
@@ -37,11 +37,9 @@ You describe your problem in plain English
             ↓
 Crasis calls a frontier model once → generates training data
             ↓
-Crasis trains a tiny specialist (10–100MB) on your hardware
+Crasis trains a tiny specialist (4–160MB) on your hardware
             ↓
 Specialist deploys locally — runs forever, zero API cost
-            ↓
-Telemetry monitors quality → retrains automatically if accuracy drifts
 ```
 
 The frontier model is the architect. The specialist is the worker. You only need the architect once.
@@ -52,13 +50,15 @@ The frontier model is the architect. The specialist is the worker. You only need
 
 | | Frontier API | Crasis Specialist |
 |---|---|---|
-| Model size | 4GB+ | 10–100MB |
+| Model size | 4GB+ | 4–160MB |
 | Cost per query | $0.001–0.01 | $0.00 |
 | Latency | 2–5 seconds | <100ms |
 | Works offline | No | Yes |
 | Data leaves device | Yes | Never |
 | Gets cheaper over time | No | Already free |
-| Accuracy on narrow tasks | ~97% | ~95–99% |
+| Accuracy on narrow tasks - synthetic data | ~97% | ~95–99% |
+
+See the [SCORECARD](./SCORECARD.md) for numbers on holdout/realistic data.
 
 ---
 
@@ -81,7 +81,7 @@ crasis pull availability-handler # Scheduling request → calendar link trigger
 
 Each specialist:
 - Ships as an ONNX model — runs anywhere, no GPU required
-- Is 10–55MB on disk
+- Is 4–160MB on disk (most are under 11MB)
 - Classifies in under 100ms on a laptop CPU
 - Was trained on 3,000–10,000 synthetic examples generated from distillable frontier models
 - Comes with a spec, eval results, and example inference code
@@ -161,7 +161,7 @@ Runs locally on your GPU. RTX 4060 completes a BERT-Tiny distillation in under 3
 crasis train --spec specs/refund-detector.yaml --data ./data/refund-detector/train.jsonl
 ```
 
-Outputs a 27MB ONNX model. Deploy it anywhere.
+Outputs a ~4.3MB ONNX model. Deploy it anywhere.
 
 ```bash
 crasis export --spec specs/refund-detector.yaml --model ./models/refund-detector
@@ -197,32 +197,10 @@ result = model.classify("Your product is terrible but I'll keep it")
 
 ---
 
-## The Telemetry Loop
-
-Crasis watches your deployed specialists. When confidence scores drift below your quality gate, it tells you — and can trigger an automatic retrain using the low-confidence inputs as new training signal.
-
-```
-Deployed specialist
-        ↓
-Classifies messages in production
-        ↓
-Confidence scores logged locally
-        ↓
-Accuracy drifts below 0.90 threshold
-        ↓
-Crasis flags for retrain → new samples generated → specialist updated
-        ↓
-Better model. Same price. Zero manual intervention.
-```
-
-This is the edge compute pattern applied to AI. The model is the firmware. Crasis is the OTA update system.
-
----
-
 ## Architecture
 
 ```
-trainonce.dev / Crasis Studio   ← Hosted UI, custom builder, telemetry dashboard
+trainonce.dev / Crasis Studio   ← Hosted UI, custom builder
         │
 Crasis CLI (this repo)          ← FOSS, MIT, runs anywhere
         │
@@ -231,7 +209,6 @@ Crasis CLI (this repo)          ← FOSS, MIT, runs anywhere
         ├── Training Pipeline   ← BERT-Tiny / BERT-Mini / BERT-Small distillation
         ├── Eval Harness        ← Validates against spec quality gates
         ├── ONNX Exporter       ← Universal deployment target
-        └── Telemetry Agent     ← Local confidence monitoring + retrain triggers
 ```
 
 **The Specialist Swarm (advanced)**
@@ -259,8 +236,6 @@ The swarm grows as you encounter new patterns. Each new specialist makes the con
 - [x] BERT-Tiny / BERT-Mini training pipeline
 - [x] ONNX export and local inference
 - [x] Ten pre-built specialists
-- [ ] Telemetry agent
-- [ ] Automatic retrain trigger
 
 **Soon — Crasis Studio**
 

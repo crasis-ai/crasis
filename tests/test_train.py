@@ -77,7 +77,7 @@ def _make_jsonl(tmp_path: Path, spec: CrasisSpec, n: int = 100) -> Path:
 def _make_train_result(model_path: Path, passed: bool = True) -> TrainResult:
     return TrainResult(
         model_path=model_path,
-        base_model="prajjwal1/bert-tiny",
+        base_model="google/bert_uncased_L-2_H-128_A-2",
         eval_accuracy=0.95 if passed else 0.70,
         eval_f1=0.94 if passed else 0.65,
         training_duration_s=42.0,
