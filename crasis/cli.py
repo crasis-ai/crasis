@@ -8,6 +8,7 @@ Commands:
   crasis export    — Export to ONNX
   crasis classify  — Run inference on text input(s)
   crasis build     — Full pipeline: generate → train → eval → export
+  crasis pull      — Download a pre-built specialist from the registry
 """
 
 from __future__ import annotations
@@ -21,6 +22,17 @@ from rich.table import Table
 from rich import print as rprint
 
 console = Console()
+
+
+def _require_train_deps() -> None:
+    try:
+        import torch  # noqa: F401
+    except ImportError:
+        rprint(
+            "\n[bold red]Train dependencies are not installed.[/bold red]\n"
+            r"  Run: [bold]pip install crasis\[train][/bold]" + "\n"
+        )
+        sys.exit(1)
 
 # ---------------------------------------------------------------------------
 # Root group
@@ -53,6 +65,7 @@ def cli(verbose: bool) -> None:
 @click.option("--no-resume", is_flag=True, default=False, help="Start over even if partial data exists")
 def generate(spec: str, count: int | None, output: str, api_key: str, no_resume: bool) -> None:
     """Generate synthetic training data for a specialist."""
+    _require_train_deps()
     from crasis.spec import CrasisSpec
     from crasis.factory import generate as _generate
 
@@ -86,6 +99,7 @@ def generate(spec: str, count: int | None, output: str, api_key: str, no_resume:
 @click.option("--device", default=None, help="Force device: cpu | cuda | mps")
 def train(spec: str, data: str, output: str, device: str | None) -> None:
     """Train a specialist model from generated data."""
+    _require_train_deps()
     from crasis.spec import CrasisSpec
     from crasis.train import train as _train
 
@@ -151,6 +165,7 @@ def eval(spec: str, model: str, eval_data: str | None, holdout: str | None) -> N
             -m ./models/sentiment-gate-onnx \\
             --holdout tests/fixtures/sentiment-gate.jsonl
     """
+    _require_train_deps()
     from crasis.spec import CrasisSpec
     from crasis.eval import evaluate as _evaluate, eval_on_holdout as _eval_holdout
 
@@ -215,6 +230,7 @@ def eval(spec: str, model: str, eval_data: str | None, holdout: str | None) -> N
 @click.option("--output", "-o", default="./models", show_default=True, help="Output directory")
 def export(spec: str, model: str, output: str) -> None:
     """Export a trained model to ONNX."""
+    _require_train_deps()
     from crasis.spec import CrasisSpec
     from crasis.export import export as _export
 
@@ -311,6 +327,7 @@ def build(spec: str, api_key: str, data_dir: str, model_dir: str, device: str | 
 
     This is the one-command path from spec to deployable ONNX.
     """
+    _require_train_deps()
     from crasis.spec import CrasisSpec
     from crasis.factory import generate as _generate
     from crasis.train import train as _train
@@ -357,6 +374,96 @@ def build(spec: str, api_key: str, data_dir: str, model_dir: str, device: str | 
     rprint(f"  Model : {export_result.onnx_path}")
     rprint(f"  Size  : {export_result.model_size_mb:.1f}MB")
     rprint(f"  Run   : crasis classify --model {export_result.package_dir} \"your text here\"")
+
+
+# ---------------------------------------------------------------------------
+# crasis pull
+# ---------------------------------------------------------------------------
+
+REGISTRY_API = "https://api.github.com/repos/crasis-ai/crasis/releases/latest"
+
+
+@cli.command()
+@click.argument("name")
+@click.option("--force", "-f", is_flag=True, default=False, help="Re-download even if already cached")
+@click.option("--cache-dir", default=None, help="Override default cache (~/.crasis/specialists/)")
+def pull(name: str, force: bool, cache_dir: str | None) -> None:
+    """Download a pre-built specialist from the Crasis registry."""
+    import tarfile
+    from pathlib import Path
+
+    import requests
+    from rich.progress import BarColumn, DownloadColumn, Progress, SpinnerColumn, TextColumn
+
+    dest_dir = Path(cache_dir or Path.home() / ".crasis" / "specialists") / name
+    onnx_file = dest_dir / f"{name}.onnx"
+
+    if onnx_file.exists() and not force:
+        rprint(f"[bold green]Already cached:[/bold green] {dest_dir}")
+        rprint(f"  Use [bold]--force[/bold] to re-download.")
+        return
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    # Fetch release metadata
+    rprint(f"\n[bold cyan]Crasis — Pulling '{name}'[/bold cyan]")
+    try:
+        resp = requests.get(REGISTRY_API, timeout=10)
+    except requests.exceptions.RequestException as exc:
+        rprint(f"[bold red]Network error:[/bold red] {exc}")
+        sys.exit(1)
+
+    if resp.status_code != 200:
+        rprint(f"[bold red]GitHub API returned {resp.status_code}.[/bold red] Check your network or try again later.")
+        sys.exit(1)
+
+    assets: dict[str, str] = {a["name"]: a["browser_download_url"] for a in resp.json().get("assets", [])}
+
+    expected = {
+        f"{name}.onnx": dest_dir / f"{name}.onnx",
+        f"{name}-label_map.json": dest_dir / "label_map.json",
+        f"{name}-crasis_meta.json": dest_dir / "crasis_meta.json",
+        f"{name}-tokenizer.tar.gz": dest_dir / f"{name}-tokenizer.tar.gz",
+    }
+
+    missing = [k for k in expected if k not in assets]
+    if missing:
+        rprint(f"[bold red]Specialist '{name}' not found in the latest release.[/bold red]")
+        rprint(f"  Missing assets: {', '.join(missing)}")
+        sys.exit(1)
+
+    with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), BarColumn(), DownloadColumn()) as progress:
+        for asset_name, dest_path in expected.items():
+            url = assets[asset_name]
+            task = progress.add_task(f"  {asset_name}", total=None)
+            try:
+                with requests.get(url, stream=True, timeout=60) as dl:
+                    dl.raise_for_status()
+                    total = int(dl.headers.get("content-length", 0)) or None
+                    progress.update(task, total=total)
+                    with open(dest_path, "wb") as fh:
+                        for chunk in dl.iter_content(chunk_size=8192):
+                            fh.write(chunk)
+                            progress.advance(task, len(chunk))
+            except requests.exceptions.RequestException as exc:
+                rprint(f"\n[bold red]Download failed:[/bold red] {exc}")
+                sys.exit(1)
+
+    # Extract tokenizer tarball
+    tarball = dest_dir / f"{name}-tokenizer.tar.gz"
+    tokenizer_dir = dest_dir / "tokenizer"
+    try:
+        with tarfile.open(tarball, "r:gz") as tf:
+            tf.extractall(tokenizer_dir)
+    except tarfile.TarError as exc:
+        rprint(f"[bold red]Failed to extract tokenizer:[/bold red] {exc}")
+        import shutil
+        shutil.rmtree(dest_dir, ignore_errors=True)
+        sys.exit(1)
+    tarball.unlink()
+
+    rprint(f"\n[bold green]Specialist '{name}' ready.[/bold green]")
+    rprint(f"  crasis classify --model {dest_dir} \"your text here\"")
 
 
 if __name__ == "__main__":
