@@ -2,9 +2,9 @@
 
 ### *Train once. Run forever. Pay nothing.*
 
-> "I had 847 unread emails and was paying $34/month to run GPT-4 over my inbox to tell me which ones needed attention.
-> Four minutes later I had an 11MB model that does the same job locally, processes my entire inbox in 11 seconds, costs nothing per inference, and my emails never leave my laptop.
-> Crasis is the tool I built to do that."
+Imagine paying $34/month to run GPT-4 over your inbox just to tell you which emails need attention today.
+
+Four minutes with Crasis gives you an 11MB model that does the same job locally, processes 847 emails in 11 seconds, costs nothing per inference, and your emails never leave your laptop.
 
 ![Email Urgency Demo](./demo/email-urgency-demo.gif)
 
