@@ -60,6 +60,15 @@ The frontier model is the architect. The specialist is the worker. You only need
 
 See the [SCORECARD](./SCORECARD.md) for numbers on holdout/realistic data.
 
+The image below is my [OpenRouter](https://openrouter.ai) spend to build _all_ of the models listed below.
+
+- 15 model builds
+- 10 specialists produced (iterating on initial prototypes)
+- 2.12M tokens
+- **$1.28 spent**
+
+![OpenRouter](./docs/openrouter.png)
+
 ---
 
 ## Pre-Built Specialists
