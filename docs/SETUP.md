@@ -2,33 +2,50 @@
 
 This guide takes you from zero to a trained, local sentiment-gate specialist.
 
-**Prerequisites:** Python 3.11+, pip, an RTX 4060 (or any CUDA GPU), OpenRouter API key.
+**Prerequisites:** Python 3.11+, pip, an OpenRouter API key (for training only).
 
 ---
 
-## 1. Install
+## Option A: Use a pre-built specialist (no training required)
+
+If you just want to run a specialist locally, skip all the way to step 4.
+No GPU, no API key, no PyTorch needed.
 
 ```bash
-git clone https://github.com/your-org/crasis.git
-cd crasis
-pip install -e .
+pip install crasis
+crasis pull sentiment-gate
+crasis classify --model ~/.crasis/specialists/sentiment-gate "I want my money back RIGHT NOW"
 ```
-
-Installs the `crasis` CLI and all dependencies (~2GB for PyTorch + transformers).
 
 ---
 
-## 2. Set your OpenRouter API key
+## Option B: Build your own specialist
+
+### 1. Install
+
+```bash
+git clone https://github.com/crasis-ai/crasis.git
+cd crasis
+pip install -e ".[train]"
+```
+
+The base install (`pip install crasis`) is inference-only (~15MB + transformers).
+The `[train]` group adds PyTorch, datasets, and the ONNX export toolchain.
+
+---
+
+### 2. Set your OpenRouter API key
 
 ```bash
 export OPENROUTER_API_KEY=sk-or-v1-your-key-here
 ```
 
-Or add it to your shell profile. The `crasis` CLI reads this env var automatically.
+Or add it to a `.env` file in the repo root (gitignored). The key is only needed
+at training time — inference never touches it.
 
 ---
 
-## 3. Generate training data
+### 3. Generate training data
 
 ```bash
 crasis generate \
@@ -39,14 +56,14 @@ crasis generate \
 This calls OpenRouter with `enforce_distillable_text: true`, generating 3,000 labeled
 examples of angry vs non-angry customer messages.
 
-**Time:** ~15–20 minutes  
+**Time:** ~15–20 minutes
 **Cost:** ~$1.50 in OpenRouter credits (at Llama 3.1 70B pricing)
 
 Output: `./data/sentiment-gate/train.jsonl`
 
 ---
 
-## 4. Train the specialist
+### 4. Train the specialist
 
 ```bash
 crasis train \
@@ -57,14 +74,14 @@ crasis train \
 
 Trains a BERT-Tiny classifier on your GPU. 5 epochs, batch size 32.
 
-**Time:** ~8–12 minutes on RTX 4060  
-**GPU:** ~2GB VRAM  
+**Time:** ~8–12 minutes on RTX 4060
+**GPU:** ~2GB VRAM
 
 Output: `./models/sentiment-gate/` (PyTorch weights + tokenizer)
 
 ---
 
-## 5. Export to ONNX
+### 5. Export to ONNX
 
 ```bash
 crasis export \
@@ -75,7 +92,17 @@ crasis export \
 
 Converts to ONNX. This is the deployable artifact.
 
-Output: `./models/sentiment-gate/sentiment-gate.onnx` (~4.3MB)
+Output: `./models/sentiment-gate-onnx/sentiment-gate.onnx` (~4.3MB)
+
+---
+
+### Or: full pipeline in one command
+
+```bash
+crasis build --spec specialists/sentiment-gate/spec.yaml
+```
+
+Runs all steps automatically: generate → train → export.
 
 ---
 
@@ -111,16 +138,6 @@ Specialist: sentiment-gate
 
 ---
 
-## Or: full pipeline in one command
-
-```bash
-crasis build --spec specialists/sentiment-gate/spec.yaml
-```
-
-Runs all steps automatically: generate → train → export.
-
----
-
 ## Python API
 
 ```python
@@ -144,6 +161,13 @@ result = model.classify("The delivery took longer than expected")
 Error: Missing option '--api-key'. Set OPENROUTER_API_KEY environment variable.
 ```
 Solution: `export OPENROUTER_API_KEY=sk-or-v1-...`
+
+**Train dependencies not installed**
+```
+Train dependencies are not installed.
+  Run: pip install crasis[train]
+```
+Solution: `pip install crasis[train]` — required for generate, train, export, and build.
 
 **CUDA out of memory**
 ```

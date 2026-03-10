@@ -149,57 +149,25 @@ if __name__ == "__main__":
 
 ## Build Plan
 
-### Phase 1: v0.1 — Ollama Intent Parser (Weekend 1)
+### Phase 1: v0.1 — Crasis Intent Specialist (Weekend 1)
 
-Ship something working fast. Use a small local LLM as the intent parser — no training required.
+Generate synthetic training data for natural language → robot command mapping,
+train a BERT-Tiny ONNX specialist on the workstation, deploy to the laptop.
 
 **Saturday Morning**
 - [ ] Flash serial sketch to Sparki
 - [ ] Confirm Python bridge works (Sparki beeps on command)
-- [ ] `ollama pull phi3:mini` on workstation
-- [ ] Write intent parser wrapper
-
-```python
-# crasis/intent.py
-import ollama
-import json
-
-SYSTEM_PROMPT = """
-You are a robot command parser for a Sparki robot.
-Given a natural language command, respond ONLY with a JSON array 
-of commands from this list:
-["forward", "backward", "left", "right", "stop", 
- "beep", "grip_open", "grip_close", "sense"]
-
-Example:
-Input: "go forward and beep"
-Output: ["forward", "beep", "stop"]
-
-Input: "find the light"  
-Output: ["sense", "forward"]
-
-Respond with ONLY the JSON array. No explanation.
-"""
-
-def parse_intent(natural_language: str) -> list[str]:
-    response = ollama.chat(
-        model='phi3:mini',
-        messages=[
-            {'role': 'system', 'content': SYSTEM_PROMPT},
-            {'role': 'user', 'content': natural_language}
-        ]
-    )
-    return json.loads(response['message']['content'])
-```
+- [ ] Write `specialists/sparki-intent/spec.yaml`
 
 **Saturday Afternoon**
-- [ ] Wire intent parser to serial bridge
+- [ ] `crasis build --spec specialists/sparki-intent/spec.yaml`
+- [ ] Wire specialist to serial bridge
 - [ ] Confirm end-to-end: "go forward" → Sparki moves
 - [ ] Record demo GIF
 
 **Saturday Evening**
-- [ ] Generate synthetic training data (see Phase 2 prep)
-- [ ] Set up GitHub repo
+- [ ] Deploy ONNX to laptop (`crasis pull` or `scp`)
+- [ ] Confirm inference works on laptop CPU with no GPU
 
 **Sunday**
 - [ ] Polish README
@@ -208,60 +176,27 @@ def parse_intent(natural_language: str) -> list[str]:
 
 ---
 
-### Phase 2: v0.2 — Distilled Classifier (Week 2)
+### Phase 2: v0.2 — Multi-label Action Sequencing (Week 2)
 
-Replace the Ollama runtime dependency with a fine-tuned 66MB DistilBERT classifier.  
-Train on workstation RTX 4060, deploy weights to laptop.
+Extend the specialist to handle multi-step commands ("go forward then beep").
+The Phase 1 specialist maps one input to one action class. Phase 2 extends the
+spec to multiclass or sequence output — still BERT-Tiny, still ONNX, still local.
 
 **Synthetic Data Generation**
 
 ```python
-# crasis/generate.py
-# Run once on workstation — costs ~$2 via API, or use local Ollama
-
-GENERATION_PROMPT = """
-Generate 1000 examples of natural language commands a person might 
-give to a small mobile robot with a gripper. 
-
-For each command provide:
-- The natural language input (varied phrasing, casual speech, typos)
-- The sequence of robot primitives to execute
-
-Robot primitives: forward, backward, left, right, stop, 
-                  beep, grip_open, grip_close, sense
-
-Output as JSON array:
-[
-  {"input": "move ahead a bit", "actions": ["forward", "stop"]},
-  {"input": "grab that thing", "actions": ["grip_open", "grip_close"]},
-  ...
-]
-
-Include: casual phrasing, typos, multi-step commands, 
-         sensor-driven commands, ambiguous cases.
-"""
-```
-
-**Fine-tuning Pipeline**
-
-```python
-# crasis/train.py
-# Runs on workstation with RTX 4060
-# Fine-tunes DistilBERT as multi-label classifier
-# Input: natural language string
-# Output: array of action labels
-# Model size: ~66MB
-# Training time: ~10 minutes on RTX 4060
-# Inference time: <50ms on laptop CPU
+# crasis generate handles this via spec.yaml
+# Run once on workstation — costs ~$2 via OpenRouter
+# Output: data/sparki-intent/train.jsonl
 ```
 
 **Deployment**
 
 ```
-workstation: crasis/train.py → models/sparki-intent-v1.bin (66MB)
+workstation: crasis build → models/sparki-intent-onnx/ (~4.3MB ONNX)
                                         ↓
-laptop:      crasis/deploy.py loads weights, runs inference locally
-             NO internet required, NO API calls, NO Ollama runtime
+laptop:      Specialist.load() → classify() → serial bridge → Sparki
+             NO internet required, NO API calls, NO cloud runtime
 ```
 
 ---
