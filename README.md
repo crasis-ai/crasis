@@ -188,6 +188,38 @@ Generate → train → eval → export. One command, one deployable ONNX package
 
 ---
 
+### Improving a Specialist with Real Data
+
+Once a specialist is deployed and you've collected real-world examples it got wrong (or right), feed them back in:
+
+```bash
+# Your real examples — one JSON object per line
+# {"text": "Win a free iPhone!", "label": "positive"}
+# {"text": "Your invoice is attached", "label": "negative"}
+
+crasis mix \
+  --spec specialists/spam-filter/spec.yaml \
+  --real-data ./my-inbox.jsonl
+```
+
+`crasis mix` validates your labels, merges your examples with the original synthetic data (oversampled 3x by default so real data isn't drowned out), retrains, and exports a new timestamped ONNX package. The original model is never overwritten.
+
+```bash
+# Tune the oversampling weight
+crasis mix --spec specialists/spam-filter/spec.yaml \
+           --real-data ./my-inbox.jsonl \
+           --real-weight 5
+
+# Point at a specific synthetic dataset
+crasis mix --spec specialists/spam-filter/spec.yaml \
+           --real-data ./my-inbox.jsonl \
+           --synthetic-data ./data/spam-filter/train.jsonl
+```
+
+Valid label names for each specialist are printed at the start of the run — no guessing required.
+
+---
+
 ## Inference
 
 ```python

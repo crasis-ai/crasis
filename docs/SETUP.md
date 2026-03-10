@@ -154,6 +154,40 @@ result = model.classify("The delivery took longer than expected")
 
 ---
 
+## Retraining with real data
+
+Once you've collected real-world examples — emails that were mislabeled, spam that slipped through, messages that were borderline — feed them back in with `crasis mix`:
+
+```bash
+# Format your examples as JSONL
+# {"text": "Win a free iPhone click here", "label": "positive"}
+# {"text": "Your invoice #4821 is attached", "label": "negative"}
+
+crasis mix \
+  --spec specialists/sentiment-gate/spec.yaml \
+  --real-data ./my-examples.jsonl
+```
+
+Valid label names are printed at the start of the run. `crasis mix` validates every row, merges your real examples with the existing synthetic data (oversampled 3x by default), retrains, and exports a new ONNX to a timestamped directory. The original model is never overwritten.
+
+Options:
+
+```bash
+# Tune how heavily real data is weighted vs synthetic
+crasis mix --spec ... --real-data ... --real-weight 5
+
+# Point at a specific synthetic dataset instead of auto-discovery
+crasis mix --spec ... --real-data ... \
+           --synthetic-data ./data/sentiment-gate/train.jsonl
+
+# Force CPU training
+crasis mix --spec ... --real-data ... --device cpu
+```
+
+If no synthetic data is found, `crasis mix` trains on real data only — useful if you've accumulated enough real examples to stand alone.
+
+---
+
 ## Troubleshooting
 
 **`OPENROUTER_API_KEY` not set**

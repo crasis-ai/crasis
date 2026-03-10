@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 2026-03-09
+
+### Added
+- `crasis pull <name>` — download pre-built specialists from the GitHub release registry, no training required
+- `crasis mix` — retrain a specialist by mixing real-world JSONL examples with synthetic training data; validates labels, oversamples real data (configurable `--real-weight`), exports to a timestamped ONNX package
+- Ten pre-built specialists published as release assets — all `crasis pull` commands now work end-to-end
+
+### Changed
+- Default install (`pip install crasis`) is now inference-only — ~15MB instead of ~2GB. PyTorch and training dependencies moved to `pip install crasis[train]`
+- `crasis generate`, `train`, `eval`, `export`, and `build` now print a clear install hint if `[train]` deps are missing, rather than a confusing ImportError
+
+### Removed
+- `TelemetrySpec` and `telemetry:` block removed from spec format and all specialist specs — telemetry is antithetical to the local-first value proposition
+
+---
+
 ## [1.0.0] - 2026-03-07
 
 ### Added
@@ -14,7 +30,7 @@ All notable changes to this project will be documented in this file.
 - Quality gate enforcement — training fails hard if holdout thresholds are not met
 - Stratified train/eval split
 - Hand-authored holdout evaluation — real-world accuracy documented for all specialists in SCORECARD.md
-- `crasis generate / train / eval / export / classify / build` CLI
+- `crasis generate / train / eval / export / classify / build / pull / mix` CLI
 - `enforce_distillable_text: true` enforced on all data generation — legal compliance layer
 
 ### Architecture
