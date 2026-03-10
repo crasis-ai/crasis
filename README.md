@@ -2,6 +2,12 @@
 
 ### *Train once. Run forever. Pay nothing.*
 
+[![PyPI](https://img.shields.io/pypi/v/crasis)](https://pypi.org/project/crasis/) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+```bash
+pip install crasis
+```
+
 Imagine paying $34/month to run GPT-4 over your inbox just to tell you which emails need attention today.
 
 Four minutes with Crasis gives you an 11MB model that does the same job locally, processes 847 emails in 11 seconds, costs nothing per inference, and your emails never leave your laptop.
