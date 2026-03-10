@@ -377,6 +377,210 @@ def build(spec: str, api_key: str, data_dir: str, model_dir: str, device: str | 
 
 
 # ---------------------------------------------------------------------------
+# crasis mix
+# ---------------------------------------------------------------------------
+
+
+@cli.command()
+@click.option("--spec", "-s", required=True, type=click.Path(exists=True), help="Path to spec.yaml")
+@click.option("--real-data", "-r", required=True, type=click.Path(exists=True), help="Path to real-world JSONL examples")
+@click.option("--synthetic-data", "-d", default=None, type=click.Path(exists=True), help="Path to synthetic train.jsonl (auto-discovered if omitted)")
+@click.option("--output", "-o", default="./models", show_default=True, help="Root output directory")
+@click.option("--real-weight", "-w", default=3, show_default=True, type=int, help="Oversample real examples N times relative to synthetic")
+@click.option("--device", default=None, help="Force device: cpu | cuda | mps")
+def mix(
+    spec: str,
+    real_data: str,
+    synthetic_data: str | None,
+    output: str,
+    real_weight: int,
+    device: str | None,
+) -> None:
+    """
+    Retrain a specialist by mixing real-world examples with synthetic training data.
+
+    Real examples are oversampled (--real-weight) to ensure they influence the
+    model despite being fewer in number than the synthetic set. The result is
+    exported to a timestamped ONNX package directory.
+
+    Example:
+
+        crasis mix -s specialists/spam-filter/spec.yaml -r ./my-spam.jsonl
+
+        crasis mix -s specialists/spam-filter/spec.yaml \\
+            -r ./my-spam.jsonl \\
+            --synthetic-data ./data/spam-filter/train.jsonl \\
+            --real-weight 5
+    """
+    _require_train_deps()
+
+    import json
+    import random
+    import tempfile
+    from datetime import datetime
+    from pathlib import Path as P
+
+    from crasis.spec import CrasisSpec
+    from crasis.train import train as _train
+    from crasis.export import export as _export
+
+    crasis_spec = CrasisSpec.from_yaml(spec)
+    valid_labels = set(crasis_spec.label_names)
+
+    rprint(f"\n[bold cyan]Crasis — Mix & Retrain[/bold cyan]")
+    rprint(f"  Specialist  : [bold]{crasis_spec.name}[/bold]")
+    rprint(f"  Valid labels: {sorted(valid_labels)}")
+    rprint(f"  Real weight : {real_weight}x\n")
+
+    # ------------------------------------------------------------------
+    # Load and validate real data
+    # ------------------------------------------------------------------
+    real_rows: list[dict] = []
+    real_errors: list[str] = []
+
+    with open(real_data, encoding="utf-8") as fh:
+        for lineno, line in enumerate(fh, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                real_errors.append(f"  Line {lineno}: invalid JSON — {exc}")
+                continue
+            if "text" not in row:
+                real_errors.append(f"  Line {lineno}: missing 'text' field")
+                continue
+            if "label" not in row:
+                real_errors.append(f"  Line {lineno}: missing 'label' field")
+                continue
+            if row["label"] not in valid_labels:
+                real_errors.append(
+                    f"  Line {lineno}: unknown label '{row['label']}' "
+                    f"(valid: {sorted(valid_labels)})"
+                )
+                continue
+            real_rows.append({"text": row["text"], "label": row["label"]})
+
+    if real_errors:
+        rprint("[bold red]Validation errors in real data:[/bold red]")
+        for err in real_errors[:20]:
+            rprint(err)
+        if len(real_errors) > 20:
+            rprint(f"  ... and {len(real_errors) - 20} more")
+        sys.exit(1)
+
+    if not real_rows:
+        rprint("[bold red]No valid rows found in real data file.[/bold red]")
+        sys.exit(1)
+
+    # Per-label counts and low-count warnings
+    label_counts: dict[str, int] = {}
+    for row in real_rows:
+        label_counts[row["label"]] = label_counts.get(row["label"], 0) + 1
+
+    for label in valid_labels:
+        count = label_counts.get(label, 0)
+        if count == 0:
+            rprint(f"[yellow]Warning: no real examples for label '{label}'[/yellow]")
+        elif count < 10:
+            rprint(f"[yellow]Warning: only {count} real examples for label '{label}' — consider collecting more[/yellow]")
+
+    rprint(f"  Real examples loaded: {len(real_rows)}")
+    for label, count in sorted(label_counts.items()):
+        rprint(f"    {label}: {count}")
+
+    # ------------------------------------------------------------------
+    # Locate synthetic data
+    # ------------------------------------------------------------------
+    synthetic_rows: list[dict] = []
+
+    synth_path: P | None = None
+    if synthetic_data:
+        synth_path = P(synthetic_data)
+    else:
+        candidate = P("./data") / crasis_spec.name / "train.jsonl"
+        if candidate.exists():
+            synth_path = candidate
+            rprint(f"\n  Auto-discovered synthetic data: {synth_path}")
+
+    if synth_path:
+        with open(synth_path, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if line:
+                    try:
+                        synthetic_rows.append(json.loads(line))
+                    except json.JSONDecodeError:
+                        pass
+        rprint(f"  Synthetic examples loaded: {len(synthetic_rows)}")
+    else:
+        rprint("[yellow]No synthetic data found — training on real data only.[/yellow]")
+        rprint("  Run 'crasis generate' first, or pass --synthetic-data to include synthetic examples.")
+
+    # ------------------------------------------------------------------
+    # Merge with oversampling
+    # ------------------------------------------------------------------
+    oversampled_real = real_rows * real_weight
+    merged = synthetic_rows + oversampled_real
+    random.shuffle(merged)
+
+    total = len(merged)
+    rprint(f"\n  Merged dataset : {total} examples")
+    rprint(f"    Synthetic    : {len(synthetic_rows)}")
+    rprint(f"    Real (x{real_weight})   : {len(oversampled_real)}")
+
+    # Write merged data to a temp file for training
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".jsonl", delete=False, encoding="utf-8"
+    ) as tmp:
+        for row in merged:
+            tmp.write(json.dumps(row) + "\n")
+        merged_path = P(tmp.name)
+
+    # ------------------------------------------------------------------
+    # Train
+    # ------------------------------------------------------------------
+    # Timestamped output dir so original model is never overwritten
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    run_output = P(output) / f"{crasis_spec.name}-mix-{timestamp}"
+
+    rprint(f"\n[bold]Training...[/bold]")
+    try:
+        train_result = _train(
+            spec=crasis_spec,
+            data_path=merged_path,
+            output_dir=run_output,
+            device=device,
+        )
+    finally:
+        merged_path.unlink(missing_ok=True)
+
+    _print_train_result(train_result)
+
+    if not train_result.passed_quality_gate:
+        rprint("[bold red]✗ Quality gate failed. Aborting export.[/bold red]")
+        rprint("  Try: collecting more real examples, adjusting --real-weight, or re-running generate.")
+        sys.exit(1)
+
+    # ------------------------------------------------------------------
+    # Export
+    # ------------------------------------------------------------------
+    rprint("\n[bold]Exporting to ONNX...[/bold]")
+    export_result = _export(
+        spec=crasis_spec,
+        model_path=train_result.model_path,
+        output_dir=run_output,
+    )
+
+    size_color = "green" if export_result.within_size_constraint else "yellow"
+    rprint(f"\n[bold green]✓ Mix complete![/bold green]")
+    rprint(f"  Model : {export_result.onnx_path}")
+    rprint(f"  Size  : [{size_color}]{export_result.model_size_mb:.1f}MB[/{size_color}]")
+    rprint(f"  Run   : crasis classify --model {export_result.package_dir} \"your text here\"")
+
+
+# ---------------------------------------------------------------------------
 # crasis pull
 # ---------------------------------------------------------------------------
 
