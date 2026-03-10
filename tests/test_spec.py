@@ -64,8 +64,6 @@ def test_defaults_applied():
     assert spec.constraints.max_inference_ms == 100
     assert spec.constraints.connectivity == "none"
     assert spec.constraints.target_hardware == "cpu_only"
-    assert spec.telemetry.enabled is True
-    assert spec.telemetry.confidence_threshold == 0.80
     assert spec.training.augmentation is True
 
 

@@ -35,8 +35,3 @@ training:
   strategy: synthetic
   volume: 5000
   augmentation: true
-
-telemetry:
-  enabled: true
-  confidence_threshold: 0.85
-  log_low_confidence: true

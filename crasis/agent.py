@@ -6,7 +6,7 @@ into an autonomous process. It:
   1. Polls or receives input from a source
   2. Routes each input through one or more specialists
   3. Takes action based on classification results
-  4. Logs decisions for telemetry
+  4. Logs decisions locally
 
 Subclass CrasisAgent and implement `fetch_inputs` and `act` to build
 any specialist-powered agent: email triagers, support routers,
@@ -86,7 +86,7 @@ class CrasisAgent(ABC):
     Base class for Crasis specialist agents.
 
     Subclass this and implement `fetch_inputs` and `act`.
-    Everything else — routing, telemetry, error handling, loop timing — is handled.
+    Everything else — routing, error handling, loop timing — is handled.
 
     Args:
         toolkit: Loaded CrasisToolkit with all required specialists.

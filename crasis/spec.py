@@ -59,18 +59,10 @@ class TrainingSpec(BaseModel):
     augmentation: bool = True
 
 
-class TelemetrySpec(BaseModel):
-    """Confidence monitoring and retrain trigger configuration."""
-
-    enabled: bool = True
-    confidence_threshold: float = 0.80
-    log_low_confidence: bool = True
-
-
 class CrasisSpec(BaseModel):
     """
     The complete spec for a Crasis specialist. This is the source of truth for
-    data generation, architecture selection, quality gates, and telemetry.
+    data generation, architecture selection, and quality gates.
     """
 
     crasis_spec: Literal["v1"] = "v1"
@@ -80,7 +72,6 @@ class CrasisSpec(BaseModel):
     constraints: ConstraintsSpec = ConstraintsSpec()
     quality: QualitySpec
     training: TrainingSpec
-    telemetry: TelemetrySpec = TelemetrySpec()
 
     @field_validator("name")
     def name_must_be_kebab(cls, v):
