@@ -2,11 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-03-09
+
+### Added
+- `crasis mix` — retrain a specialist by mixing real-world JSONL examples with synthetic training data; validates labels, oversamples real data (configurable `--real-weight`), exports to a timestamped ONNX package
+- Ten pre-built specialists published as release assets — all `crasis pull` commands now work end-to-end
+
+
 ## [1.1.2] - 2026-03-09
 
 ### Added
 - `crasis pull <name>` — download pre-built specialists from the GitHub release registry, no training required
-- `crasis mix` — retrain a specialist by mixing real-world JSONL examples with synthetic training data; validates labels, oversamples real data (configurable `--real-weight`), exports to a timestamped ONNX package
 - Ten pre-built specialists published as release assets — all `crasis pull` commands now work end-to-end
 
 ### Changed
