@@ -1,18 +1,32 @@
 # Crasis
 
 ### *Train once. Run forever. Pay nothing.*
+#### *A local tool layer for agents.*
 
 [![PyPI](https://img.shields.io/pypi/v/crasis)](https://pypi.org/project/crasis/) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ```bash
-pip install crasis
+pip install crasis            # inference only
+pip install "crasis[mcp]"     # + MCP server (specialists as tools in Claude Desktop / Claude Code)
+pip install "crasis[train]"   # + full build pipeline
 ```
 
-Imagine paying $34/month to run GPT-4 over your inbox just to tell you which emails need attention today.
+Most agents route every classification through a frontier model. That means paying tokens, waiting 200ms–2s, and sending private data to a cloud server — for yes/no questions. A 4.3MB specialist answers the same question in under 3ms, locally, for free, forever.
 
-Four minutes with Crasis gives you an 11MB model that does the same job locally, processes 847 emails in 11 seconds, costs nothing per inference, and your emails never leave your laptop.
+```python
+toolkit = CrasisToolkit.from_dir("./models")
+response = client.messages.create(
+    model="claude-haiku",
+    tools=toolkit.anthropic_tools(),  # also openai_tools(), gemini_tools()
+    messages=[...]
+)
+```
 
-![Email Urgency Demo](./demo/email-urgency-demo.gif)
+The frontier model calls local specialists for classification. No API tokens burned. No 200ms wait. No data leaves the machine.
+
+```bash
+crasis mcp  # specialists show up as native tools in Claude Desktop / Claude Code
+```
 
 ---
 
@@ -24,7 +38,7 @@ Current AI agents are brilliant generalists doing the work of specialists. You a
 - *"Does this email need a reply today?"*
 - *"Is this customer angry?"*
 
-A frontier model answering those questions is a nuclear weapon aimed at a mailbox. You're paying $20–50/month, waiting 2–5 seconds per query, and sending your private data to a cloud server — for a yes/no answer a 20MB model could give you in under 100ms, locally, for free, forever.
+A frontier model answering those questions is a nuclear weapon aimed at a mailbox. You're paying $20–50/month, waiting 200ms–2s per query, and sending your private data to a cloud server — for a yes/no answer a 4.3MB model could give you in under 3ms, locally, for free, forever.
 
 **The token model is extractive by design.** Every query is a toll. The provider is incentivized for you to stay dependent. There is no learning curve benefit passed to you. Ever.
 
@@ -36,7 +50,7 @@ Crasis breaks that.
 
 Crasis uses a frontier model **once** — to understand your problem and generate synthetic training data. That intelligence is then distilled into a tiny specialist model that lives on your device.
 
-After that, the frontier model is never called again.
+After that, the frontier model is never called again for that task.
 
 ```
 You describe your problem in plain English
@@ -52,19 +66,73 @@ The frontier model is the architect. The specialist is the worker. You only need
 
 ---
 
+## Agent Integration
+
+Specialists slot directly into any agent framework as local tools. The frontier model handles reasoning; specialists handle classification in under 3ms with no API calls.
+
+### Drop-in tool for any framework
+
+```python
+from crasis import CrasisToolkit
+
+toolkit = CrasisToolkit.from_dir("./models")
+
+# Anthropic
+response = client.messages.create(
+    model="claude-haiku",
+    tools=toolkit.anthropic_tools(),
+    messages=[{"role": "user", "content": "Triage this: 'I want a refund NOW'"}]
+)
+
+# OpenAI / OpenAI-compatible
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    tools=toolkit.openai_tools(),
+    messages=[...]
+)
+
+# Gemini
+response = model.generate_content("...", tools=toolkit.gemini_tools())
+```
+
+### MCP server — zero-code integration
+
+```bash
+crasis mcp --models-dir ./models
+```
+
+Specialists appear as native tools in Claude Desktop and Claude Code. No Python glue required. See [docs/AGENTIC.md](docs/AGENTIC.md) for full MCP setup.
+
+### Managed orchestration loop
+
+```python
+from crasis import CrasisOrchestrator
+
+orch = CrasisOrchestrator(
+    toolkit=toolkit,
+    provider="anthropic",
+    model="claude-haiku",
+)
+result = orch.run("Triage these messages and tell me which needs immediate attention")
+```
+
+See [docs/AGENTIC.md](docs/AGENTIC.md) for the full agent integration guide.
+
+---
+
 ## The Numbers
 
 | | Frontier API | Crasis Specialist |
 |---|---|---|
 | Model size | 4GB+ | 4–160MB |
 | Cost per query | $0.001–0.01 | $0.00 |
-| Latency | 2–5 seconds | <100ms |
+| Latency | 200ms–2s | under 3ms on CPU |
 | Works offline | No | Yes |
 | Data leaves device | Yes | Never |
 | Gets cheaper over time | No | Already free |
 | Accuracy on narrow tasks - synthetic data | ~97% | ~95–99% |
 
-See the [SCORECARD](./SCORECARD.md) for numbers on holdout/realistic data.
+See the [SCORECARD](./SCORECARD.md) for holdout/realistic data numbers. The two-number format (synthetic + holdout) is the honest way to report accuracy.
 
 The image below is my [OpenRouter](https://openrouter.ai) spend to build _all_ of the models listed below.
 
@@ -97,7 +165,7 @@ crasis pull availability-handler # Scheduling request → calendar link trigger
 Each specialist:
 - Ships as an ONNX model — runs anywhere, no GPU required
 - Is 4–160MB on disk (most are under 11MB)
-- Classifies in under 100ms on a laptop CPU
+- Classifies in under 3ms on a laptop CPU
 - Was trained on 3,000–10,000 synthetic examples generated from distillable frontier models
 - Comes with a spec, eval results, and example inference code
 
@@ -120,7 +188,7 @@ Output shows both numbers side by side:
   Synthetic-real gap   : +0.2920  ← the honest gap
 ```
 
-Full results for all 10 specialists are in [SCORECARD.md](SCORECARD.md). The two-number format (synthetic + holdout) is how Crasis reports accuracy — because publishing only synthetic accuracy would be misleading.
+Full results for all 10 specialists are in [SCORECARD.md](SCORECARD.md). Some specialists have meaningful synthetic-real gaps — the gap table tells you which ones need `crasis mix` most.
 
 ---
 
@@ -236,10 +304,10 @@ model = Specialist.load("./models/refund-detector-onnx")
 
 # Classify forever — no API calls, no latency, no cost
 result = model.classify("I want my money back, this is ridiculous")
-# → {"label": "positive", "confidence": 0.97, "latency_ms": 43}
+# → {"label": "positive", "confidence": 0.97, "latency_ms": 0.6}
 
 result = model.classify("Your product is terrible but I'll keep it")
-# → {"label": "negative", "confidence": 0.94, "latency_ms": 38}
+# → {"label": "negative", "confidence": 0.94, "latency_ms": 0.6}
 ```
 
 ---
@@ -256,9 +324,11 @@ Crasis CLI (this repo)          ← FOSS, MIT, runs anywhere
         ├── Training Pipeline   ← BERT-Tiny / BERT-Mini / BERT-Small distillation
         ├── Eval Harness        ← Validates against spec quality gates
         ├── ONNX Exporter       ← Universal deployment target
+        ├── MCP Server          ← Specialists as tools in any MCP client
+        └── CrasisToolkit       ← Drop-in tool layer for agent frameworks
 ```
 
-**The Specialist Swarm (advanced)**
+**The Specialist Swarm**
 
 At scale, a single conductor (frontier model) routes tasks to a swarm of local specialists. The frontier model handles edge cases and novel inputs. Specialists handle the 95% routine case — instantly, locally, for free.
 
@@ -266,7 +336,7 @@ At scale, a single conductor (frontier model) routes tasks to a swarm of local s
 Conductor (frontier model — called rarely)
     │
     ├── WhatsApp message → whatsapp-triage specialist
-    ├── Email arrives → email-urgency specialist  
+    ├── Email arrives → email-urgency specialist
     ├── Support ticket → support-router specialist
     └── Novel input → conductor handles, logs for future specialist
 ```
@@ -283,6 +353,8 @@ The swarm grows as you encounter new patterns. Each new specialist makes the con
 - [x] BERT-Tiny / BERT-Mini training pipeline
 - [x] ONNX export and local inference
 - [x] Ten pre-built specialists
+- [x] MCP server (`crasis mcp`)
+- [x] CrasisToolkit — drop-in tool layer for Anthropic, OpenAI, Gemini
 
 **Soon — Crasis Studio**
 
@@ -329,6 +401,8 @@ The ten pre-built specialists are the beginning. If you train a specialist for a
 1. Train against a spec with `min_accuracy: 0.93` or higher
 2. Include the spec, eval results, and at least 100 held-out test examples
 3. Open a PR — specialists that pass eval are merged and published to the Crasis specialist registry
+
+Specialists that reduce frontier model calls in agent pipelines are especially valuable contributions — they make the whole ecosystem cheaper to run.
 
 The goal: 100 community specialists by end of 2026. Every one of them a task nobody needs to pay tokens for anymore.
 

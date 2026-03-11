@@ -10,9 +10,9 @@ If you've trained a specialist for something not covered here, we want it in thi
 
 A specialist is worth contributing if it meets three criteria:
 
-**It solves a recurring, narrow problem.** Not "understand this document" — that's a generalist task. "Does this message contain a pricing question?" — that's a specialist task. The narrower the better. If you can write the trigger condition in one sentence, it's probably a good specialist.
+**It solves a recurring, narrow problem.** Not "understand this document" — that's a generalist task. "Does this message contain a pricing question?" — that's a specialist task. The narrower the better. If you can write the trigger condition in one sentence, it's probably a good specialist. Specialists that reduce frontier model calls in agent pipelines are especially valuable — every specialist added to the registry is a classification task an agent no longer needs to burn tokens on.
 
-**It outperforms a frontier model on cost and latency, not just accuracy.** A specialist that's 94% accurate and runs in 40ms locally beats a frontier model that's 97% accurate and costs $0.005 per call — for every use case where you're making the same classification hundreds of times a day.
+**It outperforms a frontier model on cost and latency, not just accuracy.** A specialist that's 94% accurate and runs in under 3ms locally beats a frontier model that's 97% accurate and costs $0.005 per call — for every use case where you're making the same classification hundreds of times a day.
 
 **It has clean provenance.** All training data must be generated through OpenRouter with `enforce_distillable_text: true`. No exceptions. This is the legal layer. Don't submit specialists trained on data from direct Anthropic, OpenAI, or Google API calls.
 
@@ -22,14 +22,16 @@ A specialist is worth contributing if it meets three criteria:
 
 To be merged, a specialist must pass:
 
-| Requirement | Threshold |
-|-------------|-----------|
-| Accuracy | ≥ 93% on held-out eval set |
-| F1 score | ≥ 91% (required for imbalanced classes) |
-| Model size | Within `max_model_size_mb` from spec |
-| Inference latency | Within `max_inference_ms` from spec (CPU) |
-| Held-out test examples | ≥ 100, included in PR |
-| Spec completeness | All required fields present and validated |
+| Requirement | Threshold | Note |
+|-------------|-----------|------|
+| Accuracy | ≥ 93% | This is the **synthetic holdout gate** — the pipeline's built-in quality check on LLM-generated eval data |
+| F1 score | ≥ 91% (required for imbalanced classes) | Also measured on synthetic holdout |
+| Model size | Within `max_model_size_mb` from spec | |
+| Inference latency | Within `max_inference_ms` from spec (CPU) | |
+| Held-out test examples | ≥ 100, included in PR | Hand-authored, not generated — this is the honest number |
+| Spec completeness | All required fields present and validated | |
+
+**Important distinction:** The ≥93% threshold is enforced by the training pipeline against synthetic holdout data — it gates whether the model learned the training distribution. Several shipped pre-built specialists fall below 93% on hand-authored fixture holdout (spam-filter at 80%, sentiment-gate at 80%, email-urgency at 60%). That's the real-world gap documented in SCORECARD.md, and it's published honestly. When contributing, you must pass the synthetic gate to merge, and you must report both numbers — the holdout fixture result is what adopters will actually see.
 
 These thresholds exist because specialists get pulled and deployed without further evaluation. If it's in the repo, people will trust it.
 

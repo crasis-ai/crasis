@@ -234,8 +234,7 @@ crasis/
 ├── crasis/
 │   ├── factory.py         ← synthetic training data generation
 │   ├── train.py           ← fine-tune pipeline (runs on GPU workstation)
-│   ├── deploy.py          ← inference wrapper (runs on edge hardware)
-│   └── intent.py          ← v0.1 ollama intent parser
+│   └── deploy.py          ← inference wrapper (runs on edge hardware)
 ├── scripts/sparki/
 │   ├── bridge.py          ← Python serial bridge
 │   ├── commands.py        ← action primitives + sensor reader
@@ -294,9 +293,9 @@ You only need the architect once.
 ## Status
 
 - [ ] Step 0: Serial bridge working
-- [ ] v0.1: Ollama intent parser end-to-end
+- [ ] v0.1: BERT-Tiny ONNX intent specialist end-to-end
 - [ ] Demo GIF captured
 - [ ] GitHub repo published
-- [ ] v0.2: DistilBERT classifier trained + deployed
+- [ ] v0.2: Multi-label action sequencing (BERT-Tiny, ONNX, local)
 - [ ] Reactive sensor loop
 - [ ] Framework generalized beyond Sparki

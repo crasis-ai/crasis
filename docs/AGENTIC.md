@@ -1,25 +1,102 @@
 # Agentic Workflows — MCP Server & Orchestrator
 
+This is the primary integration path for agents using Crasis — call specialists as tools before deciding whether to escalate to the frontier model.
+
 Crasis exposes two ways to slot specialist models into agentic workflows:
 
-1. **MCP server** (`crasis mcp`) — run a stdio MCP server that any MCP client (Claude Desktop, Claude Code, Cursor) can connect to and call specialists as tools.
-2. **`CrasisOrchestrator`** — a Python class that wires the multi-turn tool-calling loop for OpenAI, Anthropic, and Gemini so you don't have to do it yourself.
+1. **`CrasisToolkit`** — give any frontier model access to local specialists as tools. Works with Anthropic, OpenAI, and Gemini. Lowest-friction path.
+2. **MCP server** (`crasis mcp`) — run a stdio MCP server that any MCP client (Claude Desktop, Claude Code, Cursor) can connect to and call specialists as tools.
+3. **`CrasisOrchestrator`** — a Python class that wires the multi-turn tool-calling loop for OpenAI, Anthropic, and Gemini so you don't have to do it yourself.
 
-In both cases: the frontier model handles reasoning. The specialist handles classification locally in <100ms with no API calls.
+In all cases: the frontier model handles reasoning. The specialist handles classification locally in under 3ms with no API calls.
 
 ---
 
 ## Install
 
 ```bash
-# MCP server only
+# Inference + toolkit only (no MCP server)
+pip install crasis
+
+# MCP server
 pip install "crasis[mcp]"
 
-# Orchestrator only
+# Orchestrator
 pip install "crasis[agents]"
 
 # Everything
 pip install "crasis[all]"
+```
+
+---
+
+## CrasisToolkit — Direct Tool Integration
+
+The lightest-weight path. Pass specialist tools directly to any frontier model API call.
+
+### Quick start
+
+```python
+from crasis.tools import CrasisToolkit
+
+toolkit = CrasisToolkit.from_dir("./models")
+
+# Anthropic
+import anthropic
+client = anthropic.Anthropic()
+response = client.messages.create(
+    model="claude-haiku",
+    max_tokens=1024,
+    tools=toolkit.anthropic_tools(),
+    messages=[{"role": "user", "content": "Is this customer angry? 'I WANT A REFUND RIGHT NOW'"}]
+)
+
+# OpenAI / OpenAI-compatible (Groq, Together, OpenRouter)
+import openai
+client = openai.OpenAI()
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    tools=toolkit.openai_tools(),
+    messages=[{"role": "user", "content": "Does this email contain pricing info? 'Our plan starts at $500/mo'"}]
+)
+```
+
+### Available toolkit methods
+
+```python
+from crasis.tools import CrasisToolkit
+
+toolkit = CrasisToolkit.from_dir("~/.crasis/specialists")
+
+# OpenAI / OpenAI-compatible (Groq, Together, OpenRouter)
+toolkit.openai_tools()                  # pass as tools= to chat.completions.create
+toolkit.handle_tool_call(tool_call)     # returns JSON string
+toolkit.openai_tool_message(tc, res)    # builds the tool result message
+
+# Anthropic
+toolkit.anthropic_tools()              # pass as tools= to messages.create
+toolkit.handle_tool_use(block)          # returns tool_result dict
+
+# Gemini
+toolkit.gemini_tools()                  # pass to GenerativeModel
+toolkit.handle_gemini_call(fc)          # returns result dict
+
+# Framework-agnostic
+toolkit.classify("sentiment-gate", "I want a refund")
+toolkit.get_specialist("sentiment-gate")   # returns Specialist instance
+toolkit.specialists()                      # returns list of loaded names
+```
+
+### Load specific specialists only
+
+```python
+from crasis import Specialist
+from crasis.tools import CrasisToolkit
+
+sentiment = Specialist.load("~/.crasis/specialists/sentiment-gate")
+spam = Specialist.load("~/.crasis/specialists/spam-filter")
+
+toolkit = CrasisToolkit.from_specialists(sentiment, spam)
 ```
 
 ---
@@ -137,7 +214,7 @@ toolkit = CrasisToolkit.from_dir("~/.crasis/specialists")
 orch = CrasisOrchestrator(
     toolkit=toolkit,
     provider="anthropic",        # "openai" | "anthropic" | "gemini"
-    model="claude-opus-4-5",
+    model="claude-haiku",
 )
 
 result = orch.run("Is this customer angry? 'I WANT A REFUND RIGHT NOW'")
@@ -167,7 +244,7 @@ toolkit = CrasisToolkit.from_dir("~/.crasis/specialists")
 orch = CrasisOrchestrator(
     toolkit=toolkit,
     provider="anthropic",
-    model="claude-opus-4-5",
+    model="claude-haiku",
     api_key="sk-ant-...",           # or set ANTHROPIC_API_KEY env var
     max_iterations=10,
     system_prompt="You are a customer support triage agent.",
@@ -193,7 +270,7 @@ toolkit = CrasisToolkit.from_dir("~/.crasis/specialists")
 orch = CrasisOrchestrator(
     toolkit=toolkit,
     provider="openai",
-    model="gpt-4o",
+    model="gpt-4o-mini",
     api_key="sk-...",              # or set OPENAI_API_KEY env var
 )
 
@@ -219,50 +296,6 @@ result = orch.run("Route this support ticket: 'My invoice has a wrong charge'")
 print(result.response)
 ```
 
-### CrasisToolkit.from_specialists()
-
-If you only want to expose specific specialists rather than an entire directory:
-
-```python
-from crasis import Specialist
-from crasis.tools import CrasisToolkit
-from crasis.orchestrator import CrasisOrchestrator
-
-sentiment = Specialist.load("~/.crasis/specialists/sentiment-gate")
-spam = Specialist.load("~/.crasis/specialists/spam-filter")
-
-toolkit = CrasisToolkit.from_specialists(sentiment, spam)
-orch = CrasisOrchestrator(toolkit=toolkit, provider="anthropic", model="claude-opus-4-5")
-```
-
-### Using CrasisToolkit directly (no orchestrator)
-
-If you want to wire the loop yourself — or use a provider the orchestrator doesn't support — `CrasisToolkit` gives you the tool schemas and dispatch methods directly:
-
-```python
-from crasis.tools import CrasisToolkit
-
-toolkit = CrasisToolkit.from_dir("~/.crasis/specialists")
-
-# OpenAI / OpenAI-compatible (Groq, Together, OpenRouter)
-toolkit.openai_tools()                  # pass as tools= to chat.completions.create
-toolkit.handle_tool_call(tool_call)     # returns JSON string
-toolkit.openai_tool_message(tc, res)    # builds the tool result message
-
-# Anthropic
-toolkit.anthropic_tools()              # pass as tools= to messages.create
-toolkit.handle_tool_use(block)          # returns tool_result dict
-
-# Gemini
-toolkit.gemini_tools()                  # pass to GenerativeModel
-toolkit.handle_gemini_call(fc)          # returns result dict
-
-# Framework-agnostic
-toolkit.classify("sentiment-gate", "I want a refund")
-toolkit.get_specialist("sentiment-gate")   # returns Specialist instance
-toolkit.specialists()                      # returns list of loaded names
-```
-
 ---
 
 ## Architecture
@@ -274,11 +307,11 @@ User prompt
 Frontier model (Anthropic / OpenAI / Gemini)
     │  tool_call: classify_sentiment_gate("I WANT A REFUND")
     ▼
-CrasisOrchestrator / MCP server
+CrasisOrchestrator / CrasisToolkit / MCP server
     │  dispatch to local specialist
     ▼
-Specialist.classify()  ← ONNX Runtime, <100ms, no network
-    │  {"label": "positive", "confidence": 0.97, "latency_ms": 41}
+Specialist.classify()  ← ONNX Runtime, under 3ms, no network
+    │  {"label": "positive", "confidence": 0.97, "latency_ms": 0.6}
     ▼
 Frontier model (sees result, continues reasoning)
     │

@@ -129,10 +129,10 @@ Specialist: sentiment-gate
 ┌──────────────────────────────────────────────┬──────────┬────────────┬─────────┐
 │ Text                                          │ Label    │ Confidence │ Latency │
 ├──────────────────────────────────────────────┼──────────┼────────────┼─────────┤
-│ I want my money back RIGHT NOW                │ positive │ 0.967      │ 42.1ms  │
-│ The delivery was a bit late, could you check? │ negative │ 0.954      │ 38.7ms  │
-│ YOU PEOPLE ARE ABSOLUTELY USELESS!!!          │ positive │ 0.991      │ 39.2ms  │
-│ I'm disappointed with the quality             │ negative │ 0.923      │ 37.8ms  │
+│ I want my money back RIGHT NOW                │ positive │ 0.967      │ 0.6ms   │
+│ The delivery was a bit late, could you check? │ negative │ 0.954      │ 0.6ms   │
+│ YOU PEOPLE ARE ABSOLUTELY USELESS!!!          │ positive │ 0.991      │ 0.6ms   │
+│ I'm disappointed with the quality             │ negative │ 0.923      │ 0.6ms   │
 └──────────────────────────────────────────────┴──────────┴────────────┴─────────┘
 ```
 
@@ -146,10 +146,10 @@ from crasis import Specialist
 model = Specialist.load("./models/sentiment-gate-onnx")
 
 result = model.classify("I WANT MY MONEY BACK THIS IS RIDICULOUS")
-# → {"label": "positive", "label_id": 1, "confidence": 0.97, "latency_ms": 42}
+# → {"label": "positive", "label_id": 1, "confidence": 0.97, "latency_ms": 0.6}
 
 result = model.classify("The delivery took longer than expected")
-# → {"label": "negative", "label_id": 0, "confidence": 0.95, "latency_ms": 38}
+# → {"label": "negative", "label_id": 0, "confidence": 0.95, "latency_ms": 0.6}
 ```
 
 ---
@@ -185,6 +185,31 @@ crasis mix --spec ... --real-data ... --device cpu
 ```
 
 If no synthetic data is found, `crasis mix` trains on real data only — useful if you've accumulated enough real examples to stand alone.
+
+---
+
+## Use with agents
+
+Once you have a local specialist, plug it into any agent framework as a tool. The frontier model calls specialists for classification decisions instead of burning tokens:
+
+```python
+from crasis.tools import CrasisToolkit
+
+toolkit = CrasisToolkit.from_dir("./models")
+
+# Drop-in tools for Anthropic, OpenAI, or Gemini
+toolkit.anthropic_tools()   # pass as tools= to messages.create
+toolkit.openai_tools()      # pass as tools= to chat.completions.create
+toolkit.gemini_tools()      # pass to GenerativeModel
+```
+
+Or use the MCP server to expose specialists as native tools in Claude Desktop and Claude Code:
+
+```bash
+crasis mcp --models-dir ./models
+```
+
+See [docs/AGENTIC.md](AGENTIC.md) for the full agent integration guide.
 
 ---
 

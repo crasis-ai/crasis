@@ -47,12 +47,12 @@ All accuracy figures are synthetic eval results. Initial holdout evaluation on h
 
 **The gap is the signal.** Large gaps indicate the model learned the generator's linguistic fingerprints more than the underlying task. Two specialists have small gaps (≤3pp) and can be considered field-ready. The rest have meaningful gaps that warrant more training data diversity, a hybrid strategy, or a larger base model.
 
-| Gap range | Specialists | Interpretation |
-|---|---|---|
-| <5pp | whatsapp-triage, invoice-intent | Synthetic data transfers well; task boundary is crisp |
-| 5–10pp | availability-handler, pricing-detector | Mild distribution shift; monitor in production |
-| 10–20pp | support-router, social-classifier, meeting-parser, spam-filter, sentiment-gate | Meaningful gap; consider hybrid training data |
-| >20pp | email-urgency (35.4pp) | Severe distribution shift; high class recall collapses to 0.20; recommend hybrid strategy or real-world data |
+| Gap range | Specialists | Interpretation | Fix |
+|---|---|---|---|
+| <5pp | whatsapp-triage, invoice-intent | Synthetic data transfers well; task boundary is crisp | None needed |
+| 5–10pp | availability-handler, pricing-detector | Mild distribution shift; monitor in production | Optional: `crasis mix` with real examples |
+| 10–20pp | support-router, social-classifier, meeting-parser, spam-filter, sentiment-gate | Meaningful gap; consider hybrid training data | `crasis mix --real-data ./your-examples.jsonl` |
+| >20pp | email-urgency (35.4pp) | Severe distribution shift; high class recall collapses to 0.20; recommend hybrid strategy or real-world data | `crasis mix` with 200–300 real `high`-class examples — see Findings below |
 
 ---
 
