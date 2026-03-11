@@ -9,12 +9,15 @@ Commands:
   crasis classify  — Run inference on text input(s)
   crasis build     — Full pipeline: generate → train → eval → export
   crasis pull      — Download a pre-built specialist from the registry
+  crasis mcp       — Start the Crasis MCP server over stdio
 """
 
 from __future__ import annotations
 
 import logging
 import sys
+from collections.abc import Callable
+from pathlib import Path
 
 import click
 from rich.console import Console
@@ -587,39 +590,55 @@ def mix(
 REGISTRY_API = "https://api.github.com/repos/crasis-ai/crasis/releases/latest"
 
 
-@cli.command()
-@click.argument("name")
-@click.option("--force", "-f", is_flag=True, default=False, help="Re-download even if already cached")
-@click.option("--cache-dir", default=None, help="Override default cache (~/.crasis/specialists/)")
-def pull(name: str, force: bool, cache_dir: str | None) -> None:
-    """Download a pre-built specialist from the Crasis registry."""
+def _pull_specialist_sync(
+    name: str,
+    cache_dir: Path,
+    force: bool = False,
+    progress_callback: "Callable[[str], None] | None" = None,
+) -> Path:
+    """
+    Download and extract a specialist package from the Crasis registry.
+
+    Args:
+        name: Specialist name (e.g. "sentiment-gate").
+        cache_dir: Root cache directory; specialist is placed in cache_dir/name/.
+        force: Re-download even if already cached.
+        progress_callback: Optional callable called with status strings during download.
+
+    Returns:
+        Path to the extracted specialist package directory.
+
+    Raises:
+        SystemExit: On network errors or missing assets (when called from CLI context).
+        RuntimeError: On network errors or missing assets (when called from non-CLI context).
+    """
     import tarfile
-    from pathlib import Path
 
     import requests
-    from rich.progress import BarColumn, DownloadColumn, Progress, SpinnerColumn, TextColumn
 
-    dest_dir = Path(cache_dir or Path.home() / ".crasis" / "specialists") / name
+    def _emit(msg: str) -> None:
+        if progress_callback:
+            progress_callback(msg)
+
+    dest_dir = cache_dir / name
     onnx_file = dest_dir / f"{name}.onnx"
 
     if onnx_file.exists() and not force:
-        rprint(f"[bold green]Already cached:[/bold green] {dest_dir}")
-        rprint(f"  Use [bold]--force[/bold] to re-download.")
-        return
+        _emit(f"Already cached: {dest_dir}")
+        return dest_dir
 
     dest_dir.mkdir(parents=True, exist_ok=True)
 
-    # Fetch release metadata
-    rprint(f"\n[bold cyan]Crasis — Pulling '{name}'[/bold cyan]")
+    _emit(f"Fetching release metadata for '{name}'...")
     try:
         resp = requests.get(REGISTRY_API, timeout=10)
     except requests.exceptions.RequestException as exc:
-        rprint(f"[bold red]Network error:[/bold red] {exc}")
-        sys.exit(1)
+        raise RuntimeError(f"Network error: {exc}") from exc
 
     if resp.status_code != 200:
-        rprint(f"[bold red]GitHub API returned {resp.status_code}.[/bold red] Check your network or try again later.")
-        sys.exit(1)
+        raise RuntimeError(
+            f"GitHub API returned {resp.status_code}. Check your network or try again later."
+        )
 
     assets: dict[str, str] = {a["name"]: a["browser_download_url"] for a in resp.json().get("assets", [])}
 
@@ -632,42 +651,100 @@ def pull(name: str, force: bool, cache_dir: str | None) -> None:
 
     missing = [k for k in expected if k not in assets]
     if missing:
-        rprint(f"[bold red]Specialist '{name}' not found in the latest release.[/bold red]")
-        rprint(f"  Missing assets: {', '.join(missing)}")
-        sys.exit(1)
+        raise RuntimeError(
+            f"Specialist '{name}' not found in the latest release. "
+            f"Missing assets: {', '.join(missing)}"
+        )
 
-    with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), BarColumn(), DownloadColumn()) as progress:
-        for asset_name, dest_path in expected.items():
-            url = assets[asset_name]
-            task = progress.add_task(f"  {asset_name}", total=None)
-            try:
-                with requests.get(url, stream=True, timeout=60) as dl:
-                    dl.raise_for_status()
-                    total = int(dl.headers.get("content-length", 0)) or None
-                    progress.update(task, total=total)
-                    with open(dest_path, "wb") as fh:
-                        for chunk in dl.iter_content(chunk_size=8192):
-                            fh.write(chunk)
-                            progress.advance(task, len(chunk))
-            except requests.exceptions.RequestException as exc:
-                rprint(f"\n[bold red]Download failed:[/bold red] {exc}")
-                sys.exit(1)
+    for asset_name, dest_path in expected.items():
+        url = assets[asset_name]
+        _emit(f"Downloading {asset_name}...")
+        try:
+            with requests.get(url, stream=True, timeout=60) as dl:
+                dl.raise_for_status()
+                with open(dest_path, "wb") as fh:
+                    for chunk in dl.iter_content(chunk_size=8192):
+                        fh.write(chunk)
+        except requests.exceptions.RequestException as exc:
+            raise RuntimeError(f"Download failed: {exc}") from exc
 
     # Extract tokenizer tarball
     tarball = dest_dir / f"{name}-tokenizer.tar.gz"
     tokenizer_dir = dest_dir / "tokenizer"
+    _emit("Extracting tokenizer...")
     try:
         with tarfile.open(tarball, "r:gz") as tf:
             tf.extractall(tokenizer_dir)
     except tarfile.TarError as exc:
-        rprint(f"[bold red]Failed to extract tokenizer:[/bold red] {exc}")
         import shutil
         shutil.rmtree(dest_dir, ignore_errors=True)
-        sys.exit(1)
+        raise RuntimeError(f"Failed to extract tokenizer: {exc}") from exc
     tarball.unlink()
+
+    _emit(f"Specialist '{name}' ready at {dest_dir}")
+    return dest_dir
+
+
+@cli.command()
+@click.argument("name")
+@click.option("--force", "-f", is_flag=True, default=False, help="Re-download even if already cached")
+@click.option("--cache-dir", default=None, help="Override default cache (~/.crasis/specialists/)")
+def pull(name: str, force: bool, cache_dir: str | None) -> None:
+    """Download a pre-built specialist from the Crasis registry."""
+    from rich.progress import BarColumn, DownloadColumn, Progress, SpinnerColumn, TextColumn
+
+    resolved_cache = Path(cache_dir) if cache_dir else Path.home() / ".crasis" / "specialists"
+    dest_dir = resolved_cache / name
+    onnx_file = dest_dir / f"{name}.onnx"
+
+    if onnx_file.exists() and not force:
+        rprint(f"[bold green]Already cached:[/bold green] {dest_dir}")
+        rprint("  Use [bold]--force[/bold] to re-download.")
+        return
+
+    rprint(f"\n[bold cyan]Crasis — Pulling '{name}'[/bold cyan]")
+
+    with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), BarColumn(), DownloadColumn()) as progress:
+        task = progress.add_task("  Downloading...", total=None)
+
+        def _on_progress(msg: str) -> None:
+            progress.update(task, description=f"  {msg}")
+
+        try:
+            _pull_specialist_sync(
+                name=name,
+                cache_dir=resolved_cache,
+                force=force,
+                progress_callback=_on_progress,
+            )
+        except RuntimeError as exc:
+            rprint(f"\n[bold red]Error:[/bold red] {exc}")
+            sys.exit(1)
 
     rprint(f"\n[bold green]Specialist '{name}' ready.[/bold green]")
     rprint(f"  crasis classify --model {dest_dir} \"your text here\"")
+
+
+# ---------------------------------------------------------------------------
+# crasis mcp
+# ---------------------------------------------------------------------------
+
+
+@cli.command("mcp")
+@click.option("--models-dir", default=None, help="Specialist cache directory. Default: ~/.crasis/specialists/")
+@click.option("--api-key", envvar="OPENROUTER_API_KEY", default=None, help="OpenRouter API key (for build_specialist tool)")
+@click.option("--data-dir", default=None, help="Training data directory. Default: ~/.crasis/data/")
+def mcp_serve(models_dir: str | None, api_key: str | None, data_dir: str | None) -> None:
+    """Start the Crasis MCP server over stdio."""
+    import asyncio
+    from crasis.mcp_server import run_server
+
+    resolved_models = Path(models_dir) if models_dir else Path.home() / ".crasis" / "specialists"
+    resolved_data = Path(data_dir) if data_dir else Path.home() / ".crasis" / "data"
+    resolved_models.mkdir(parents=True, exist_ok=True)
+    resolved_data.mkdir(parents=True, exist_ok=True)
+
+    asyncio.run(run_server(models_dir=resolved_models, api_key=api_key, data_dir=resolved_data))
 
 
 if __name__ == "__main__":

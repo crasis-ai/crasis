@@ -287,6 +287,25 @@ class CrasisToolkit:
             )
         return self._specialists[specialist_name].classify(text)
 
+    def get_specialist(self, name: str) -> "Specialist":
+        """
+        Return a loaded Specialist by name.
+
+        Args:
+            name: Specialist name (e.g. "sentiment-gate").
+
+        Returns:
+            Loaded Specialist instance.
+
+        Raises:
+            KeyError: If name is not in this toolkit.
+        """
+        if name not in self._specialists:
+            raise KeyError(
+                f"Specialist '{name}' not found. Available: {list(self._specialists.keys())}"
+            )
+        return self._specialists[name]
+
     def specialists(self) -> list[str]:
         """Return list of loaded specialist names."""
         return list(self._specialists.keys())
