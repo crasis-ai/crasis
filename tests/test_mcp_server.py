@@ -269,7 +269,8 @@ def test_handle_classify_empty_text_returns_error(toolkit):
 def test_handle_pull_missing_name_returns_error():
     from crasis.mcp_server import _handle_pull
     server = MagicMock()
-    result = asyncio.run(_handle_pull(Path("/tmp"), "_tool", {}, server))
+    empty_toolkit = CrasisToolkit({})
+    result = asyncio.run(_handle_pull(Path("/tmp"), "_tool", {}, server, empty_toolkit))
     assert "Error" in result[0].text
     assert "name" in result[0].text
 
@@ -285,7 +286,7 @@ def test_handle_pull_calls_pull_specialist_sync(tmp_path):
     pulled_path.mkdir()
 
     with patch("crasis.cli._pull_specialist_sync", return_value=pulled_path) as mock_pull:
-        asyncio.run(_handle_pull(tmp_path, "_tool", {"name": "spam-filter"}, server))
+        asyncio.run(_handle_pull(tmp_path, "_tool", {"name": "spam-filter"}, server, CrasisToolkit({})))
 
     mock_pull.assert_called_once()
 
@@ -301,25 +302,76 @@ def test_handle_pull_error_from_sync_surfaces_in_result(tmp_path):
         "crasis.cli._pull_specialist_sync",
         side_effect=RuntimeError("specialist 'bad-name' not found"),
     ):
-        result = asyncio.run(_handle_pull(tmp_path, "_tool", {"name": "bad-name"}, server))
+        result = asyncio.run(_handle_pull(tmp_path, "_tool", {"name": "bad-name"}, server, CrasisToolkit({})))
 
     assert "ERROR" in result[0].text or "not found" in result[0].text.lower()
 
 
 @requires_mcp
-def test_handle_pull_restart_message_in_result(tmp_path):
+def test_handle_pull_loaded_message_on_success(tmp_path):
+    """After a successful pull with a loadable package, result says 'loaded'."""
     from crasis.mcp_server import _handle_pull
 
     server = MagicMock()
     server.request_context.session.send_log_message = AsyncMock()
 
-    pulled_path = tmp_path / "spam-filter"
-    pulled_path.mkdir()
+    # Write a real package so Specialist.load() succeeds in the hot-reload path
+    import json as _json
+    import numpy as _np
+    import onnx as _onnx
+    from onnx import TensorProto, helper as _h, numpy_helper as _nh
 
-    with patch("crasis.cli._pull_specialist_sync", return_value=pulled_path):
-        result = asyncio.run(_handle_pull(tmp_path, "_tool", {"name": "spam-filter"}, server))
+    pkg = tmp_path / "spam-filter"
+    pkg.mkdir()
+    feat = 128
+    W = _np.zeros((2, feat), dtype=_np.float32)
+    b = _np.zeros(2, dtype=_np.float32)
+    W_init = _nh.from_array(W, name="W")
+    b_init = _nh.from_array(b, name="b")
+    X = _h.make_tensor_value_info("input_ids", TensorProto.INT64, [1, feat])
+    attn = _h.make_tensor_value_info("attention_mask", TensorProto.INT64, [1, feat])
+    out = _h.make_tensor_value_info("logits", TensorProto.FLOAT, [1, 2])
+    cast = _h.make_node("Cast", inputs=["input_ids"], outputs=["x_float"], to=TensorProto.FLOAT)
+    flatten = _h.make_node("Flatten", inputs=["x_float"], outputs=["x_flat"], axis=1)
+    gemm = _h.make_node("Gemm", inputs=["x_flat", "W", "b"], outputs=["logits"], transB=1)
+    graph = _h.make_graph([cast, flatten, gemm], "c", [X, attn], [out], initializer=[W_init, b_init])
+    model = _h.make_model(graph, opset_imports=[_h.make_opsetid("", 13)])
+    _onnx.save(model, str(pkg / "spam-filter.onnx"))
+    (pkg / "label_map.json").write_text(
+        _json.dumps({"label2id": {"not-spam": 0, "spam": 1}, "id2label": {"0": "not-spam", "1": "spam"}}),
+        encoding="utf-8",
+    )
+    tok_dir = pkg / "tokenizer"
+    tok_dir.mkdir()
+    import shutil as _shutil
+    bert_tiny = (
+        Path.home() / ".cache/huggingface/hub"
+        / "models--google--bert_uncased_L-2_H-128_A-2"
+        / "snapshots" / "30b0a37ccaaa32f332884b96992754e246e48c5f"
+    )
+    if bert_tiny.exists():
+        for f in ("vocab.txt", "config.json"):
+            if (bert_tiny / f).exists():
+                _shutil.copy(bert_tiny / f, tok_dir / f)
+    (tok_dir / "tokenizer_config.json").write_text(
+        _json.dumps({"model_type": "bert", "do_lower_case": True, "tokenizer_class": "BertTokenizer"}),
+        encoding="utf-8",
+    )
+    (pkg / "crasis_meta.json").write_text(
+        _json.dumps({"name": "spam-filter", "description": "t", "spec_hash": "x", "label_names": ["not-spam", "spam"]}),
+        encoding="utf-8",
+    )
 
-    assert "Restart" in result[0].text or "restart" in result[0].text
+    toolkit = CrasisToolkit({})
+    with patch("crasis.cli._pull_specialist_sync", return_value=pkg):
+        result = asyncio.run(_handle_pull(tmp_path, "_tool", {"name": "spam-filter"}, server, toolkit))
+
+    text = result[0].text
+    # Should say loaded/available, not restart
+    assert "Restart" not in text
+    assert "loaded" in text.lower() or "available" in text.lower()
+    # Specialist should now be live in the toolkit
+    assert "spam-filter" in toolkit.specialists()
 
 
 # ---------------------------------------------------------------------------

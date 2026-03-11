@@ -625,7 +625,7 @@ def _pull_specialist_sync(
 
     if onnx_file.exists() and not force:
         _emit(f"Already cached: {dest_dir}")
-        return dest_dir
+        return dest_dir  # hot-reload path: package is on disk, return immediately
 
     dest_dir.mkdir(parents=True, exist_ok=True)
 
@@ -745,6 +745,54 @@ def mcp_serve(models_dir: str | None, api_key: str | None, data_dir: str | None)
     resolved_data.mkdir(parents=True, exist_ok=True)
 
     asyncio.run(run_server(models_dir=resolved_models, api_key=api_key, data_dir=resolved_data))
+
+
+# ---------------------------------------------------------------------------
+# crasis mcp-config
+# ---------------------------------------------------------------------------
+
+
+@cli.command("mcp-config")
+@click.option("--models-dir", default=None, help="Specialist cache directory. Default: ~/.crasis/specialists/")
+@click.option("--executable", default=None, help="Path to crasis executable. Default: auto-detected from PATH")
+@click.option("--api-key", envvar="OPENROUTER_API_KEY", default=None, help="Bake OpenRouter API key into config env block")
+@click.option("--output", "-o", default=None, help="Write JSON to file instead of stdout")
+def mcp_config(models_dir: str | None, executable: str | None, api_key: str | None, output: str | None) -> None:
+    """
+    Print the Claude Desktop MCP server config block for Crasis.
+
+    Pipe into your claude_desktop_config.json, or use --output to write directly.
+
+    Example:
+
+        crasis mcp-config | jq '.crasis'
+
+        crasis mcp-config --output /tmp/crasis-mcp.json
+    """
+    import json
+    import shutil
+    from crasis.mcp_server import generate_claude_desktop_config
+
+    resolved_models = Path(models_dir) if models_dir else Path.home() / ".crasis" / "specialists"
+
+    if executable:
+        resolved_executable = executable
+    else:
+        resolved_executable = shutil.which("crasis") or "crasis"
+
+    cfg = generate_claude_desktop_config(
+        models_dir=resolved_models,
+        crasis_executable=resolved_executable,
+        api_key=api_key,
+    )
+
+    formatted = json.dumps(cfg, indent=2)
+
+    if output:
+        Path(output).write_text(formatted + "\n", encoding="utf-8")
+        rprint(f"[bold green]Config written to {output}[/bold green]")
+    else:
+        print(formatted)
 
 
 if __name__ == "__main__":

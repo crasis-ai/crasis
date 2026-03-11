@@ -196,7 +196,7 @@ async def run_server(
 
         # --- pull_specialist ---
         if name == "pull_specialist":
-            return await _handle_pull(models_dir, name, arguments, server)
+            return await _handle_pull(models_dir, name, arguments, server, toolkit)
 
         # --- build_specialist ---
         if name == "build_specialist":
@@ -206,6 +206,7 @@ async def run_server(
                 api_key=api_key,
                 arguments=arguments,
                 server=server,
+                toolkit=toolkit,
             )
 
         return [types.TextContent(type="text", text=f"Error: Unknown tool '{name}'")]
@@ -241,7 +242,7 @@ async def _handle_classify(toolkit, tool_name: str, arguments: dict) -> list:
         if not text:
             raise ValueError("'text' argument is required")
 
-        result = await asyncio.get_event_loop().run_in_executor(
+        result = await asyncio.get_running_loop().run_in_executor(
             None,
             lambda: toolkit._dispatch(tool_name, arguments),
         )
@@ -276,8 +277,8 @@ def _handle_list_specialists(toolkit) -> list:
     return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
 
 
-async def _handle_pull(models_dir: Path, _tool_name: str, arguments: dict, server) -> list:
-    """Download a specialist from the registry."""
+async def _handle_pull(models_dir: Path, _tool_name: str, arguments: dict, server, toolkit) -> list:
+    """Download a specialist from the registry and hot-reload it into the toolkit."""
     from mcp import types
 
     specialist_name = arguments.get("name", "").strip()
@@ -287,29 +288,32 @@ async def _handle_pull(models_dir: Path, _tool_name: str, arguments: dict, serve
         return [types.TextContent(type="text", text="Error: 'name' argument is required")]
 
     progress_q: queue.SimpleQueue[str] = queue.SimpleQueue()
+    result_holder: list = []  # [0] = pkg_dir Path or exception
 
     def _pull_sync() -> None:
         from crasis.cli import _pull_specialist_sync
 
         try:
-            _pull_specialist_sync(
+            pkg_dir = _pull_specialist_sync(
                 name=specialist_name,
                 cache_dir=models_dir,
                 force=force,
                 progress_callback=progress_q.put,
             )
-            progress_q.put("DONE")
+            result_holder.append(pkg_dir)
         except Exception as exc:
-            progress_q.put(f"ERROR: {exc}")
+            result_holder.append(exc)
+        finally:
+            progress_q.put("DONE")
 
     thread = threading.Thread(target=_pull_sync, daemon=True)
     thread.start()
 
-    last_msg = ""
     while thread.is_alive() or not progress_q.empty():
         try:
             msg = progress_q.get_nowait()
-            last_msg = msg
+            if msg == "DONE":
+                break
             try:
                 await server.request_context.session.send_log_message(level="info", data=msg)
             except Exception:
@@ -319,18 +323,38 @@ async def _handle_pull(models_dir: Path, _tool_name: str, arguments: dict, serve
 
     thread.join()
 
-    if last_msg.startswith("ERROR:"):
-        return [types.TextContent(type="text", text=last_msg)]
+    outcome = result_holder[0] if result_holder else RuntimeError("Pull produced no result")
 
-    return [
-        types.TextContent(
-            type="text",
-            text=(
-                f"Specialist '{specialist_name}' downloaded to {models_dir / specialist_name}. "
-                "Restart the MCP server to load it."
-            ),
-        )
-    ]
+    if isinstance(outcome, Exception):
+        return [types.TextContent(type="text", text=f"ERROR: {outcome}")]
+
+    # Hot-reload into the live toolkit
+    pkg_dir: Path = outcome
+    try:
+        from crasis.deploy import Specialist
+
+        new_specialist = Specialist.load(pkg_dir)
+        toolkit._specialists[new_specialist.name] = new_specialist
+        return [
+            types.TextContent(
+                type="text",
+                text=(
+                    f"Specialist '{specialist_name}' downloaded and loaded. "
+                    f"Tool 'classify_{specialist_name.replace('-', '_')}' is now available."
+                ),
+            )
+        ]
+    except Exception as exc:
+        logger.warning("Pull succeeded but hot-reload failed: %s", exc)
+        return [
+            types.TextContent(
+                type="text",
+                text=(
+                    f"Specialist '{specialist_name}' downloaded to {pkg_dir}. "
+                    f"Hot-reload failed ({exc}) — restart the MCP server to use it."
+                ),
+            )
+        ]
 
 
 async def _handle_build(
@@ -339,6 +363,7 @@ async def _handle_build(
     api_key: str | None,
     arguments: dict,
     server,
+    toolkit=None,
 ) -> list:
     """Run the full build pipeline in a background thread."""
     from mcp import types
@@ -361,7 +386,8 @@ async def _handle_build(
         ]
 
     progress_q: queue.SimpleQueue[str] = queue.SimpleQueue()
-    result_holder: list[str] = []  # [0] = final message or error
+    # result_holder[0] = package_dir Path on success, or str error message
+    result_holder: list = []
 
     def _build_sync() -> None:
         tmp_spec_path = None
@@ -411,11 +437,7 @@ async def _handle_build(
             progress_q.put("[3/3] Exporting to ONNX...")
             export_result = _export(spec=spec, model_path=train_result.model_path, output_dir=models_dir)
 
-            result_holder.append(
-                f"Build complete: {export_result.onnx_path} "
-                f"({export_result.model_size_mb:.1f}MB). "
-                "Restart the MCP server to load the new specialist."
-            )
+            result_holder.append(export_result.package_dir)
         except Exception as exc:
             if tmp_spec_path:
                 tmp_spec_path.unlink(missing_ok=True)
@@ -440,8 +462,42 @@ async def _handle_build(
 
     thread.join()
 
-    final = result_holder[0] if result_holder else "Build finished."
-    return [types.TextContent(type="text", text=final)]
+    outcome = result_holder[0] if result_holder else "Error: Build produced no result"
+
+    # String outcome means an error message was stored
+    if isinstance(outcome, str):
+        return [types.TextContent(type="text", text=outcome)]
+
+    # Path outcome — successful build, hot-reload into live toolkit
+    pkg_dir: Path = outcome
+    if toolkit is not None:
+        try:
+            from crasis.deploy import Specialist
+
+            new_specialist = Specialist.load(pkg_dir)
+            toolkit._specialists[new_specialist.name] = new_specialist
+            return [
+                types.TextContent(
+                    type="text",
+                    text=(
+                        f"Build complete and loaded: {pkg_dir} "
+                        f"Tool 'classify_{new_specialist.name.replace('-', '_')}' is now available."
+                    ),
+                )
+            ]
+        except Exception as exc:
+            logger.warning("Build succeeded but hot-reload failed: %s", exc)
+            return [
+                types.TextContent(
+                    type="text",
+                    text=(
+                        f"Build complete: {pkg_dir}. "
+                        f"Hot-reload failed ({exc}) — restart the MCP server to use it."
+                    ),
+                )
+            ]
+
+    return [types.TextContent(type="text", text=f"Build complete: {pkg_dir}")]
 
 
 # ---------------------------------------------------------------------------
