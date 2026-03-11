@@ -424,7 +424,7 @@ async def _handle_build(
         try:
             spec.training.volume = int(volume_override)
             tmp_spec_path.write_text(
-                __import__("yaml").dump(spec.model_dump()), encoding="utf-8"
+                __import__("yaml").dump(spec.model_dump(mode="json")), encoding="utf-8"
             )
         except Exception:
             pass  # proceed with original spec if rewrite fails
