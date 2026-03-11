@@ -365,7 +365,13 @@ async def _handle_build(
     server,
     toolkit=None,
 ) -> list:
-    """Run the full build pipeline in a background thread."""
+    """
+    Run the full build pipeline by shelling out to `crasis build`.
+
+    This ensures the MCP build path is identical to the CLI build path —
+    same environment, same working directory assumptions, same error surface.
+    Progress lines from stderr are forwarded as MCP log notifications.
+    """
     from mcp import types
 
     spec_yaml = arguments.get("spec_yaml", "").strip()
@@ -385,92 +391,86 @@ async def _handle_build(
             )
         ]
 
-    progress_q: queue.SimpleQueue[str] = queue.SimpleQueue()
-    # result_holder[0] = package_dir Path on success, or str error message
-    result_holder: list = []
+    # Write spec YAML to a temp file — crasis build requires a file path
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".yaml", delete=False, encoding="utf-8"
+    ) as tmp:
+        tmp.write(spec_yaml)
+        tmp_spec_path = Path(tmp.name)
 
-    def _build_sync() -> None:
-        tmp_spec_path = None
+    # Parse spec name before launching subprocess so we know where to find
+    # the exported package for hot-reload after the build completes
+    spec_name: str | None = None
+    try:
+        from crasis.spec import CrasisSpec
+
+        spec = CrasisSpec.from_yaml(tmp_spec_path)
+        spec_name = spec.name
+    except Exception as exc:
+        tmp_spec_path.unlink(missing_ok=True)
+        return [types.TextContent(type="text", text=f"Error parsing spec: {exc}")]
+
+    cmd = [
+        "crasis", "build",
+        "--spec", str(tmp_spec_path),
+        "--api-key", api_key,
+        "--model-dir", str(models_dir),
+        "--data-dir", str(data_dir),
+    ]
+    if volume_override is not None:
+        # crasis build doesn't have --volume; pass via env so the spec is respected.
+        # volume_override is advisory — the spec controls the actual count.
+        # Re-write the spec with the overridden volume so the CLI sees it.
         try:
-            from crasis.spec import CrasisSpec
-            from crasis.factory import generate as _generate
-            from crasis.train import train as _train
-            from crasis.export import export as _export
-        except ImportError as exc:
-            result_holder.append(
-                f"Error: Train dependencies not installed. "
-                f"Run: pip install crasis[train]\nDetails: {exc}"
+            spec.training.volume = int(volume_override)
+            tmp_spec_path.write_text(
+                __import__("yaml").dump(spec.model_dump()), encoding="utf-8"
             )
-            progress_q.put("DONE")
-            return
+        except Exception:
+            pass  # proceed with original spec if rewrite fails
 
-        try:
-            # Write spec YAML to a temp file for parsing
-            with tempfile.NamedTemporaryFile(
-                mode="w", suffix=".yaml", delete=False, encoding="utf-8"
-            ) as tmp:
-                tmp.write(spec_yaml)
-                tmp_spec_path = Path(tmp.name)
+    import os as _os
+    env = {**_os.environ, "OPENROUTER_API_KEY": api_key}
 
-            spec = CrasisSpec.from_yaml(tmp_spec_path)
-            tmp_spec_path.unlink(missing_ok=True)
-            tmp_spec_path = None
+    try:
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,
+            env=env,
+        )
 
-            if volume_override is not None:
-                spec.training.volume = int(volume_override)
-
-            progress_q.put(f"[1/3] Generating {spec.training.volume} training samples for '{spec.name}'...")
-            data_path = _generate(spec=spec, output_dir=data_dir, api_key=api_key)
-
-            progress_q.put("[2/3] Training BERT distillation...")
-            train_result = _train(spec=spec, data_path=data_path, output_dir=models_dir)
-
-            if not train_result.passed_quality_gate:
-                result_holder.append(
-                    f"Error: Quality gate failed — accuracy={train_result.eval_accuracy:.4f}, "
-                    f"f1={train_result.eval_f1:.4f}. "
-                    "Try increasing training volume or adjusting quality thresholds."
-                )
-                progress_q.put("DONE")
-                return
-
-            progress_q.put("[3/3] Exporting to ONNX...")
-            export_result = _export(spec=spec, model_path=train_result.model_path, output_dir=models_dir)
-
-            result_holder.append(export_result.package_dir)
-        except Exception as exc:
-            if tmp_spec_path:
-                tmp_spec_path.unlink(missing_ok=True)
-            result_holder.append(f"Error: {exc}")
-        finally:
-            progress_q.put("DONE")
-
-    thread = threading.Thread(target=_build_sync, daemon=True)
-    thread.start()
-
-    while thread.is_alive() or not progress_q.empty():
-        try:
-            msg = progress_q.get_nowait()
-            if msg == "DONE":
-                break
+        async for raw_line in proc.stdout:
+            line = raw_line.decode(errors="replace").rstrip()
+            if not line:
+                continue
             try:
-                await server.request_context.session.send_log_message(level="info", data=msg)
+                await server.request_context.session.send_log_message(level="info", data=line)
             except Exception:
                 pass
-        except queue.Empty:
-            await asyncio.sleep(0.5)
 
-    thread.join()
+        await proc.wait()
+    finally:
+        tmp_spec_path.unlink(missing_ok=True)
 
-    outcome = result_holder[0] if result_holder else "Error: Build produced no result"
+    if proc.returncode != 0:
+        return [
+            types.TextContent(
+                type="text",
+                text=f"Error: Build failed (exit {proc.returncode}). Check log notifications for details.",
+            )
+        ]
 
-    # String outcome means an error message was stored
-    if isinstance(outcome, str):
-        return [types.TextContent(type="text", text=outcome)]
+    # Locate the exported package — crasis build writes to <model-dir>/<name>-onnx/
+    pkg_dir = models_dir / f"{spec_name}-onnx"
+    if not pkg_dir.exists():
+        # Fallback: any subdir containing the onnx file
+        candidates = list(models_dir.glob(f"{spec_name}*/*.onnx"))
+        if candidates:
+            pkg_dir = candidates[0].parent
 
-    # Path outcome — successful build, hot-reload into live toolkit
-    pkg_dir: Path = outcome
-    if toolkit is not None:
+    # Hot-reload into live toolkit
+    if toolkit is not None and pkg_dir.exists():
         try:
             from crasis.deploy import Specialist
 
@@ -480,7 +480,7 @@ async def _handle_build(
                 types.TextContent(
                     type="text",
                     text=(
-                        f"Build complete and loaded: {pkg_dir} "
+                        f"Build complete and loaded: {pkg_dir}. "
                         f"Tool 'classify_{new_specialist.name.replace('-', '_')}' is now available."
                     ),
                 )

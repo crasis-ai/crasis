@@ -587,7 +587,7 @@ def mix(
 # crasis pull
 # ---------------------------------------------------------------------------
 
-REGISTRY_API = "https://api.github.com/repos/crasis-ai/crasis/releases/latest"
+REGISTRY_API = "https://api.github.com/repos/crasis-ai/crasis/releases/tags/v1.1.2"
 
 
 def _pull_specialist_sync(
