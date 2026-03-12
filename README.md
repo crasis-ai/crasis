@@ -132,9 +132,9 @@ See [docs/AGENTIC.md](docs/AGENTIC.md) for the full agent integration guide.
 | Gets cheaper over time | No | Already free |
 | Accuracy on narrow tasks - synthetic data | ~97% | ~95–99% |
 
-See the [SCORECARD](./SCORECARD.md) for holdout/realistic data numbers. The two-number format (synthetic + holdout) is the honest way to report accuracy.
+The [SCORECARD](./SCORECARD.md) shows synthetic and real-world holdout results for every specialist — that is the defense of the accuracy claim above, not a footnote. The two-number format (synthetic + holdout) is the honest way to report accuracy.
 
-The image below is my [OpenRouter](https://openrouter.ai) spend to build _all_ of the models listed below.
+Those are the per-query inference economics — zero cost after training. The number below is the one-time training cost to build all ten specialists from scratch:
 
 - 15 model builds
 - 10 specialists produced (iterating on initial prototypes)
