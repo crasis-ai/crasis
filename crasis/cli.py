@@ -64,11 +64,15 @@ def cli(verbose: bool) -> None:
 @click.option("--spec", "-s", required=True, type=click.Path(exists=True), help="Path to spec.yaml")
 @click.option("--count", "-n", type=int, default=None, help="Override sample count from spec")
 @click.option("--output", "-o", default="./data", show_default=True, help="Output directory")
-@click.option("--api-key", envvar="OPENROUTER_API_KEY", required=True, help="OpenRouter API key")
+@click.option("--api-key", envvar="OPENROUTER_API_KEY", default=None, help="OpenRouter API key (or set OPENROUTER_API_KEY)")
 @click.option("--no-resume", is_flag=True, default=False, help="Start over even if partial data exists")
-def generate(spec: str, count: int | None, output: str, api_key: str, no_resume: bool) -> None:
+def generate(spec: str, count: int | None, output: str, api_key: str | None, no_resume: bool) -> None:
     """Generate synthetic training data for a specialist."""
     _require_train_deps()
+    if not api_key:
+        rprint("[bold red]Error:[/bold red] OpenRouter API key is required. Pass --api-key or set OPENROUTER_API_KEY.")
+        sys.exit(1)
+
     from crasis.spec import CrasisSpec
     from crasis.factory import generate as _generate
 
@@ -320,17 +324,21 @@ def classify(model: str, texts: tuple[str, ...], file: str | None) -> None:
 
 @cli.command()
 @click.option("--spec", "-s", required=True, type=click.Path(exists=True), help="Path to spec.yaml")
-@click.option("--api-key", envvar="OPENROUTER_API_KEY", required=True, help="OpenRouter API key")
+@click.option("--api-key", envvar="OPENROUTER_API_KEY", default=None, help="OpenRouter API key (or set OPENROUTER_API_KEY)")
 @click.option("--data-dir", default="./data", show_default=True, help="Training data directory")
 @click.option("--model-dir", default="./models", show_default=True, help="Model output directory")
 @click.option("--device", default=None, help="Force device: cpu | cuda | mps")
-def build(spec: str, api_key: str, data_dir: str, model_dir: str, device: str | None) -> None:
+def build(spec: str, api_key: str | None, data_dir: str, model_dir: str, device: str | None) -> None:
     """
     Full pipeline: generate → train → export.
 
     This is the one-command path from spec to deployable ONNX.
     """
     _require_train_deps()
+    if not api_key:
+        rprint("[bold red]Error:[/bold red] OpenRouter API key is required. Pass --api-key or set OPENROUTER_API_KEY.")
+        sys.exit(1)
+
     from crasis.spec import CrasisSpec
     from crasis.factory import generate as _generate
     from crasis.train import train as _train
