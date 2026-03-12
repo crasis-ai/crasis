@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2026-03-12
+
+### Changed
+- Clearer error message when OPENROUTER_API_KEY is missing — prints actionable hint and exits cleanly instead of crashing with ImportError
+- Ten pre-built specialists published as release assets on v1.3.0
+
+### Fixed
+- Model assets missing from v1.2.0 GitHub Release
+
+---
+
 ## [1.2.0] - 2026-03-09
 
 ### Added
