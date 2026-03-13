@@ -1,0 +1,1000 @@
+{"text": "The boiler you serviced stopped working the next morning.", "label": "positive", "label_id": 1}
+{"text": "I lost the link for my session and it starts in 12 minutes.", "label": "positive", "label_id": 1}
+{"text": "I'm owed a tax refund that was sent to a closed account. I need a reissue.", "label": "positive", "label_id": 1}
+{"text": "Your refund of $34.00 has been issued. Allow 5-7 days.", "label": "negative", "label_id": 0}
+{"text": "Your engineer booked the 9am slot and called at 5:30pm wanting to reschedule.", "label": "positive", "label_id": 1}
+{"text": "The laptop I sent for keyboard repair came back with a cracked screen.", "label": "positive", "label_id": 1}
+{"text": "Your engineer didn't show ID before entering my home. I need this investigated.", "label": "positive", "label_id": 1}
+{"text": "Payslip for March is available in your HR portal.", "label": "negative", "label_id": 0}
+{"text": "Your session expires in 15 minutes due to inactivity.", "label": "negative", "label_id": 0}
+{"text": "My daughter's university offer is contingent on a document I've been chasing for 2 weeks.", "label": "positive", "label_id": 1}
+{"text": "Your representative was dismissive and condescending. I want a supervisor.", "label": "positive", "label_id": 1}
+{"text": "New invoice from supplier \u2014 view in accounts.", "label": "negative", "label_id": 0}
+{"text": "Community spotlight: meet this month's power user.", "label": "negative", "label_id": 0}
+{"text": "My car was written off but your valuation is significantly below market rate.", "label": "positive", "label_id": 1}
+{"text": "The cheque you issued has a spelling mistake on the name and the bank won't cash it.", "label": "positive", "label_id": 1}
+{"text": "Delivery rescheduled to Friday due to high volume.", "label": "negative", "label_id": 0}
+{"text": "On my way now!", "label": "negative", "label_id": 0}
+{"text": "I'm at your airport lounge and it's refusing my card despite an active membership.", "label": "positive", "label_id": 1}
+{"text": "We've received your cancellation request.", "label": "negative", "label_id": 0}
+{"text": "You processed my payment twice. I'm now short on rent.", "label": "positive", "label_id": 1}
+{"text": "The stairwell light in my block has been out for 2 weeks. I've reported it twice.", "label": "positive", "label_id": 1}
+{"text": "The import script ran twice and created thousands of duplicate records.", "label": "positive", "label_id": 1}
+{"text": "I need to urgently update the beneficiary on my life insurance policy.", "label": "positive", "label_id": 1}
+{"text": "I need to freeze my account immediately. I think my phone was just stolen.", "label": "positive", "label_id": 1}
+{"text": "I'm unable to download the required form and the deadline is in 90 minutes.", "label": "positive", "label_id": 1}
+{"text": "New gym class added to the schedule: HIIT at 6am on Tuesdays.", "label": "negative", "label_id": 0}
+{"text": "Maintenance complete \u2014 all services restored.", "label": "negative", "label_id": 0}
+{"text": "Your staff witnessed my accident and I need their contact details for my claim.", "label": "positive", "label_id": 1}
+{"text": "Reminder that we're meeting at the coffee shop, not the office.", "label": "negative", "label_id": 0}
+{"text": "What's the best way to contact you going forward?", "label": "negative", "label_id": 0}
+{"text": "Bundle and save \u2014 3 for the price of 2.", "label": "negative", "label_id": 0}
+{"text": "My passport was stolen and I need to fly home in 48 hours.", "label": "positive", "label_id": 1}
+{"text": "Uptime: 99.97% this month.", "label": "negative", "label_id": 0}
+{"text": "I received a final demand letter for a debt I've already settled with you.", "label": "positive", "label_id": 1}
+{"text": "Free Netflix for life \u2014 tap to claim.", "label": "negative", "label_id": 0}
+{"text": "My account was suspended without explanation and I have an active paid plan.", "label": "positive", "label_id": 1}
+{"text": "Hi, where can I find the release notes?", "label": "negative", "label_id": 0}
+{"text": "Scheduled report delivered to your inbox.", "label": "negative", "label_id": 0}
+{"text": "Your feedback has been submitted. Thank you.", "label": "negative", "label_id": 0}
+{"text": "The airline has lost my medical equipment bag. I need it tonight.", "label": "positive", "label_id": 1}
+{"text": "Enjoy 10% off your next visit as a returning customer.", "label": "negative", "label_id": 0}
+{"text": "The medication dosage on the box doesn't match what's inside.", "label": "positive", "label_id": 1}
+{"text": "Your driver nearly ran a red light with my kids in the car.", "label": "positive", "label_id": 1}
+{"text": "My car was damaged in your car park and the CCTV footage needs to be preserved.", "label": "positive", "label_id": 1}
+{"text": "Road works on the A40 this weekend.", "label": "negative", "label_id": 0}
+{"text": "Your mortgage offer is valid for 6 months.", "label": "negative", "label_id": 0}
+{"text": "I found glass in the food your restaurant delivered.", "label": "positive", "label_id": 1}
+{"text": "Happy anniversary!", "label": "negative", "label_id": 0}
+{"text": "Automatic renewal is now off for your subscription.", "label": "negative", "label_id": 0}
+{"text": "I have a deadline to submit evidence and your upload portal has been down all day.", "label": "positive", "label_id": 1}
+{"text": "I close on the house at noon and my bank hasn't received the wire.", "label": "positive", "label_id": 1}
+{"text": "Our reseller contract expires this week and no one has sent the renewal.", "label": "positive", "label_id": 1}
+{"text": "Your connected thermostat set itself to eco mode.", "label": "negative", "label_id": 0}
+{"text": "My smart meter is showing usage 3 times higher than usual. Something is wrong.", "label": "positive", "label_id": 1}
+{"text": "Check-in recorded at 8:48am.", "label": "negative", "label_id": 0}
+{"text": "I paid for a 2-hour session. The trainer left after 45 minutes.", "label": "positive", "label_id": 1}
+{"text": "Looking forward to seeing you on Saturday!", "label": "negative", "label_id": 0}
+{"text": "I need access restored to the shared drive before the team meeting in an hour.", "label": "positive", "label_id": 1}
+{"text": "I cancelled within the trial period and was still charged $89.", "label": "positive", "label_id": 1}
+{"text": "A buyer has made an offer on your listing.", "label": "negative", "label_id": 0}
+{"text": "New episodes added to your queue.", "label": "negative", "label_id": 0}
+{"text": "Your store gave me a defective item and refused to exchange it in-store. I need this sorted.", "label": "positive", "label_id": 1}
+{"text": "I found bedbugs in the mattress you delivered and set up.", "label": "positive", "label_id": 1}
+{"text": "I have a complaint pending with the regulator and you haven't responded to their inquiry.", "label": "positive", "label_id": 1}
+{"text": "Your approval is needed on a pending document.", "label": "negative", "label_id": 0}
+{"text": "I'm being charged storage fees for a unit I emptied and closed 2 months ago.", "label": "positive", "label_id": 1}
+{"text": "My account was locked after a suspicious login attempt and I need it back.", "label": "positive", "label_id": 1}
+{"text": "Sounds good!", "label": "negative", "label_id": 0}
+{"text": "Hi \u2014 can I have a receipt for my last payment please?", "label": "negative", "label_id": 0}
+{"text": "Tip: use keyboard shortcuts to work faster.", "label": "negative", "label_id": 0}
+{"text": "Permissions updated for your role.", "label": "negative", "label_id": 0}
+{"text": "Good evening! How's everything going?", "label": "negative", "label_id": 0}
+{"text": "My job offer was rescinded with no explanation hours before I was due to start.", "label": "positive", "label_id": 1}
+{"text": "My son was given someone else's allergy-containing snack at your club.", "label": "positive", "label_id": 1}
+{"text": "My child's school bus never arrived this morning. I don't know where the driver is.", "label": "positive", "label_id": 1}
+{"text": "My work visa expires in 2 weeks and the sponsorship paperwork hasn't been submitted.", "label": "positive", "label_id": 1}
+{"text": "Your SaaS platform has been down for 4 hours and we have live clients waiting.", "label": "positive", "label_id": 1}
+{"text": "No claims discount applied to your renewal.", "label": "negative", "label_id": 0}
+{"text": "I'm a pensioner and this double charge has put me in overdraft.", "label": "positive", "label_id": 1}
+{"text": "I was sold an extended warranty I specifically declined. Remove the charge.", "label": "positive", "label_id": 1}
+{"text": "Your parcel is out for delivery today between 10am and 2pm.", "label": "negative", "label_id": 0}
+{"text": "I've been passed around 4 departments. No one takes ownership.", "label": "positive", "label_id": 1}
+{"text": "The only contact number you gave me rings out. Every time.", "label": "positive", "label_id": 1}
+{"text": "The overnight bag I needed for the hospital wasn't in the delivery. I leave tomorrow.", "label": "positive", "label_id": 1}
+{"text": "Your renovation crew damaged my kitchen cabinets. I need compensation.", "label": "positive", "label_id": 1}
+{"text": "Works for me.", "label": "negative", "label_id": 0}
+{"text": "Tips from our team: how to get the most from your plan.", "label": "negative", "label_id": 0}
+{"text": "Just wanted to confirm the address before I set off.", "label": "negative", "label_id": 0}
+{"text": "My dog ate something from your packaging. I don't know if it's toxic.", "label": "positive", "label_id": 1}
+{"text": "See what's trending near you this week.", "label": "negative", "label_id": 0}
+{"text": "Your follow-up email was sent automatically.", "label": "negative", "label_id": 0}
+{"text": "My team's shared workspace was accidentally deleted by an admin.", "label": "positive", "label_id": 1}
+{"text": "Digest: 3 pull requests merged today.", "label": "negative", "label_id": 0}
+{"text": "Quick Q \u2014 do you deliver to SW postcodes?", "label": "negative", "label_id": 0}
+{"text": "The integration broke after your update. Orders are no longer syncing.", "label": "positive", "label_id": 1}
+{"text": "Password changed successfully.", "label": "negative", "label_id": 0}
+{"text": "My neighbour is threatening me and your mediation team hasn't responded.", "label": "positive", "label_id": 1}
+{"text": "Low battery on your connected device.", "label": "negative", "label_id": 0}
+{"text": "Happy Monday! Hope the week goes well.", "label": "negative", "label_id": 0}
+{"text": "Your automatic renewal fired but I was told last month it had been cancelled.", "label": "positive", "label_id": 1}
+{"text": "I got a court judgement against my name for a debt I was never notified about.", "label": "positive", "label_id": 1}
+{"text": "I was promised a dedicated account manager 6 weeks ago. I still haven't been introduced.", "label": "positive", "label_id": 1}
+{"text": "Your story was viewed by 54 people.", "label": "negative", "label_id": 0}
+{"text": "The scheduled maintenance window ran over and my systems are still offline.", "label": "positive", "label_id": 1}
+{"text": "I've been a loyal customer for 6 years and this is how you treat me?", "label": "positive", "label_id": 1}
+{"text": "Low mortgage rates \u2014 apply now. Limited offer.", "label": "negative", "label_id": 0}
+{"text": "Your shipment is now in transit. Tracking number: TK48291.", "label": "negative", "label_id": 0}
+{"text": "Your plumber left water damage under my sink.", "label": "positive", "label_id": 1}
+{"text": "Deal stage moved to Proposal.", "label": "negative", "label_id": 0}
+{"text": "Any chance you're free next week for a catch-up?", "label": "negative", "label_id": 0}
+{"text": "Your content has been scheduled for Tuesday at 10am.", "label": "negative", "label_id": 0}
+{"text": "I've been waiting on hold for 55 minutes. This is not acceptable.", "label": "positive", "label_id": 1}
+{"text": "Every time I contact support I get a different answer. Who is actually correct?", "label": "positive", "label_id": 1}
+{"text": "Rest up and feel better soon.", "label": "negative", "label_id": 0}
+{"text": "The online exam portal crashed during my test and I lost all my answers.", "label": "positive", "label_id": 1}
+{"text": "My business account was frozen and I have payroll going out in 48 hours.", "label": "positive", "label_id": 1}
+{"text": "New promo code: SPRING20 \u2014 valid through April.", "label": "negative", "label_id": 0}
+{"text": "The wrong company name is on my invoice and I can't claim the VAT back.", "label": "positive", "label_id": 1}
+{"text": "I've tried twice and the form keeps erroring out. My deadline is tonight.", "label": "positive", "label_id": 1}
+{"text": "A brand you follow just launched a new product.", "label": "negative", "label_id": 0}
+{"text": "Your referral earned $10. Thanks for sharing.", "label": "negative", "label_id": 0}
+{"text": "Got your message, will reply properly later.", "label": "negative", "label_id": 0}
+{"text": "My child is running a fever after using the product you sent.", "label": "positive", "label_id": 1}
+{"text": "Your system issued two conflicting decisions on my claim on the same day.", "label": "positive", "label_id": 1}
+{"text": "You're on the free plan. Upgrade anytime for more features.", "label": "negative", "label_id": 0}
+{"text": "I've been waiting 6 weeks for a referral that should have taken 5 days.", "label": "positive", "label_id": 1}
+{"text": "New blog post: 5 ways to save on your energy bill.", "label": "negative", "label_id": 0}
+{"text": "MOT reminder: due in 4 weeks.", "label": "negative", "label_id": 0}
+{"text": "My water heater is leaking and flooding the basement right now.", "label": "positive", "label_id": 1}
+{"text": "Monthly cost report for March is ready.", "label": "negative", "label_id": 0}
+{"text": "School closed Monday for staff training.", "label": "negative", "label_id": 0}
+{"text": "We went live yesterday and the product doesn't work as demoed. We need support now.", "label": "positive", "label_id": 1}
+{"text": "You have $20 in credits \u2014 use them before they expire.", "label": "negative", "label_id": 0}
+{"text": "My landlord is illegally withholding my deposit. I need payment records.", "label": "positive", "label_id": 1}
+{"text": "I've been off sick and my employer is withholding statutory sick pay.", "label": "positive", "label_id": 1}
+{"text": "You've stopped processing our orders without explanation and we have open POs.", "label": "positive", "label_id": 1}
+{"text": "My car was towed from your hotel car park even though I was a guest.", "label": "positive", "label_id": 1}
+{"text": "Fix this or I'm posting the full conversation publicly.", "label": "positive", "label_id": 1}
+{"text": "My elderly father is alone at home and his medical alert device isn't working.", "label": "positive", "label_id": 1}
+{"text": "I can't log in and have a client presentation in 20 minutes.", "label": "positive", "label_id": 1}
+{"text": "I'm in the middle of a medical emergency and my account is locked.", "label": "positive", "label_id": 1}
+{"text": "I have a screenshot of your chatbot promising a refund. I want it honoured.", "label": "positive", "label_id": 1}
+{"text": "The car hire has given me a vehicle with bald tyres and I'm about to drive a mountain road.", "label": "positive", "label_id": 1}
+{"text": "I need to stop a wire transfer that went out this morning to the wrong recipient.", "label": "positive", "label_id": 1}
+{"text": "Hey, do you know if the office is open Saturday?", "label": "negative", "label_id": 0}
+{"text": "Yep, confirmed!", "label": "negative", "label_id": 0}
+{"text": "I've been trying to close this account for 4 months and you keep charging me.", "label": "positive", "label_id": 1}
+{"text": "Venue capacity update: 20 spots remaining for Friday's session.", "label": "negative", "label_id": 0}
+{"text": "Sorry to chase but the deadline is today and I still don't have confirmation.", "label": "positive", "label_id": 1}
+{"text": "Quick survey \u2014 how are we doing?", "label": "negative", "label_id": 0}
+{"text": "Your payment gateway is down. I'm losing sales every minute.", "label": "positive", "label_id": 1}
+{"text": "Your system sent a final reminder but I paid on time. This is damaging my credit.", "label": "positive", "label_id": 1}
+{"text": "App update available in the App Store.", "label": "negative", "label_id": 0}
+{"text": "Two new items require your review.", "label": "negative", "label_id": 0}
+{"text": "Your evening run was synced to your account.", "label": "negative", "label_id": 0}
+{"text": "Your CDN is down and my site has been offline for 2 hours.", "label": "positive", "label_id": 1}
+{"text": "There's black mould in my child's bedroom and the landlord is ignoring me.", "label": "positive", "label_id": 1}
+{"text": "I've sent 7 emails and opened 3 tickets. Zero resolution.", "label": "positive", "label_id": 1}
+{"text": "My child swallowed something from your packaging. What's in it?", "label": "positive", "label_id": 1}
+{"text": "Sequence step 3 of 5 completed.", "label": "negative", "label_id": 0}
+{"text": "I'm usually patient but I really do need this resolved today.", "label": "positive", "label_id": 1}
+{"text": "The clinic lost my test results and now I need to redo the whole thing.", "label": "positive", "label_id": 1}
+{"text": "My investment account shows a $4,000 discrepancy I can't account for.", "label": "positive", "label_id": 1}
+{"text": "Team digest: 5 new comments, 2 file uploads.", "label": "negative", "label_id": 0}
+{"text": "The transfer driver is 30 minutes late and my cruise leaves in 90.", "label": "positive", "label_id": 1}
+{"text": "Your bank account requires verification. Click now.", "label": "negative", "label_id": 0}
+{"text": "Dear user, your PayPal has been limited.", "label": "negative", "label_id": 0}
+{"text": "You have 1 unclaimed reward. Tap here to claim.", "label": "negative", "label_id": 0}
+{"text": "Hiya! What have you been up to?", "label": "negative", "label_id": 0}
+{"text": "I was told my case would be reviewed within 48 hours. It's been 9 days.", "label": "positive", "label_id": 1}
+{"text": "I have a journalist calling me about an incident linked to your company. I need guidance.", "label": "positive", "label_id": 1}
+{"text": "Special invitation to join our multi-level income programme.", "label": "negative", "label_id": 0}
+{"text": "Your deposit is confirmed. Balance due on arrival.", "label": "negative", "label_id": 0}
+{"text": "I transferred my rent to the wrong account. Can you trace it?", "label": "positive", "label_id": 1}
+{"text": "Your weekly summary: 12 tasks done, 3 pending.", "label": "negative", "label_id": 0}
+{"text": "Your branch gave me counterfeit notes. I only noticed when the supermarket flagged them.", "label": "positive", "label_id": 1}
+{"text": "Your trial has been extended by 7 days.", "label": "negative", "label_id": 0}
+{"text": "My mortgage application was rejected based on incorrect information in your report.", "label": "positive", "label_id": 1}
+{"text": "Your monthly statement is ready.", "label": "negative", "label_id": 0}
+{"text": "Stop sending me automated responses. A person needs to read this.", "label": "positive", "label_id": 1}
+{"text": "Webhook test successful.", "label": "negative", "label_id": 0}
+{"text": "The cleaning crew didn't show up for the third week running.", "label": "positive", "label_id": 1}
+{"text": "Your complaint process says 5 days. It's been 17.", "label": "positive", "label_id": 1}
+{"text": "Package delivered to your front door at 11:34am.", "label": "negative", "label_id": 0}
+{"text": "Your ticket has been updated.", "label": "negative", "label_id": 0}
+{"text": "Password expiry reminder: update by April 1.", "label": "negative", "label_id": 0}
+{"text": "Glad it worked out!", "label": "negative", "label_id": 0}
+{"text": "I need proof of all payments before I go to court on Friday.", "label": "positive", "label_id": 1}
+{"text": "I found mould behind the wall your team opened last week.", "label": "positive", "label_id": 1}
+{"text": "Can I bring a guest to the session?", "label": "negative", "label_id": 0}
+{"text": "My generator failed during a storm and I have a child on a ventilator.", "label": "positive", "label_id": 1}
+{"text": "Case closed. Let us know if you need anything else.", "label": "negative", "label_id": 0}
+{"text": "Hey! It's been a while.", "label": "negative", "label_id": 0}
+{"text": "Parking charges increased from April 1. Full details on our website.", "label": "negative", "label_id": 0}
+{"text": "Two-factor authentication enabled on your account.", "label": "negative", "label_id": 0}
+{"text": "Quick question that's actually quite urgent \u2014 do I need to do anything before my account auto-closes?", "label": "positive", "label_id": 1}
+{"text": "I deleted a project by accident and need it restored from backup.", "label": "positive", "label_id": 1}
+{"text": "Batch job done: 1,450 records processed.", "label": "negative", "label_id": 0}
+{"text": "The estate agent has someone's keys to my flat and I haven't authorised that.", "label": "positive", "label_id": 1}
+{"text": "I've been waiting 4 months for a decision on my benefits appeal.", "label": "positive", "label_id": 1}
+{"text": "The debt you sold was already settled. The collection agency is now harassing me.", "label": "positive", "label_id": 1}
+{"text": "We've picked some products just for you.", "label": "negative", "label_id": 0}
+{"text": "Your website promised 24-hour support. I've been waiting 18 hours.", "label": "positive", "label_id": 1}
+{"text": "Can you recommend a good time to visit?", "label": "negative", "label_id": 0}
+{"text": "Your technician came and left without fixing anything. Now it's worse than before.", "label": "positive", "label_id": 1}
+{"text": "Your connected device is online.", "label": "negative", "label_id": 0}
+{"text": "Transaction complete. Your reference is TXN-20391.", "label": "negative", "label_id": 0}
+{"text": "I need a specialist referral urgently \u2014 my GP says it's time-sensitive.", "label": "positive", "label_id": 1}
+{"text": "New comment on a photo you posted last week.", "label": "negative", "label_id": 0}
+{"text": "The tradesman you sent wasn't qualified for the job I booked. Gas safety issue.", "label": "positive", "label_id": 1}
+{"text": "Hey, did you see the game last night?", "label": "negative", "label_id": 0}
+{"text": "I think I was served spoiled food. I've been sick for 6 hours.", "label": "positive", "label_id": 1}
+{"text": "Your replacement item has been shipped.", "label": "negative", "label_id": 0}
+{"text": "I'm not paying this invoice. The work was incomplete and I have photos.", "label": "positive", "label_id": 1}
+{"text": "Recording saved to your library.", "label": "negative", "label_id": 0}
+{"text": "Do you integrate with Slack?", "label": "negative", "label_id": 0}
+{"text": "Step count today: 8,421.", "label": "negative", "label_id": 0}
+{"text": "New lesson available in your learning path.", "label": "negative", "label_id": 0}
+{"text": "I found bedbugs in my hotel room. I need to be moved immediately.", "label": "positive", "label_id": 1}
+{"text": "Hey, is there a waitlist for the May cohort?", "label": "negative", "label_id": 0}
+{"text": "Your message has been received. We aim to respond within 24 hours.", "label": "negative", "label_id": 0}
+{"text": "New post from a creator you follow.", "label": "negative", "label_id": 0}
+{"text": "You're now subscribed to weekly updates.", "label": "negative", "label_id": 0}
+{"text": "My direct debit bounced because you took the payment 3 days early.", "label": "positive", "label_id": 1}
+{"text": "This is my last message before I contact the consumer protection agency.", "label": "positive", "label_id": 1}
+{"text": "I was charged twice for the same order. Reverse the duplicate charge today.", "label": "positive", "label_id": 1}
+{"text": "Your wishlist item is back in stock.", "label": "negative", "label_id": 0}
+{"text": "The medication you delivered is a different dosage from what was prescribed.", "label": "positive", "label_id": 1}
+{"text": "New policy update \u2014 review at your convenience.", "label": "negative", "label_id": 0}
+{"text": "Your terms changed without notice and you've already billed me under the new rate.", "label": "positive", "label_id": 1}
+{"text": "Just checking tomorrow's class is still happening.", "label": "negative", "label_id": 0}
+{"text": "There's a wasp nest your pest control team missed, and my son is allergic.", "label": "positive", "label_id": 1}
+{"text": "Your return request has been approved.", "label": "negative", "label_id": 0}
+{"text": "Your catering staff left early and the buffet ran out before half the guests ate.", "label": "positive", "label_id": 1}
+{"text": "Your request has been logged. Reference number: REF-83921.", "label": "negative", "label_id": 0}
+{"text": "The fumes from your product are making my family feel dizzy.", "label": "positive", "label_id": 1}
+{"text": "Your industry report for Q1 is now available.", "label": "negative", "label_id": 0}
+{"text": "I slipped on a wet floor in your premises with no warning sign and hurt my back.", "label": "positive", "label_id": 1}
+{"text": "New achievement unlocked: 10 workouts in a row.", "label": "negative", "label_id": 0}
+{"text": "Your trial ends in 5 days.", "label": "negative", "label_id": 0}
+{"text": "Auto-pay scheduled for the 15th.", "label": "negative", "label_id": 0}
+{"text": "Hey, hope the week is treating you well.", "label": "negative", "label_id": 0}
+{"text": "Sign up for our newsletter and get 10% off.", "label": "negative", "label_id": 0}
+{"text": "Any update? No rush at all!", "label": "negative", "label_id": 0}
+{"text": "The appointment reminder you sent had the wrong time on it.", "label": "positive", "label_id": 1}
+{"text": "The gym equipment your company installed has injured a member.", "label": "positive", "label_id": 1}
+{"text": "Running a bit behind, be there shortly.", "label": "negative", "label_id": 0}
+{"text": "Your nightly backup completed successfully.", "label": "negative", "label_id": 0}
+{"text": "I'm being discharged tomorrow and no one has arranged my home care.", "label": "positive", "label_id": 1}
+{"text": "Your repair team left without telling me and the fault is still there.", "label": "positive", "label_id": 1}
+{"text": "We tried to reach you about your car's extended warranty.", "label": "negative", "label_id": 0}
+{"text": "Is there parking at the venue?", "label": "negative", "label_id": 0}
+{"text": "The two-factor authentication device I use is lost and I'm locked out.", "label": "positive", "label_id": 1}
+{"text": "Your integration is now connected.", "label": "negative", "label_id": 0}
+{"text": "Your free trial starts today. Auto-converts on April 1.", "label": "negative", "label_id": 0}
+{"text": "Upcoming: Team meeting on Thursday at 3pm.", "label": "negative", "label_id": 0}
+{"text": "I need emergency medical records forwarded to a different hospital tonight.", "label": "positive", "label_id": 1}
+{"text": "The booked car service never arrived. I missed my flight.", "label": "positive", "label_id": 1}
+{"text": "New feature flag enabled for your account.", "label": "negative", "label_id": 0}
+{"text": "Your onboarding guide has been updated.", "label": "negative", "label_id": 0}
+{"text": "Thermostat adjusted to 68\u00b0F.", "label": "negative", "label_id": 0}
+{"text": "Account statement emailed to your registered address.", "label": "negative", "label_id": 0}
+{"text": "Your quote expires in 7 days.", "label": "negative", "label_id": 0}
+{"text": "Check out what's new this month.", "label": "negative", "label_id": 0}
+{"text": "The data migration ran but 30% of our records are missing.", "label": "positive", "label_id": 1}
+{"text": "Your cleaning team broke a glass display case and didn't tell me.", "label": "positive", "label_id": 1}
+{"text": "Your loyalty card has been topped up with 500 points.", "label": "negative", "label_id": 0}
+{"text": "Tax documents are ready in your account portal.", "label": "negative", "label_id": 0}
+{"text": "My son made a purchase I didn't authorise. I'd like to discuss this calmly.", "label": "positive", "label_id": 1}
+{"text": "Your booking reminder: haircut at 2pm tomorrow.", "label": "negative", "label_id": 0}
+{"text": "I need to stop a cheque that went out today before it clears.", "label": "positive", "label_id": 1}
+{"text": "The security alarm you installed keeps going off randomly at night.", "label": "positive", "label_id": 1}
+{"text": "File shared with you by a colleague.", "label": "negative", "label_id": 0}
+{"text": "I've been asked for the same proof of identity 4 times.", "label": "positive", "label_id": 1}
+{"text": "You have 5 new followers this week.", "label": "negative", "label_id": 0}
+{"text": "Certificate of completion issued.", "label": "negative", "label_id": 0}
+{"text": "New version of the shared doc is available.", "label": "negative", "label_id": 0}
+{"text": "The tutor I booked through your platform was a no-show twice in a row.", "label": "positive", "label_id": 1}
+{"text": "Your application has been received. We'll be in touch.", "label": "negative", "label_id": 0}
+{"text": "I need a certified copy of my payment history for a legal proceeding.", "label": "positive", "label_id": 1}
+{"text": "The DJ you provided played the wrong playlist for the entire reception.", "label": "positive", "label_id": 1}
+{"text": "I've been getting calls from a number linked to your company that I didn't authorise.", "label": "positive", "label_id": 1}
+{"text": "Poll results are in \u2014 view summary.", "label": "negative", "label_id": 0}
+{"text": "Flash sale ends at midnight. Don't miss out.", "label": "negative", "label_id": 0}
+{"text": "The property management company is charging me for repairs I didn't authorise.", "label": "positive", "label_id": 1}
+{"text": "Email domain authenticated.", "label": "negative", "label_id": 0}
+{"text": "I was told the credit would be applied automatically. It hasn't been after 6 weeks.", "label": "positive", "label_id": 1}
+{"text": "I was told my account would be kept open during the dispute. It's been closed.", "label": "positive", "label_id": 1}
+{"text": "Automated rule triggered: 3 items processed.", "label": "negative", "label_id": 0}
+{"text": "I need a crime reference number from you before I can file the police report.", "label": "positive", "label_id": 1}
+{"text": "The item I ordered is now discontinued but you haven't told me or refunded me.", "label": "positive", "label_id": 1}
+{"text": "I received an inheritance payment and your system flagged it as fraud and froze my account.", "label": "positive", "label_id": 1}
+{"text": "My daughter has been placed in the wrong class and she's very upset.", "label": "positive", "label_id": 1}
+{"text": "Pool maintenance scheduled for Sunday morning. Lane swim reopens at noon.", "label": "negative", "label_id": 0}
+{"text": "Your event photographer left before the speeches. None of them were captured.", "label": "positive", "label_id": 1}
+{"text": "New follower: James H.", "label": "negative", "label_id": 0}
+{"text": "Hi, what's the difference between the Standard and Pro plans?", "label": "negative", "label_id": 0}
+{"text": "I've been excluded from meetings since raising a grievance. This is retaliation.", "label": "positive", "label_id": 1}
+{"text": "Hey, just checking in.", "label": "negative", "label_id": 0}
+{"text": "Safe travels!", "label": "negative", "label_id": 0}
+{"text": "Pre-approval decision: within 2 business days.", "label": "negative", "label_id": 0}
+{"text": "Standing order set up successfully.", "label": "negative", "label_id": 0}
+{"text": "New terms of service \u2014 review by May 1.", "label": "negative", "label_id": 0}
+{"text": "Usage limit reset for the new month.", "label": "negative", "label_id": 0}
+{"text": "Cloud storage sync complete.", "label": "negative", "label_id": 0}
+{"text": "Contract sent for signature.", "label": "negative", "label_id": 0}
+{"text": "Invest before the market crashes \u2014 act now.", "label": "negative", "label_id": 0}
+{"text": "Hi, what format do you need the document in?", "label": "negative", "label_id": 0}
+{"text": "My roof is leaking and the contractor said they'd come Monday. It's Wednesday.", "label": "positive", "label_id": 1}
+{"text": "You've been mentioned in a comment.", "label": "negative", "label_id": 0}
+{"text": "I'm stranded at the airport because your shuttle never showed up.", "label": "positive", "label_id": 1}
+{"text": "I genuinely need this sorted before Thursday or it affects my work significantly.", "label": "positive", "label_id": 1}
+{"text": "Security scan complete \u2014 no threats found.", "label": "negative", "label_id": 0}
+{"text": "There's a suspicious package outside my building and I can't reach building management.", "label": "positive", "label_id": 1}
+{"text": "Hey, do you offer student discounts?", "label": "negative", "label_id": 0}
+{"text": "The accommodation you booked doesn't exist at this address. I'm on the street.", "label": "positive", "label_id": 1}
+{"text": "Hi, can I ask a quick question about your pricing?", "label": "negative", "label_id": 0}
+{"text": "Hi, I think I may have left a jacket there last week.", "label": "negative", "label_id": 0}
+{"text": "I know your team is busy, but this has been going on long enough.", "label": "positive", "label_id": 1}
+{"text": "The structural crack your surveyor flagged as low-risk has now widened significantly.", "label": "positive", "label_id": 1}
+{"text": "You've won a $1000 gift card. Claim it here.", "label": "negative", "label_id": 0}
+{"text": "The temporary staffing agency placed someone who isn't qualified. I need a replacement today.", "label": "positive", "label_id": 1}
+{"text": "Webinar recording available: watch on demand.", "label": "negative", "label_id": 0}
+{"text": "Your staff accused me of shoplifting in front of other customers. I have a receipt.", "label": "positive", "label_id": 1}
+{"text": "You're 300 points from your next reward.", "label": "negative", "label_id": 0}
+{"text": "My case worker is leaving your organisation tomorrow and no one is taking over my case.", "label": "positive", "label_id": 1}
+{"text": "Payment of $12.99 processed successfully.", "label": "negative", "label_id": 0}
+{"text": "My therapist no-showed and I drove 50 minutes. I need a refund and an explanation.", "label": "positive", "label_id": 1}
+{"text": "Do you offer onboarding support?", "label": "negative", "label_id": 0}
+{"text": "Our caterer just cancelled with 6 hours notice. We need a solution now.", "label": "positive", "label_id": 1}
+{"text": "Your smart doorbell detected motion at 7:42am.", "label": "negative", "label_id": 0}
+{"text": "I gave you my number for account purposes only. Why is your marketing team calling me?", "label": "positive", "label_id": 1}
+{"text": "Comment thread resolved.", "label": "negative", "label_id": 0}
+{"text": "Your driver delivered to the wrong address again. I need this fixed before tonight.", "label": "positive", "label_id": 1}
+{"text": "I was discharged too early and I'm back in pain. I need to be readmitted.", "label": "positive", "label_id": 1}
+{"text": "I sent a message 4 days ago with no response. Just want to make sure it got through.", "label": "positive", "label_id": 1}
+{"text": "The API credentials you provided have expired mid-integration.", "label": "positive", "label_id": 1}
+{"text": "A stranger has gained access to my home security camera feed.", "label": "positive", "label_id": 1}
+{"text": "My employer is disputing my timesheet. I need your attendance records.", "label": "positive", "label_id": 1}
+{"text": "My order shows delivered but contains completely different items.", "label": "positive", "label_id": 1}
+{"text": "The shared bin area is full and hasn't been emptied in 3 weeks. It's a health risk.", "label": "positive", "label_id": 1}
+{"text": "I'm about to miss my rent because your transfer took 5 days instead of 1.", "label": "positive", "label_id": 1}
+{"text": "Your account will be suspended unless you verify.", "label": "negative", "label_id": 0}
+{"text": "The childminder told me last night she can't do tomorrow. I have no backup.", "label": "positive", "label_id": 1}
+{"text": "CRM record updated.", "label": "negative", "label_id": 0}
+{"text": "My job interview is in 30 minutes and I have the wrong address. Help.", "label": "positive", "label_id": 1}
+{"text": "System update available \u2014 restart when convenient.", "label": "negative", "label_id": 0}
+{"text": "Your car is ready for collection at the garage.", "label": "negative", "label_id": 0}
+{"text": "Do you have a price list you can share?", "label": "negative", "label_id": 0}
+{"text": "All devices synced and up to date.", "label": "negative", "label_id": 0}
+{"text": "Your smart home device is now connected.", "label": "negative", "label_id": 0}
+{"text": "I paid the invoice in full on the 3rd. You're claiming non-payment.", "label": "positive", "label_id": 1}
+{"text": "Calories logged: 1,840.", "label": "negative", "label_id": 0}
+{"text": "Workspace storage used: 42 GB of 100 GB.", "label": "negative", "label_id": 0}
+{"text": "Your contractor walked off the job halfway through and won't return calls.", "label": "positive", "label_id": 1}
+{"text": "I accidentally deleted a critical production database entry.", "label": "positive", "label_id": 1}
+{"text": "Approval workflow step completed.", "label": "negative", "label_id": 0}
+{"text": "Just dropping by to say hi!", "label": "negative", "label_id": 0}
+{"text": "Your online form doesn't allow me to submit the required document type.", "label": "positive", "label_id": 1}
+{"text": "Car service due in 1,200 miles.", "label": "negative", "label_id": 0}
+{"text": "Credit score update: up 8 points.", "label": "negative", "label_id": 0}
+{"text": "Your system kicked out all users from my organisation account.", "label": "positive", "label_id": 1}
+{"text": "My return flight was cancelled and I'm due at work tomorrow morning.", "label": "positive", "label_id": 1}
+{"text": "Your photo received 18 new likes.", "label": "negative", "label_id": 0}
+{"text": "Hi! Just popping in to check in.", "label": "negative", "label_id": 0}
+{"text": "Reminder: take your 2pm medication.", "label": "negative", "label_id": 0}
+{"text": "Can I add multiple users to my account?", "label": "negative", "label_id": 0}
+{"text": "Your exclusive discount expires in 24 hours.", "label": "negative", "label_id": 0}
+{"text": "You sent me to collections for a bill I paid 3 months ago.", "label": "positive", "label_id": 1}
+{"text": "The power has been out for 14 hours and I have medication that needs refrigeration.", "label": "positive", "label_id": 1}
+{"text": "My disability accommodation wasn't in place when I showed up.", "label": "positive", "label_id": 1}
+{"text": "Your new card will arrive within 5 working days.", "label": "negative", "label_id": 0}
+{"text": "Do you have a referral programme?", "label": "negative", "label_id": 0}
+{"text": "Hey, just wanted to let you know the parcel arrived safely.", "label": "negative", "label_id": 0}
+{"text": "What are your opening hours over Easter?", "label": "negative", "label_id": 0}
+{"text": "Your security guard grabbed my arm without cause. I want this on record.", "label": "positive", "label_id": 1}
+{"text": "I was given a broken device as a replacement for my broken device.", "label": "positive", "label_id": 1}
+{"text": "Hi, do you offer annual billing?", "label": "negative", "label_id": 0}
+{"text": "You've unlocked Gold status. See your new benefits.", "label": "negative", "label_id": 0}
+{"text": "Hey, could you send over last month's report when you get a chance?", "label": "negative", "label_id": 0}
+{"text": "Return label sent to your email address.", "label": "negative", "label_id": 0}
+{"text": "Your pin reminder has been sent to your registered address.", "label": "negative", "label_id": 0}
+{"text": "Meeting notes saved automatically.", "label": "negative", "label_id": 0}
+{"text": "Custom domain verified.", "label": "negative", "label_id": 0}
+{"text": "I need an emergency password reset. I have an investor call in 15 minutes.", "label": "positive", "label_id": 1}
+{"text": "I'm overseas and my card was declined. I have no cash and nowhere to stay.", "label": "positive", "label_id": 1}
+{"text": "The waiver I signed was never disclosed to me. I need it reviewed.", "label": "positive", "label_id": 1}
+{"text": "Report is due at 9am for the board meeting. Can you send it tonight?", "label": "positive", "label_id": 1}
+{"text": "I sent a complaint 3 weeks ago. No response, no acknowledgement.", "label": "positive", "label_id": 1}
+{"text": "My benefits are about to lapse and my case worker isn't responding.", "label": "positive", "label_id": 1}
+{"text": "Your library books are due back on March 20.", "label": "negative", "label_id": 0}
+{"text": "My application has been processing for 12 weeks. The average is 3.", "label": "positive", "label_id": 1}
+{"text": "Your order has cleared our warehouse.", "label": "negative", "label_id": 0}
+{"text": "Download the app and get $5 off your first in-app order.", "label": "negative", "label_id": 0}
+{"text": "Your EV charge is complete. 100% battery.", "label": "negative", "label_id": 0}
+{"text": "Your ad is appearing on content that harms my brand and I need it removed now.", "label": "positive", "label_id": 1}
+{"text": "The pipe your contractor fitted is leaking into the flat below.", "label": "positive", "label_id": 1}
+{"text": "I'm invoking my right to be forgotten. Delete all my data now.", "label": "positive", "label_id": 1}
+{"text": "Our new app feature is ready \u2014 see what's changed.", "label": "negative", "label_id": 0}
+{"text": "Your app is sending notifications to my old number which someone else now has.", "label": "positive", "label_id": 1}
+{"text": "New arrivals in your favourite category.", "label": "negative", "label_id": 0}
+{"text": "Your booking is confirmed. See you on Saturday.", "label": "negative", "label_id": 0}
+{"text": "You charged me a cancellation fee for a booking I cancelled within the window.", "label": "positive", "label_id": 1}
+{"text": "There's a sewage smell coming from the pipes your team worked on.", "label": "positive", "label_id": 1}
+{"text": "New dataset available in your analytics dashboard.", "label": "negative", "label_id": 0}
+{"text": "Your invoice for April is ready. Total: $56.00.", "label": "negative", "label_id": 0}
+{"text": "My hearing aid was sent for repair 5 weeks ago and you've lost track of it.", "label": "positive", "label_id": 1}
+{"text": "Event reminder: networking drinks, Friday 6pm.", "label": "negative", "label_id": 0}
+{"text": "Monitoring alert cleared. Service is healthy.", "label": "negative", "label_id": 0}
+{"text": "I've been kicked out of the live webinar I was hosting.", "label": "positive", "label_id": 1}
+{"text": "Your delivery driver left my front gate open and my dog has escaped.", "label": "positive", "label_id": 1}
+{"text": "I was registered for the wrong course and the deadline to switch has passed.", "label": "positive", "label_id": 1}
+{"text": "New badge earned: Power User.", "label": "negative", "label_id": 0}
+{"text": "Left mine at home \u2014 are you near a chemist?", "label": "negative", "label_id": 0}
+{"text": "I was denied a statutory right \u2014 can you advise?", "label": "positive", "label_id": 1}
+{"text": "I've had no hot water for 4 days. Your emergency line just rings out.", "label": "positive", "label_id": 1}
+{"text": "My carer didn't show up and I can't manage alone today.", "label": "positive", "label_id": 1}
+{"text": "Parking validation expires in 3 hours.", "label": "negative", "label_id": 0}
+{"text": "Just letting you know I'll be 5 minutes late.", "label": "negative", "label_id": 0}
+{"text": "Your contractor cut through a cable and now my alarm system is offline.", "label": "positive", "label_id": 1}
+{"text": "I was sold an item that doesn't match the listing description. I want a full refund.", "label": "positive", "label_id": 1}
+{"text": "I have a job offer contingent on a reference you haven't responded to for 3 weeks.", "label": "positive", "label_id": 1}
+{"text": "Enjoy your holiday!", "label": "negative", "label_id": 0}
+{"text": "Your product caused a severe burn on my arm. I have photos.", "label": "positive", "label_id": 1}
+{"text": "Hi! Do you want me to bring anything on Friday?", "label": "negative", "label_id": 0}
+{"text": "Bag size restrictions apply. See venue website for details.", "label": "negative", "label_id": 0}
+{"text": "I was not told the product contained peanuts. I carry an EpiPen.", "label": "positive", "label_id": 1}
+{"text": "Your cart is saved. Complete your purchase before stock runs out.", "label": "negative", "label_id": 0}
+{"text": "Library closing time is 5pm this Saturday due to a private event.", "label": "negative", "label_id": 0}
+{"text": "I'm being stalked and the person has my address from your platform.", "label": "positive", "label_id": 1}
+{"text": "Earn $500 a day working from home. No experience needed.", "label": "negative", "label_id": 0}
+{"text": "My work permit application relies on a letter you said you'd send last week.", "label": "positive", "label_id": 1}
+{"text": "Your listing expired \u2014 renew to keep it active.", "label": "negative", "label_id": 0}
+{"text": "I need to board in 40 minutes and my boarding pass isn't loading.", "label": "positive", "label_id": 1}
+{"text": "I need prior authorisation before Monday or I pay out of pocket.", "label": "positive", "label_id": 1}
+{"text": "A standing order I cancelled keeps reactivating and taking money.", "label": "positive", "label_id": 1}
+{"text": "The card machine error at your branch overcharged me by $600.", "label": "positive", "label_id": 1}
+{"text": "I need the contract signed by 5pm today or the deal falls through.", "label": "positive", "label_id": 1}
+{"text": "I received a court summons listing your company. Call me.", "label": "positive", "label_id": 1}
+{"text": "Payment received from buyer.", "label": "negative", "label_id": 0}
+{"text": "Merry Christmas! Hope you're having a lovely day.", "label": "negative", "label_id": 0}
+{"text": "The interpreter I was promised for my appointment wasn't there.", "label": "positive", "label_id": 1}
+{"text": "Cheque book ordered \u2014 arrives in 3-5 days.", "label": "negative", "label_id": 0}
+{"text": "Class cancelled due to low attendance.", "label": "negative", "label_id": 0}
+{"text": "Hi, I'm thinking of signing up \u2014 can you tell me more?", "label": "negative", "label_id": 0}
+{"text": "Your vehicle registration has been verified.", "label": "negative", "label_id": 0}
+{"text": "Your item has been reserved for 48 hours.", "label": "negative", "label_id": 0}
+{"text": "I was given wrong directions by your support team and drove 90 minutes out of the way.", "label": "positive", "label_id": 1}
+{"text": "I've been waiting 3 weeks for my refund and nobody responds. This is completely unacceptable.", "label": "positive", "label_id": 1}
+{"text": "I was denied boarding because your agent gave me wrong documentation advice.", "label": "positive", "label_id": 1}
+{"text": "Hi there! Hope you're staying warm.", "label": "negative", "label_id": 0}
+{"text": "I'm recovering from surgery and my home care nurse hasn't arrived.", "label": "positive", "label_id": 1}
+{"text": "Today's specials: Thai Green Curry and Sea Bass.", "label": "negative", "label_id": 0}
+{"text": "My exam result was recorded incorrectly and it's affected my university application.", "label": "positive", "label_id": 1}
+{"text": "Your courier left a fragile medical device outside in the rain.", "label": "positive", "label_id": 1}
+{"text": "Connected account has been unlinked.", "label": "negative", "label_id": 0}
+{"text": "Do you have a newsletter I can sign up for?", "label": "negative", "label_id": 0}
+{"text": "My insurance pre-auth still hasn't come through. Surgery is tomorrow morning.", "label": "positive", "label_id": 1}
+{"text": "Your personalised recommendations are ready.", "label": "negative", "label_id": 0}
+{"text": "Your post is trending in your network.", "label": "negative", "label_id": 0}
+{"text": "My email login changed after your update and I can't recover the old one.", "label": "positive", "label_id": 1}
+{"text": "I need a signed letter on company letterhead and your team keeps sending PDFs.", "label": "positive", "label_id": 1}
+{"text": "Task assigned to you in the project board.", "label": "negative", "label_id": 0}
+{"text": "Your attended event: certificate of attendance will be emailed.", "label": "negative", "label_id": 0}
+{"text": "Just wanted to say thanks for the help last week.", "label": "negative", "label_id": 0}
+{"text": "Instructor change for your Thursday session.", "label": "negative", "label_id": 0}
+{"text": "Test results available to view.", "label": "negative", "label_id": 0}
+{"text": "I can't access my online banking and I have a direct debit going out tonight.", "label": "positive", "label_id": 1}
+{"text": "I was rear-ended and your claims line has had me on hold for 45 minutes.", "label": "positive", "label_id": 1}
+{"text": "Your email address has been updated on your account.", "label": "negative", "label_id": 0}
+{"text": "Reminder: Your appointment is tomorrow at 11am.", "label": "negative", "label_id": 0}
+{"text": "Good morning! \u2600\ufe0f", "label": "negative", "label_id": 0}
+{"text": "My child was injured on your premises and I need the incident report number.", "label": "positive", "label_id": 1}
+{"text": "Your plan has been upgraded to Premium.", "label": "negative", "label_id": 0}
+{"text": "My fence was broken during your garden clearance.", "label": "positive", "label_id": 1}
+{"text": "I'm being harassed by one of your drivers. I have the plate number.", "label": "positive", "label_id": 1}
+{"text": "I need a domestic violence reference number removed from my public profile.", "label": "positive", "label_id": 1}
+{"text": "Good luck tomorrow!", "label": "negative", "label_id": 0}
+{"text": "New arrivals just dropped. Limited stock.", "label": "negative", "label_id": 0}
+{"text": "I'm trying to sell my flat and you won't release the title deeds.", "label": "positive", "label_id": 1}
+{"text": "Happy Friday! Here's 15% off your next order.", "label": "negative", "label_id": 0}
+{"text": "Hi, do you have any upcoming webinars?", "label": "negative", "label_id": 0}
+{"text": "Hope the interview went well!", "label": "negative", "label_id": 0}
+{"text": "I have a screenshot of your team confirming the price. Why am I being charged more?", "label": "positive", "label_id": 1}
+{"text": "Your appointment request has been received.", "label": "negative", "label_id": 0}
+{"text": "You received a new recommendation on your profile.", "label": "negative", "label_id": 0}
+{"text": "Your parcel has arrived at the local depot.", "label": "negative", "label_id": 0}
+{"text": "My neighbour hasn't answered the door in 2 days. Lights are on. I'm worried.", "label": "positive", "label_id": 1}
+{"text": "Based on your history, you might like this.", "label": "negative", "label_id": 0}
+{"text": "The person who handled my last case gave me completely wrong information.", "label": "positive", "label_id": 1}
+{"text": "My pension has been miscalculated and I need it corrected before it's paid out.", "label": "positive", "label_id": 1}
+{"text": "Rate your recent purchase.", "label": "negative", "label_id": 0}
+{"text": "I've been wrongfully dismissed and need the paperwork by tomorrow.", "label": "positive", "label_id": 1}
+{"text": "Do you do gift cards?", "label": "negative", "label_id": 0}
+{"text": "Your order is being prepared by the seller.", "label": "negative", "label_id": 0}
+{"text": "New vendor invoice: $310.00.", "label": "negative", "label_id": 0}
+{"text": "Early bird pricing ends at midnight.", "label": "negative", "label_id": 0}
+{"text": "Your order confirmation: 3 items, arriving Thursday.", "label": "negative", "label_id": 0}
+{"text": "See you then.", "label": "negative", "label_id": 0}
+{"text": "Session saved for later review.", "label": "negative", "label_id": 0}
+{"text": "The lock your team installed doesn't work and I can't get into my own flat.", "label": "positive", "label_id": 1}
+{"text": "Next bin collection: Tuesday.", "label": "negative", "label_id": 0}
+{"text": "The automated emails are sending duplicates to all my clients right now.", "label": "positive", "label_id": 1}
+{"text": "SSL certificate renewed automatically.", "label": "negative", "label_id": 0}
+{"text": "The coupon I applied at checkout didn't work but I was still charged full price.", "label": "positive", "label_id": 1}
+{"text": "I have a safeguarding concern about a member of your staff.", "label": "positive", "label_id": 1}
+{"text": "Your direct deposit has been processed.", "label": "negative", "label_id": 0}
+{"text": "I was a victim of an authorised push payment scam via your bank. What are my rights?", "label": "positive", "label_id": 1}
+{"text": "I specifically requested a ground-floor unit. You gave me a third-floor room.", "label": "positive", "label_id": 1}
+{"text": "We've lowered prices across hundreds of items.", "label": "negative", "label_id": 0}
+{"text": "A colleague accidentally made my private calendar public on your system.", "label": "positive", "label_id": 1}
+{"text": "I was charged a late fee because your billing system went down on the due date.", "label": "positive", "label_id": 1}
+{"text": "Estimated arrival: 8 minutes.", "label": "negative", "label_id": 0}
+{"text": "I'm at customs and the letter you emailed me isn't printing with the right details.", "label": "positive", "label_id": 1}
+{"text": "The webhook stopped firing and orders are piling up unprocessed.", "label": "positive", "label_id": 1}
+{"text": "The swimming pool chlorine level made my children's eyes bleed.", "label": "positive", "label_id": 1}
+{"text": "Hi, just wanted to reach out.", "label": "negative", "label_id": 0}
+{"text": "Your order has been successfully cancelled.", "label": "negative", "label_id": 0}
+{"text": "Your video has been watched 3,200 times.", "label": "negative", "label_id": 0}
+{"text": "Water is pouring through my ceiling from the flat above.", "label": "positive", "label_id": 1}
+{"text": "I accidentally transferred my ISA to the wrong provider. I need this reversed.", "label": "positive", "label_id": 1}
+{"text": "Your seller rating has been updated.", "label": "negative", "label_id": 0}
+{"text": "The product recall affects items I purchased. No one has contacted me.", "label": "positive", "label_id": 1}
+{"text": "The delivery window was 8am-1pm. Still nothing at 6pm.", "label": "positive", "label_id": 1}
+{"text": "I'm being evicted in 5 days and need proof of all my rent payments.", "label": "positive", "label_id": 1}
+{"text": "Your item has been listed for sale.", "label": "negative", "label_id": 0}
+{"text": "I bought a gift card and the code doesn't work. The person I gifted it to is embarrassed.", "label": "positive", "label_id": 1}
+{"text": "Your document was signed by all parties.", "label": "negative", "label_id": 0}
+{"text": "I have a connecting flight in 50 minutes. My first leg just landed. Is there time?", "label": "positive", "label_id": 1}
+{"text": "Hey, just a quick hello.", "label": "negative", "label_id": 0}
+{"text": "We haven't seen you in a while. Here's 10% off to come back.", "label": "negative", "label_id": 0}
+{"text": "I can't access any of my files. The subscription is paid but shows expired.", "label": "positive", "label_id": 1}
+{"text": "Payment reminder: $45 due on March 22.", "label": "negative", "label_id": 0}
+{"text": "I was assaulted on your premises and your security didn't respond.", "label": "positive", "label_id": 1}
+{"text": "The quote I signed off was $900. The final invoice is $2,400.", "label": "positive", "label_id": 1}
+{"text": "What payment methods do you accept?", "label": "negative", "label_id": 0}
+{"text": "Smart meter reading for February: 389 kWh.", "label": "negative", "label_id": 0}
+{"text": "Hi there! Just wanted to say thanks.", "label": "negative", "label_id": 0}
+{"text": "I found used needles near the children's play area at your venue.", "label": "positive", "label_id": 1}
+{"text": "I was told I passed the interview but the offer letter never came.", "label": "positive", "label_id": 1}
+{"text": "Cashback of $4.20 added to your rewards balance.", "label": "negative", "label_id": 0}
+{"text": "Someone has made two unauthorised transactions on my account.", "label": "positive", "label_id": 1}
+{"text": "Good afternoon \u2014 hope all is well!", "label": "negative", "label_id": 0}
+{"text": "I'm in hospital and I need someone to confirm my child's pick-up arrangement.", "label": "positive", "label_id": 1}
+{"text": "Can you send me the link when you have a moment?", "label": "negative", "label_id": 0}
+{"text": "My elderly mother didn't receive her prescription delivery. She has no pills left.", "label": "positive", "label_id": 1}
+{"text": "Fuel efficiency report for last month is ready.", "label": "negative", "label_id": 0}
+{"text": "Your plumber left without shutting off the stopcock and I've had water running for 2 hours.", "label": "positive", "label_id": 1}
+{"text": "I need a letter confirming no adverse credit history for a mortgage application today.", "label": "positive", "label_id": 1}
+{"text": "I was quoted $150 and billed $410. Nobody told me the price changed.", "label": "positive", "label_id": 1}
+{"text": "A receipt for your $49.00 purchase has been sent to your email.", "label": "negative", "label_id": 0}
+{"text": "I need to add an authorised person to collect my daughter urgently.", "label": "positive", "label_id": 1}
+{"text": "The insurance assessor hasn't contacted me and the repair window is closing.", "label": "positive", "label_id": 1}
+{"text": "New payee added to your account.", "label": "negative", "label_id": 0}
+{"text": "Hi, what's the wifi password again?", "label": "negative", "label_id": 0}
+{"text": "I need a letter confirming my account standing sent today for a mortgage application.", "label": "positive", "label_id": 1}
+{"text": "Your health tracker has synced 7 days of activity.", "label": "negative", "label_id": 0}
+{"text": "The wrong name is on my certificate and I need it corrected for a visa application.", "label": "positive", "label_id": 1}
+{"text": "Your takeaway order is being prepared.", "label": "negative", "label_id": 0}
+{"text": "Take care of yourself.", "label": "negative", "label_id": 0}
+{"text": "I need a statement of account going back 2 years for a legal dispute.", "label": "positive", "label_id": 1}
+{"text": "Congratulations! You've been selected to receive a free iPhone 15.", "label": "negative", "label_id": 0}
+{"text": "Hi, who should I contact about changing my appointment time?", "label": "negative", "label_id": 0}
+{"text": "Hey, is there a loyalty programme I should know about?", "label": "negative", "label_id": 0}
+{"text": "My child's nursery sent home someone else's child by mistake today.", "label": "positive", "label_id": 1}
+{"text": "30-day challenge streak: Day 21!", "label": "negative", "label_id": 0}
+{"text": "Booking confirmed: yoga class, Saturday 9am.", "label": "negative", "label_id": 0}
+{"text": "The flat I was shown is not what I moved into. The photos were misleading.", "label": "positive", "label_id": 1}
+{"text": "Hi! Hope you're having a good week.", "label": "negative", "label_id": 0}
+{"text": "I lost my job last week and need a payment pause before I default.", "label": "positive", "label_id": 1}
+{"text": "I'm a nurse and I can't log into the patient management system for my shift.", "label": "positive", "label_id": 1}
+{"text": "Your GP system shows my allergy wrong and a pharmacy almost dispensed the wrong drug.", "label": "positive", "label_id": 1}
+{"text": "Your free storage is 90% full.", "label": "negative", "label_id": 0}
+{"text": "Someone else appears to be logged into my account right now.", "label": "positive", "label_id": 1}
+{"text": "Transcript from your meeting is ready.", "label": "negative", "label_id": 0}
+{"text": "The landlord changed the locks while I was at work. I can't get in.", "label": "positive", "label_id": 1}
+{"text": "The playground equipment your company installed has a sharp broken edge.", "label": "positive", "label_id": 1}
+{"text": "Your comment has been approved and is now visible.", "label": "negative", "label_id": 0}
+{"text": "Database snapshot taken at 02:00.", "label": "negative", "label_id": 0}
+{"text": "Your invoice processing delay is causing us to miss our own customer SLAs.", "label": "positive", "label_id": 1}
+{"text": "Your table preference has been noted for future bookings.", "label": "negative", "label_id": 0}
+{"text": "Your return has been received and is being processed.", "label": "negative", "label_id": 0}
+{"text": "My gym access was suspended even though my membership is current.", "label": "positive", "label_id": 1}
+{"text": "Bill ready: $94.20 due April 1.", "label": "negative", "label_id": 0}
+{"text": "I'm filing a chargeback if this isn't resolved by end of day.", "label": "positive", "label_id": 1}
+{"text": "The ticket was closed without my issue being resolved. Reopen it now.", "label": "positive", "label_id": 1}
+{"text": "My daughter's medical form was not passed on and she needs medication at 2pm.", "label": "positive", "label_id": 1}
+{"text": "I've been on hold for over an hour. My call has dropped twice.", "label": "positive", "label_id": 1}
+{"text": "Deployment successful. Version 2.4.1 is live.", "label": "negative", "label_id": 0}
+{"text": "Hey, thanks for coming last night. Great to catch up.", "label": "negative", "label_id": 0}
+{"text": "Let me know how you get on.", "label": "negative", "label_id": 0}
+{"text": "Can I pause my subscription instead of cancelling?", "label": "negative", "label_id": 0}
+{"text": "Your shared folder was updated by a colleague.", "label": "negative", "label_id": 0}
+{"text": "Your exported CSV file is ready to download.", "label": "negative", "label_id": 0}
+{"text": "Your staff hung up on me twice. I want to speak to a manager immediately.", "label": "positive", "label_id": 1}
+{"text": "Your system shows the payment went through but you're saying it didn't.", "label": "positive", "label_id": 1}
+{"text": "My rental car broke down on the motorway and roadside assistance says 3 hours.", "label": "positive", "label_id": 1}
+{"text": "The item I received isn't what I ordered and it's not a substitution I agreed to.", "label": "positive", "label_id": 1}
+{"text": "4 people reacted to your status update.", "label": "negative", "label_id": 0}
+{"text": "Hi \u2014 just wondering if you offer group discounts.", "label": "negative", "label_id": 0}
+{"text": "This is the third time I'm reporting the same billing error.", "label": "positive", "label_id": 1}
+{"text": "Your nurse gave me the wrong medication dose. I need to speak to someone now.", "label": "positive", "label_id": 1}
+{"text": "I've been blacklisted from a service based on someone else's account history.", "label": "positive", "label_id": 1}
+{"text": "I lost my wallet and I need all my cards frozen immediately.", "label": "positive", "label_id": 1}
+{"text": "The library book you reserved is now available.", "label": "negative", "label_id": 0}
+{"text": "A fire broke out in the bin store and your building management is unreachable.", "label": "positive", "label_id": 1}
+{"text": "The mural on my property wall was painted over without permission.", "label": "positive", "label_id": 1}
+{"text": "Your order qualifies for a free sample \u2014 tap to choose.", "label": "negative", "label_id": 0}
+{"text": "Your automatic renewal ran despite me cancelling through your official cancellation flow.", "label": "positive", "label_id": 1}
+{"text": "My ex-partner is trying to collect my children and is not on the authorised list.", "label": "positive", "label_id": 1}
+{"text": "Can't wait!", "label": "negative", "label_id": 0}
+{"text": "Miss you! We should make plans.", "label": "negative", "label_id": 0}
+{"text": "My access to the course materials was cut off 2 weeks before my exam.", "label": "positive", "label_id": 1}
+{"text": "The charity auction item I won was never delivered and the event was 3 months ago.", "label": "positive", "label_id": 1}
+{"text": "Your flight is on time.", "label": "negative", "label_id": 0}
+{"text": "I ordered a king bed and received a single. I have guests arriving tonight.", "label": "positive", "label_id": 1}
+{"text": "Singles in your area want to meet you.", "label": "negative", "label_id": 0}
+{"text": "I got an automated email saying my application was rejected but no one told me why.", "label": "positive", "label_id": 1}
+{"text": "Hi, what's the minimum contract length?", "label": "negative", "label_id": 0}
+{"text": "Your platform took down my listing without any notice or explanation.", "label": "positive", "label_id": 1}
+{"text": "Sleep report: 7h 34m last night.", "label": "negative", "label_id": 0}
+{"text": "Upload successful \u2014 3 files processed.", "label": "negative", "label_id": 0}
+{"text": "Your event wristband is available to collect from the box office.", "label": "negative", "label_id": 0}
+{"text": "My luggage was lost and your airline is not responding to the claim.", "label": "positive", "label_id": 1}
+{"text": "The haircut I got today is visibly uneven and I have a job interview this afternoon.", "label": "positive", "label_id": 1}
+{"text": "The disputed charge is still showing and I've been waiting 30 days for resolution.", "label": "positive", "label_id": 1}
+{"text": "Your previous agent promised a discount that was never applied.", "label": "positive", "label_id": 1}
+{"text": "Community meeting agenda for March 18 is now available.", "label": "negative", "label_id": 0}
+{"text": "Your SMS gateway isn't delivering OTPs. I can't authenticate users.", "label": "positive", "label_id": 1}
+{"text": "Free delivery on all orders this week.", "label": "negative", "label_id": 0}
+{"text": "What's the best way to cancel if I need to?", "label": "negative", "label_id": 0}
+{"text": "I provided power of attorney documentation and you're still not recognising it.", "label": "positive", "label_id": 1}
+{"text": "Your contractor was supposed to be here between 9 and 12. It's 3pm.", "label": "positive", "label_id": 1}
+{"text": "I submitted my assignment on time but your system logged it as late.", "label": "positive", "label_id": 1}
+{"text": "Review request sent to your recent customer.", "label": "negative", "label_id": 0}
+{"text": "Your water intake goal has been met for today.", "label": "negative", "label_id": 0}
+{"text": "Great to see you yesterday.", "label": "negative", "label_id": 0}
+{"text": "My son's scholarship was withdrawn based on incorrect grades that were later corrected.", "label": "positive", "label_id": 1}
+{"text": "New feature alert: Try it free for 14 days.", "label": "negative", "label_id": 0}
+{"text": "I arrived at the clinic and was told my appointment wasn't in the system.", "label": "positive", "label_id": 1}
+{"text": "My connecting flight was cancelled and your airline is offering a 2-day delay.", "label": "positive", "label_id": 1}
+{"text": "Limited-time bundle deal \u2014 save 30% when you buy together.", "label": "negative", "label_id": 0}
+{"text": "Waitlist spot available for the April session.", "label": "negative", "label_id": 0}
+{"text": "My account was merged with another customer's without my knowledge.", "label": "positive", "label_id": 1}
+{"text": "Your home insurance quote is ready to view.", "label": "negative", "label_id": 0}
+{"text": "Monthly report ready in your dashboard.", "label": "negative", "label_id": 0}
+{"text": "Venue has changed for next week's event.", "label": "negative", "label_id": 0}
+{"text": "My allergy was on my booking form and you still served me something I'm allergic to.", "label": "positive", "label_id": 1}
+{"text": "Rollout complete \u2014 all users updated.", "label": "negative", "label_id": 0}
+{"text": "I'm receiving billing emails for an account I don't own.", "label": "positive", "label_id": 1}
+{"text": "Your ad used my photo without permission.", "label": "positive", "label_id": 1}
+{"text": "I submitted my passport renewal 9 weeks ago. My flight is in 4 days.", "label": "positive", "label_id": 1}
+{"text": "Someone sent you a connection request.", "label": "negative", "label_id": 0}
+{"text": "Policy documents sent to your email.", "label": "negative", "label_id": 0}
+{"text": "I have a court date on Monday and still haven't received the paperwork.", "label": "positive", "label_id": 1}
+{"text": "Two-for-one on all main courses today only.", "label": "negative", "label_id": 0}
+{"text": "I need to revoke access from a former employee before they download our data.", "label": "positive", "label_id": 1}
+{"text": "Pickup is ready at our Main Street store.", "label": "negative", "label_id": 0}
+{"text": "New menu items available. Check what's new near you.", "label": "negative", "label_id": 0}
+{"text": "The cruise ship leaves in 3 hours and my cabin key isn't working.", "label": "positive", "label_id": 1}
+{"text": "Your article got 60 reactions.", "label": "negative", "label_id": 0}
+{"text": "I haven't had hot water in 8 days. I've sent 4 messages.", "label": "positive", "label_id": 1}
+{"text": "Your survey says my flight is delayed but the departures board says on time. Which is it?", "label": "positive", "label_id": 1}
+{"text": "Your auction ends in 2 hours.", "label": "negative", "label_id": 0}
+{"text": "My flight is in 4 hours and I still don't have the booking confirmation.", "label": "positive", "label_id": 1}
+{"text": "Your API has been returning 500 errors for 3 hours.", "label": "positive", "label_id": 1}
+{"text": "Last chance: sale ends in 6 hours.", "label": "negative", "label_id": 0}
+{"text": "Product changelog for v3.2 is now live.", "label": "negative", "label_id": 0}
+{"text": "I need to remove a co-borrower from my account urgently due to a personal matter.", "label": "positive", "label_id": 1}
+{"text": "Someone shared your post.", "label": "negative", "label_id": 0}
+{"text": "I paid for same-day alterations and my suit is still not ready 3 days later.", "label": "positive", "label_id": 1}
+{"text": "I've been locked in my car in extreme heat and my phone is about to die.", "label": "positive", "label_id": 1}
+{"text": "I've been receiving someone else's account statements for 3 months.", "label": "positive", "label_id": 1}
+{"text": "My company hasn't paid me in 6 weeks. I don't know what to do.", "label": "positive", "label_id": 1}
+{"text": "A friend just joined the platform.", "label": "negative", "label_id": 0}
+{"text": "My HVAC broke. It's 96 degrees inside and I have a newborn.", "label": "positive", "label_id": 1}
+{"text": "Hello dear, I have a very good business proposal.", "label": "negative", "label_id": 0}
+{"text": "Just parked. Coming up.", "label": "negative", "label_id": 0}
+{"text": "Your parcel is 4 stops away.", "label": "negative", "label_id": 0}
+{"text": "Hi, is there a mobile app?", "label": "negative", "label_id": 0}
+{"text": "I'm diabetic, my blood sugar is dangerously low, and I'm stranded.", "label": "positive", "label_id": 1}
+{"text": "I've been a victim of fraud through your platform and I need this on record.", "label": "positive", "label_id": 1}
+{"text": "Summer sale preview \u2014 unlock early access with the app.", "label": "negative", "label_id": 0}
+{"text": "I need a Subject Access Request processed within the 30-day legal window.", "label": "positive", "label_id": 1}
+{"text": "Your sales rep promised a discount tier that your billing team is refusing to apply.", "label": "positive", "label_id": 1}
+{"text": "Your subscription included cloud backup and all my files are gone.", "label": "positive", "label_id": 1}
+{"text": "Lead assigned to your pipeline.", "label": "negative", "label_id": 0}
+{"text": "Celebrating 10 years \u2014 free gift with every order this weekend.", "label": "negative", "label_id": 0}
+{"text": "Nobody from your team showed up for the scheduled inspection.", "label": "positive", "label_id": 1}
+{"text": "URGENT: Your account requires immediate verification.", "label": "negative", "label_id": 0}
+{"text": "All items in your order have been dispatched.", "label": "negative", "label_id": 0}
+{"text": "You were randomly selected for a cash prize.", "label": "negative", "label_id": 0}
+{"text": "Daily summary: 7 tasks completed today.", "label": "negative", "label_id": 0}
+{"text": "Hey, did you get my last message?", "label": "negative", "label_id": 0}
+{"text": "I was overcharged on currency exchange and you won't show me the rate applied.", "label": "positive", "label_id": 1}
+{"text": "My child had an incident at your facility and I wasn't notified for 4 hours.", "label": "positive", "label_id": 1}
+{"text": "New item added to your saved list.", "label": "negative", "label_id": 0}
+{"text": "Unclaimed tax refund in your name.", "label": "negative", "label_id": 0}
+{"text": "VIP preview: you've been selected.", "label": "negative", "label_id": 0}
+{"text": "I hired a babysitter through your platform and they didn't show up.", "label": "positive", "label_id": 1}
+{"text": "I smelled gas when your technician left. Should I evacuate?", "label": "positive", "label_id": 1}
+{"text": "Your subscription has been paused. Resumes in 30 days.", "label": "negative", "label_id": 0}
+{"text": "I received a letter meant for another customer with their personal details.", "label": "positive", "label_id": 1}
+{"text": "I was bumped from my flight without compensation or an alternative.", "label": "positive", "label_id": 1}
+{"text": "The after-school club closed early and my child was left unsupervised.", "label": "positive", "label_id": 1}
+{"text": "Price drop on an item you've been watching.", "label": "negative", "label_id": 0}
+{"text": "Earn Bitcoin daily with zero investment.", "label": "negative", "label_id": 0}
+{"text": "My visa appointment is tomorrow and I'm still missing the document you were supposed to send.", "label": "positive", "label_id": 1}
+{"text": "You debited $340 and I authorised $120. I want the difference back today.", "label": "positive", "label_id": 1}
+{"text": "Heading out now, see you in a bit.", "label": "negative", "label_id": 0}
+{"text": "Scheduled post published successfully.", "label": "negative", "label_id": 0}
+{"text": "Someone is impersonating me on your platform using my real photos.", "label": "positive", "label_id": 1}
+{"text": "Hi, where should I park when I come in?", "label": "negative", "label_id": 0}
+{"text": "Hey, what's included in the basic package?", "label": "negative", "label_id": 0}
+{"text": "Your delivery driver backed into my front gate.", "label": "positive", "label_id": 1}
+{"text": "You saved $28.40 this month.", "label": "negative", "label_id": 0}
+{"text": "The hospital billed me for a procedure that was covered by my plan.", "label": "positive", "label_id": 1}
+{"text": "Can I export my data?", "label": "negative", "label_id": 0}
+{"text": "I've been double-charged every month for the past 5 months.", "label": "positive", "label_id": 1}
+{"text": "My health insurance lapsed because of a processing error on your end.", "label": "positive", "label_id": 1}
+{"text": "File download complete.", "label": "negative", "label_id": 0}
+{"text": "Scheduled maintenance tonight 1am-3am. Brief outage expected.", "label": "negative", "label_id": 0}
+{"text": "Hi, is this the right number for general enquiries?", "label": "negative", "label_id": 0}
+{"text": "Your parcel is on hold \u2014 pay $2.99 to release it.", "label": "negative", "label_id": 0}
+{"text": "I was arrested at your store security checkpoint for something I didn't do.", "label": "positive", "label_id": 1}
+{"text": "The venue needs final headcount in the next hour or they release our booking.", "label": "positive", "label_id": 1}
+{"text": "The mobile app crashes every time I open the payment screen.", "label": "positive", "label_id": 1}
+{"text": "I was told the foreign transaction fee would be waived. It wasn't.", "label": "positive", "label_id": 1}
+{"text": "I was promised a callback that never came. That was 3 days ago.", "label": "positive", "label_id": 1}
+{"text": "The payment you processed has the wrong account number. Where did the money go?", "label": "positive", "label_id": 1}
+{"text": "I've been incorrectly listed as deceased in your system. Everything is blocked.", "label": "positive", "label_id": 1}
+{"text": "I'm locked out of the holiday rental. The code you provided doesn't work.", "label": "positive", "label_id": 1}
+{"text": "My entire customer database was wiped after your update.", "label": "positive", "label_id": 1}
+{"text": "Your MOT expires in 3 months.", "label": "negative", "label_id": 0}
+{"text": "Hi, the booking confirmation says 6pm but the original quote said 4pm. Which is right?", "label": "positive", "label_id": 1}
+{"text": "You've been outbid. Current price: $38.", "label": "negative", "label_id": 0}
+{"text": "I'm not in a panic but the keys haven't arrived and I move in tomorrow.", "label": "positive", "label_id": 1}
+{"text": "I'm in the ER right now and need my insurance information urgently.", "label": "positive", "label_id": 1}
+{"text": "Looking forward to it!", "label": "negative", "label_id": 0}
+{"text": "Sprint planning meeting scheduled for Monday.", "label": "negative", "label_id": 0}
+{"text": "Hello! Hope the day is going smoothly.", "label": "negative", "label_id": 0}
+{"text": "My GP referral was sent to the wrong hospital and I've missed my appointment window.", "label": "positive", "label_id": 1}
+{"text": "The flood barrier you installed wasn't sealed properly and water got in.", "label": "positive", "label_id": 1}
+{"text": "A competitor appears to be using my trademarked name. I need to escalate this.", "label": "positive", "label_id": 1}
+{"text": "I have photographic evidence of your delivery driver dropping my parcel and walking away.", "label": "positive", "label_id": 1}
+{"text": "Thanks so much for dinner last night!", "label": "negative", "label_id": 0}
+{"text": "Your next dentist appointment is April 22 at 10am.", "label": "negative", "label_id": 0}
+{"text": "Newsletter: March edition is out now.", "label": "negative", "label_id": 0}
+{"text": "I need an emergency loan approval before Friday or I lose my home.", "label": "positive", "label_id": 1}
+{"text": "My car insurance lapsed because your renewal letter went to my old address. I've been driving uninsured.", "label": "positive", "label_id": 1}
+{"text": "Someone viewed your profile today.", "label": "negative", "label_id": 0}
+{"text": "I need a signed NDA before the meeting on Tuesday or we can't proceed.", "label": "positive", "label_id": 1}
+{"text": "User removed from the project.", "label": "negative", "label_id": 0}
+{"text": "I had a fall on your premises and the floor was wet with no warning sign.", "label": "positive", "label_id": 1}
+{"text": "Your billing information has been updated.", "label": "negative", "label_id": 0}
+{"text": "Gate C4. Boarding at 14:45.", "label": "negative", "label_id": 0}
+{"text": "I'm being charged for a premium plan I never upgraded to.", "label": "positive", "label_id": 1}
+{"text": "The movers arrive in 90 minutes and the building won't let them in without confirmation.", "label": "positive", "label_id": 1}
+{"text": "The technician is approximately 20 minutes away.", "label": "negative", "label_id": 0}
+{"text": "Welcome! Your account is now active.", "label": "negative", "label_id": 0}
+{"text": "Your event staff let someone intoxicated drive away from the car park.", "label": "positive", "label_id": 1}
+{"text": "Event tonight: open mic at The Green Room, 8pm.", "label": "negative", "label_id": 0}
+{"text": "Your loan application is under review.", "label": "negative", "label_id": 0}
+{"text": "I'm being bullied at work and HR closed my complaint without investigation.", "label": "positive", "label_id": 1}
+{"text": "Free tier usage at 75%.", "label": "negative", "label_id": 0}
+{"text": "Quarterly review scheduled for April 14.", "label": "negative", "label_id": 0}
+{"text": "I need an invoice corrected before I can get it approved by accounts.", "label": "positive", "label_id": 1}
+{"text": "Your system sent my medical records to the wrong patient.", "label": "positive", "label_id": 1}
+{"text": "I was separated from my travel group at the airport. No one is answering.", "label": "positive", "label_id": 1}
+{"text": "The supplier needs the PO today or the shipment goes out next month.", "label": "positive", "label_id": 1}
+{"text": "A pipe burst in my kitchen while your plumber was doing work next door.", "label": "positive", "label_id": 1}
+{"text": "Hi! Hope you had a great weekend.", "label": "negative", "label_id": 0}
+{"text": "Your agent told me the refund would be processed in 3 days. It's been 10.", "label": "positive", "label_id": 1}
+{"text": "My reference hasn't been sent and my start date is in 3 days.", "label": "positive", "label_id": 1}
+{"text": "Your subscription has been renewed. Next billing date: April 15.", "label": "negative", "label_id": 0}
+{"text": "My username was changed by someone and I don't know how to get it back.", "label": "positive", "label_id": 1}
+{"text": "Event capacity reached.", "label": "negative", "label_id": 0}
+{"text": "New help article added to your knowledge base.", "label": "negative", "label_id": 0}
+{"text": "Pre-show drinks available from 6:30pm.", "label": "negative", "label_id": 0}
+{"text": "Your agent shared my home address in a group message.", "label": "positive", "label_id": 1}
+{"text": "You charged me twice in the same day from two different system entries.", "label": "positive", "label_id": 1}
+{"text": "My grandmother just passed. I need to cancel all our upcoming bookings.", "label": "positive", "label_id": 1}
+{"text": "Sarah liked your post.", "label": "negative", "label_id": 0}
+{"text": "Survey submitted \u2014 thanks for your time.", "label": "negative", "label_id": 0}
+{"text": "My payslip is wrong for the third month and HR isn't responding.", "label": "positive", "label_id": 1}
+{"text": "Green bin: Wednesday. Black bin: next Wednesday.", "label": "negative", "label_id": 0}
+{"text": "Flight status: arrived on time.", "label": "negative", "label_id": 0}
+{"text": "You charged me an overdraft fee caused by your own processing delay.", "label": "positive", "label_id": 1}
+{"text": "Next rubbish collection: Monday.", "label": "negative", "label_id": 0}
+{"text": "Your automated report ran without errors.", "label": "negative", "label_id": 0}
+{"text": "I have a letter of confirmation that the charge was waived. You're billing it again.", "label": "positive", "label_id": 1}
+{"text": "I have a parking fine that was issued while my car was with your garage.", "label": "positive", "label_id": 1}
+{"text": "Hey, happy birthday for tomorrow!", "label": "negative", "label_id": 0}
+{"text": "The fire alarm in my building keeps triggering at 3am. Management ignores me.", "label": "positive", "label_id": 1}
+{"text": "Do you have the address for the event?", "label": "negative", "label_id": 0}
+{"text": "I found a foreign object in the food I ordered from you.", "label": "positive", "label_id": 1}
+{"text": "The background check report you sent has another person's criminal record in it.", "label": "positive", "label_id": 1}
+{"text": "Your server backup failed last night and I need to know if data is recoverable.", "label": "positive", "label_id": 1}
+{"text": "Nightly backup completed. No errors.", "label": "negative", "label_id": 0}
+{"text": "I've spotted my account listed on a data breach forum.", "label": "positive", "label_id": 1}
+{"text": "Item sold \u2014 print your shipping label.", "label": "negative", "label_id": 0}
+{"text": "Happy Wednesday!", "label": "negative", "label_id": 0}
+{"text": "I hired your service for a one-off deep clean and they only did 2 rooms.", "label": "positive", "label_id": 1}
+{"text": "Your invoice has been marked paid.", "label": "negative", "label_id": 0}
+{"text": "You shared my personal data with a third party without my consent.", "label": "positive", "label_id": 1}
+{"text": "My landlord hasn't responded about the damp issue in 3 weeks.", "label": "positive", "label_id": 1}
+{"text": "The client demo starts in an hour and the account dashboard is broken.", "label": "positive", "label_id": 1}
+{"text": "I was promised installation today. Now you're saying next Thursday.", "label": "positive", "label_id": 1}
+{"text": "Thumbs up \u2014 all good.", "label": "negative", "label_id": 0}
+{"text": "Welcome back!", "label": "negative", "label_id": 0}
+{"text": "Delivery attempted at 3:02pm. A card has been left at your door.", "label": "negative", "label_id": 0}
+{"text": "I already spoke to two agents who gave me contradictory information. Please escalate.", "label": "positive", "label_id": 1}
+{"text": "The certification I paid for hasn't been issued and the course ended 6 weeks ago.", "label": "positive", "label_id": 1}
+{"text": "I'm having an allergic reaction to the medication your clinic prescribed.", "label": "positive", "label_id": 1}
+{"text": "Tonight only: 25% off all orders placed before 11pm.", "label": "negative", "label_id": 0}
+{"text": "The package was clearly dropped and my item is broken.", "label": "positive", "label_id": 1}
+{"text": "Domain renewal in 60 days.", "label": "negative", "label_id": 0}
+{"text": "Annual boiler service reminder.", "label": "negative", "label_id": 0}
+{"text": "You've successfully unsubscribed from promotional messages.", "label": "negative", "label_id": 0}
+{"text": "Today's workout has been logged.", "label": "negative", "label_id": 0}
+{"text": "Your food allergy preference has been saved to your profile.", "label": "negative", "label_id": 0}
+{"text": "My company payroll is stuck in your system and salaries need to go out tomorrow.", "label": "positive", "label_id": 1}
+{"text": "Is there a FAQ page I can check?", "label": "negative", "label_id": 0}
+{"text": "My business partner removed me as an admin and I need access restored urgently.", "label": "positive", "label_id": 1}
+{"text": "I want a formal complaint on record. Your service has been absolutely appalling.", "label": "positive", "label_id": 1}
+{"text": "Just confirming our lunch is still on for Thursday.", "label": "negative", "label_id": 0}
+{"text": "Your order #4821 has been dispatched. Estimated delivery: Wednesday.", "label": "negative", "label_id": 0}
+{"text": "Case study published: how Company X cut costs by 30%.", "label": "negative", "label_id": 0}
+{"text": "I have stage 3 cancer and I need the insurance paperwork sorted before my operation.", "label": "positive", "label_id": 1}
+{"text": "I paid the tuition deposit and you've given my place to someone else.", "label": "positive", "label_id": 1}
+{"text": "Data export ready to download.", "label": "negative", "label_id": 0}
+{"text": "Monthly invoice ready. Total: $89.00.", "label": "negative", "label_id": 0}
+{"text": "I realise this is a small thing but I've been waiting 3 weeks for a simple answer.", "label": "positive", "label_id": 1}
+{"text": "My subscription is in my late husband's name and I can't access the account.", "label": "positive", "label_id": 1}
+{"text": "My son is missing. Can you check if he logged into this account recently?", "label": "positive", "label_id": 1}
+{"text": "New podcast episode from a creator you follow.", "label": "negative", "label_id": 0}
+{"text": "Auto-archive enabled on messages older than 90 days.", "label": "negative", "label_id": 0}
+{"text": "E-signature received.", "label": "negative", "label_id": 0}
+{"text": "Your chatbot has been looping me for 20 minutes. I need a human right now.", "label": "positive", "label_id": 1}
+{"text": "My insurer denied my claim but the policy clearly covers this.", "label": "positive", "label_id": 1}
+{"text": "My tour guide never met us at the pickup point.", "label": "positive", "label_id": 1}
+{"text": "New RSVP for your event.", "label": "negative", "label_id": 0}
+{"text": "I've been locked out of my business account for 48 hours and can't take payments.", "label": "positive", "label_id": 1}
+{"text": "The boiler you said was fine at the inspection failed 2 days later. We have no heating.", "label": "positive", "label_id": 1}
+{"text": "My name has been changed on my account without my request.", "label": "positive", "label_id": 1}
+{"text": "My refund was supposed to arrive 8 business days ago. It hasn't.", "label": "positive", "label_id": 1}
+{"text": "My child was excluded from the school trip due to a clerical error on your system.", "label": "positive", "label_id": 1}
+{"text": "My team members can no longer see shared documents after the migration.", "label": "positive", "label_id": 1}
+{"text": "Tyre pressure alert: front left slightly low.", "label": "negative", "label_id": 0}
+{"text": "API key generated.", "label": "negative", "label_id": 0}
+{"text": "There's been a natural disaster warning and I need help evacuating.", "label": "positive", "label_id": 1}
+{"text": "Hi, do you have any availability this month?", "label": "negative", "label_id": 0}
+{"text": "Weekend sale \u2014 up to 40% off sitewide. Ends Sunday.", "label": "negative", "label_id": 0}
+{"text": "The ceremony starts in 2 hours and the venue hasn't confirmed our booking.", "label": "positive", "label_id": 1}
+{"text": "Members get early access to our sale. Shop now.", "label": "negative", "label_id": 0}
+{"text": "Your loyalty tier has been recalculated.", "label": "negative", "label_id": 0}
+{"text": "The flight you rebooked me on connects through a country I can't enter with my passport.", "label": "positive", "label_id": 1}
+{"text": "My deposit has been held for 3 months beyond the legal deadline.", "label": "positive", "label_id": 1}
+{"text": "I escalated this yesterday. I need confirmation it's actually been actioned.", "label": "positive", "label_id": 1}
+{"text": "I paid for priority service. There's nothing priority about this.", "label": "positive", "label_id": 1}
+{"text": "I had a panic attack during your service and your staff didn't respond properly.", "label": "positive", "label_id": 1}
+{"text": "Not trying to be difficult \u2014 I just need to know if my order will arrive before Christmas.", "label": "positive", "label_id": 1}
+{"text": "Your analytics report is ready for the week ending March 9.", "label": "negative", "label_id": 0}
+{"text": "I need this document apostilled before 4pm or I miss my immigration deadline.", "label": "positive", "label_id": 1}
+{"text": "Service history updated.", "label": "negative", "label_id": 0}
+{"text": "I sent sensitive documents to the wrong email via your platform.", "label": "positive", "label_id": 1}
+{"text": "My child support payment hasn't arrived and it was due 10 days ago.", "label": "positive", "label_id": 1}
+{"text": "Happy New Year! Wishing you all the best.", "label": "negative", "label_id": 0}
+{"text": "I don't want to escalate but I'm not getting anywhere through normal channels.", "label": "positive", "label_id": 1}
+{"text": "Store hours this week: Mon-Fri 8:30am-5:30pm.", "label": "negative", "label_id": 0}
+{"text": "New collection live now. Be the first to explore it.", "label": "negative", "label_id": 0}
+{"text": "Budget goal on track for April.", "label": "negative", "label_id": 0}
+{"text": "My maternity leave pay was calculated incorrectly.", "label": "positive", "label_id": 1}
+{"text": "Your contractor left exposed live wires at the job site.", "label": "positive", "label_id": 1}
+{"text": "I found my furniture scratched after your removal team left.", "label": "positive", "label_id": 1}
+{"text": "Exclusive offer: 3 months free when you upgrade today.", "label": "negative", "label_id": 0}
+{"text": "International transfer limits apply after 10pm.", "label": "negative", "label_id": 0}
+{"text": "I went to collect my parcel and the depot says it was returned but I never got a card.", "label": "positive", "label_id": 1}
+{"text": "Hi, I don't want to cause trouble but this is the fourth time I'm asking about my refund.", "label": "positive", "label_id": 1}
+{"text": "High usage detected on your account \u2014 view details.", "label": "negative", "label_id": 0}
+{"text": "I was told the issue would be resolved on Monday. It's Friday.", "label": "positive", "label_id": 1}
+{"text": "I can hear the gas hissing from the pipe your plumber touched.", "label": "positive", "label_id": 1}
+{"text": "My neighbour's tree fell onto my roof during last night's storm.", "label": "positive", "label_id": 1}
+{"text": "Do you accept walk-ins on Mondays?", "label": "negative", "label_id": 0}
+{"text": "Prescription refill due \u2014 contact your pharmacy.", "label": "negative", "label_id": 0}
+{"text": "Your home insurance renews on May 1.", "label": "negative", "label_id": 0}
+{"text": "Buy 2, get 1 free on all accessories.", "label": "negative", "label_id": 0}
+{"text": "Earn double points on all purchases this weekend.", "label": "negative", "label_id": 0}
+{"text": "Let's catch up soon.", "label": "negative", "label_id": 0}
+{"text": "The wedding dress you altered is now too small. The wedding is on Saturday.", "label": "positive", "label_id": 1}
+{"text": "What time does the session start again?", "label": "negative", "label_id": 0}
+{"text": "The photo of my child was used in your marketing material without consent.", "label": "positive", "label_id": 1}
+{"text": "The emergency exit in my flat is blocked by your contractor's equipment.", "label": "positive", "label_id": 1}
+{"text": "My heating hasn't worked for 6 weeks. It's winter and I have young children.", "label": "positive", "label_id": 1}
+{"text": "I'm stuck at an international airport with no transit visa and no guidance.", "label": "positive", "label_id": 1}
+{"text": "Hi, is this account still active?", "label": "negative", "label_id": 0}
+{"text": "Congrats on the promotion \u2014 well deserved!", "label": "negative", "label_id": 0}
+{"text": "Morning! Thinking of you.", "label": "negative", "label_id": 0}
+{"text": "The lift hasn't worked for 4 days. I'm on the 12th floor with a mobility issue.", "label": "positive", "label_id": 1}
+{"text": "Your pre-order has shipped. Delivery in 2-3 days.", "label": "negative", "label_id": 0}
+{"text": "Your feedback was submitted anonymously.", "label": "negative", "label_id": 0}
+{"text": "Your account has been verified successfully.", "label": "negative", "label_id": 0}
+{"text": "A negative review was posted to my business profile and it violates your own policies.", "label": "positive", "label_id": 1}
+{"text": "Your referral reward of $15 has been added to your balance.", "label": "negative", "label_id": 0}
+{"text": "Your app is showing my balance as zero but I transferred $2,000 this morning.", "label": "positive", "label_id": 1}
+{"text": "The flowers you delivered were dead on arrival. The funeral was this morning.", "label": "positive", "label_id": 1}
+{"text": "My grant application was due today and your portal was down all morning.", "label": "positive", "label_id": 1}
+{"text": "Prescription ran out yesterday. The pharmacy says there's no refill on file.", "label": "positive", "label_id": 1}
+{"text": "My debit card is showing a pending charge from your company for $780.", "label": "positive", "label_id": 1}
+{"text": "I've used 3 different contact channels and no one has replied to any of them.", "label": "positive", "label_id": 1}
+{"text": "Just checking \u2014 my surgery is tomorrow and I haven't received the pre-op instructions.", "label": "positive", "label_id": 1}
+{"text": "Your SLA compliance report is ready.", "label": "negative", "label_id": 0}
+{"text": "Click & Collect order ready. Valid for 7 days.", "label": "negative", "label_id": 0}
+{"text": "Your table for 4 is confirmed at 7:30pm.", "label": "negative", "label_id": 0}
+{"text": "I'm copying my solicitor on this thread going forward.", "label": "positive", "label_id": 1}
+{"text": "Team member joined your workspace.", "label": "negative", "label_id": 0}
+{"text": "Your listing has received 12 views today.", "label": "negative", "label_id": 0}
+{"text": "New comment on a thread you follow.", "label": "negative", "label_id": 0}
+{"text": "Congrats on the new baby!", "label": "negative", "label_id": 0}
+{"text": "The coach I booked has broken down and there's no replacement arranged.", "label": "positive", "label_id": 1}
+{"text": "My entire email archive has disappeared after your server migration.", "label": "positive", "label_id": 1}
+{"text": "I submitted a claim with all required documents. You say you haven't received them.", "label": "positive", "label_id": 1}
+{"text": "Exclusive early access for you. Starts tomorrow at 9am.", "label": "negative", "label_id": 0}
+{"text": "I can't collect my son from school \u2014 can someone authorise a different adult?", "label": "positive", "label_id": 1}
+{"text": "Your hotel check-in time is 3pm.", "label": "negative", "label_id": 0}
+{"text": "The hotel charged me for a room I checked out of early, as agreed in writing.", "label": "positive", "label_id": 1}
+{"text": "I accidentally sent payment to the wrong account. Is there any way to reverse it?", "label": "positive", "label_id": 1}
+{"text": "I asked for this to be escalated 4 days ago. Still nothing.", "label": "positive", "label_id": 1}
+{"text": "I need a signed data processing agreement before we continue working together.", "label": "positive", "label_id": 1}
+{"text": "You've been active for 30 days straight.", "label": "negative", "label_id": 0}
+{"text": "Your payment method has been saved.", "label": "negative", "label_id": 0}
+{"text": "Today's air quality: Good.", "label": "negative", "label_id": 0}
+{"text": "Invite a colleague and get a free month.", "label": "negative", "label_id": 0}
+{"text": "2 new articles match your interests.", "label": "negative", "label_id": 0}
+{"text": "Your platform published my draft post as live and it went to 40,000 people.", "label": "positive", "label_id": 1}
+{"text": "Weekly digest: 4 new messages, 2 pending tasks.", "label": "negative", "label_id": 0}
+{"text": "The check engine light came on the same day you serviced my car.", "label": "positive", "label_id": 1}
+{"text": "Your store is refusing to accept a return within the stated return window.", "label": "positive", "label_id": 1}
+{"text": "Mention in project channel: check it out.", "label": "negative", "label_id": 0}
+{"text": "Your contractor used the wrong paint and now I can't get it off my windows.", "label": "positive", "label_id": 1}
+{"text": "Integration test passed \u2014 all green.", "label": "negative", "label_id": 0}
+{"text": "Unused credits expire March 31.", "label": "negative", "label_id": 0}
+{"text": "Your booking system double-charged me for the same seat.", "label": "positive", "label_id": 1}
+{"text": "I sat at the restaurant for 45 minutes and no one took my order.", "label": "positive", "label_id": 1}
+{"text": "Your complaint has been registered. We'll respond within 5 business days.", "label": "negative", "label_id": 0}
+{"text": "Members-only preview starts in 1 hour.", "label": "negative", "label_id": 0}
+{"text": "I never made this purchase. This looks like fraud.", "label": "positive", "label_id": 1}
+{"text": "New comment on your document.", "label": "negative", "label_id": 0}
+{"text": "The catering delivery was missing half the items and guests are arriving shortly.", "label": "positive", "label_id": 1}
+{"text": "Refer a friend and earn $25 each.", "label": "negative", "label_id": 0}
+{"text": "Reservation reminder: dinner tonight at 8pm.", "label": "negative", "label_id": 0}
+{"text": "Document opened by recipient.", "label": "negative", "label_id": 0}
+{"text": "My entire team is locked out of the dashboard before the client review.", "label": "positive", "label_id": 1}
+{"text": "Hey \u2014 long time no talk!", "label": "negative", "label_id": 0}
+{"text": "New message in your inbox from the support team.", "label": "negative", "label_id": 0}
+{"text": "That film was great, thanks for recommending it.", "label": "negative", "label_id": 0}
+{"text": "Hi, what's your standard return policy?", "label": "negative", "label_id": 0}
+{"text": "Hi! When is your next available appointment?", "label": "negative", "label_id": 0}
+{"text": "I've been trying to book a specialist for 3 weeks and the system keeps rejecting me.", "label": "positive", "label_id": 1}
+{"text": "My account manager hasn't responded in 11 days.", "label": "positive", "label_id": 1}
+{"text": "The plumber fixed one leak but left another worse one underneath.", "label": "positive", "label_id": 1}
+{"text": "I was promised a room upgrade at check-in and received a downgrade instead.", "label": "positive", "label_id": 1}
+{"text": "Recycling collection is on Thursday this week.", "label": "negative", "label_id": 0}
+{"text": "I haven't received my monthly prescription pack and it's been 11 days.", "label": "positive", "label_id": 1}
+{"text": "Your seat upgrade request has been noted.", "label": "negative", "label_id": 0}
+{"text": "I'm going through a divorce and need to remove the joint account holder.", "label": "positive", "label_id": 1}
+{"text": "Your Pro plan renews in 3 days.", "label": "negative", "label_id": 0}
+{"text": "The product batch you sent us is out of spec. We can't ship to our clients.", "label": "positive", "label_id": 1}
+{"text": "Form submitted successfully.", "label": "negative", "label_id": 0}
+{"text": "Hey, I know it's late but I'm genuinely worried my account has been compromised.", "label": "positive", "label_id": 1}
+{"text": "I was marked absent for a class I attended. Please correct the record.", "label": "positive", "label_id": 1}
+{"text": "Hi, what's your data retention policy?", "label": "negative", "label_id": 0}
+{"text": "Your review is pending moderation.", "label": "negative", "label_id": 0}
+{"text": "Confirmed for Thursday.", "label": "negative", "label_id": 0}
+{"text": "The person at your branch gave me a form with incorrect advice and I've already submitted it.", "label": "positive", "label_id": 1}
+{"text": "Connected to remote server.", "label": "negative", "label_id": 0}
+{"text": "I returned the item and have the tracking confirmation but no refund.", "label": "positive", "label_id": 1}
+{"text": "Congratulations on 2 years with us!", "label": "negative", "label_id": 0}
+{"text": "My appointment was cancelled without notice. I'd already arranged childcare.", "label": "positive", "label_id": 1}
+{"text": "Accessibility facilities confirmed for your visit.", "label": "negative", "label_id": 0}
+{"text": "I'm not angry yet but I will be if I don't hear back today.", "label": "positive", "label_id": 1}
+{"text": "The warranty on my appliance is still active and you're refusing to honour it.", "label": "positive", "label_id": 1}
+{"text": "I deposited a cheque 12 days ago and it still hasn't cleared.", "label": "positive", "label_id": 1}
+{"text": "I'm being evicted and I haven't received any formal notice. Is this legal?", "label": "positive", "label_id": 1}
+{"text": "Spring clearance \u2014 final prices.", "label": "negative", "label_id": 0}
+{"text": "Hi, is there a sandbox environment for testing?", "label": "negative", "label_id": 0}
+{"text": "Doors open at 7pm. No re-entry after 9pm.", "label": "negative", "label_id": 0}
+{"text": "Your digest for the week is ready.", "label": "negative", "label_id": 0}
+{"text": "Firmware update available for your device.", "label": "negative", "label_id": 0}
+{"text": "The carbon monoxide alarm went off after your boiler service.", "label": "positive", "label_id": 1}
+{"text": "New message from buyer \u2014 check your inbox.", "label": "negative", "label_id": 0}
+{"text": "I was incorrectly refused service and I believe it was discriminatory.", "label": "positive", "label_id": 1}
+{"text": "The price tag said $29. I was charged $79. No one at the shop would fix it.", "label": "positive", "label_id": 1}
+{"text": "Someone is sending emails from my domain through your platform without my permission.", "label": "positive", "label_id": 1}
+{"text": "I booked a 60-minute massage. I was out in 35 minutes.", "label": "positive", "label_id": 1}
+{"text": "Can you resend the instructions when you get a sec?", "label": "negative", "label_id": 0}
+{"text": "I never signed up for this but you've been charging me for 8 months.", "label": "positive", "label_id": 1}
+{"text": "HSBC security alert: verify your identity now.", "label": "negative", "label_id": 0}
+{"text": "The freelancer I paid through your platform disappeared after I released the funds.", "label": "positive", "label_id": 1}
+{"text": "Do you have a help centre I can browse?", "label": "negative", "label_id": 0}
