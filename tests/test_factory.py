@@ -10,7 +10,9 @@ from crasis.factory import (
     _BinaryPromptBuilder,
     _MulticlassPromptBuilder,
     _count_existing,
+    _detect_code_language,
     _generate_batch,
+    _is_code_domain,
     _make_client,
     _parse_batch_response,
     _prompt_builder_for,
@@ -259,6 +261,108 @@ def test_multiclass_prompt_mentions_all_classes():
     _, user = _MulticlassPromptBuilder(MULTICLASS_SPEC).build(20)
     for cls in MULTICLASS_SPEC.task.classes:
         assert cls in user
+
+
+# ---------------------------------------------------------------------------
+# Code-domain prompt scaffold
+# ---------------------------------------------------------------------------
+
+CPP_BINARY_SPEC = CrasisSpec.model_validate(
+    {
+        "name": "platform-dependent-integer-types",
+        "description": (
+            "C++ function code review rule: all integer types must use fixed-width "
+            "types from <cstdint>. The input to classify is a C++ function body."
+        ),
+        "task": {
+            "type": "binary_classification",
+            "trigger": "a variable declaration uses a platform-dependent integer type such as int or long",
+            "ignore": "declarations that use fixed-width cstdint types such as uint8_t or int32_t",
+        },
+        "quality": {"min_accuracy": 0.93},
+        "training": {"volume": 100},
+    }
+)
+
+CPP_MULTICLASS_SPEC = CrasisSpec.model_validate(
+    {
+        "name": "cpp-error-handling-style",
+        "description": "Classifies the error-handling style used in a C++ function body.",
+        "task": {
+            "type": "multiclass",
+            "trigger": "any C++ function body",
+            "ignore": "non-function code",
+            "classes": ["return_code", "exception", "none"],
+        },
+        "quality": {"min_accuracy": 0.88},
+        "training": {"volume": 90},
+    }
+)
+
+
+def test_text_spec_is_not_code_domain():
+    assert _is_code_domain(BINARY_SPEC) is False
+
+
+def test_cpp_spec_is_code_domain():
+    assert _is_code_domain(CPP_BINARY_SPEC) is True
+
+
+def test_detect_code_language_cpp():
+    assert _detect_code_language(CPP_BINARY_SPEC) == "C++"
+
+
+def test_detect_code_language_none_for_text_spec():
+    assert _detect_code_language(BINARY_SPEC) is None
+
+
+def test_binary_prompt_for_code_spec_avoids_message_tone_language():
+    """The old scaffold told the generator to vary 'tone: formal, casual, frustrated,
+    polite' and call each example a 'message' — nonsensical for source code and the
+    documented root cause of false positives on ordinary code (e.g. constructors)
+    across BMS specialists. Code-domain specs must not get that scaffold."""
+    system, user = _BinaryPromptBuilder(CPP_BINARY_SPEC).build(10)
+    combined = f"{system}\n{user}".lower()
+    assert "tone: formal, casual" not in combined
+    assert "standalone message" not in combined
+
+
+def test_binary_prompt_for_code_spec_requests_code():
+    system, user = _BinaryPromptBuilder(CPP_BINARY_SPEC).build(10)
+    combined = f"{system}\n{user}".lower()
+    assert "function body" in combined or "function/method body" in combined
+    assert "c++" in combined
+
+
+def test_binary_prompt_for_code_spec_still_mentions_trigger_and_ignore():
+    _, user = _BinaryPromptBuilder(CPP_BINARY_SPEC).build(10)
+    assert CPP_BINARY_SPEC.task.trigger in user
+    assert CPP_BINARY_SPEC.task.ignore in user
+
+
+def test_binary_prompt_for_text_spec_unchanged():
+    """Non-code specs must keep getting the original text-classifier scaffold."""
+    _, user = _BinaryPromptBuilder(BINARY_SPEC).build(10)
+    assert "Vary tone: formal, casual, frustrated, polite" in user
+    assert "standalone message or text snippet" in user
+
+
+def test_multiclass_prompt_for_code_spec_avoids_tone_language():
+    system, user = _MulticlassPromptBuilder(CPP_MULTICLASS_SPEC).build(30)
+    combined = f"{system}\n{user}".lower()
+    assert "vary length and tone" not in combined
+
+
+def test_multiclass_prompt_for_code_spec_requests_code():
+    system, user = _MulticlassPromptBuilder(CPP_MULTICLASS_SPEC).build(30)
+    combined = f"{system}\n{user}".lower()
+    assert "function" in combined
+    assert "c++" in combined
+
+
+def test_multiclass_prompt_for_text_spec_unchanged():
+    _, user = _MulticlassPromptBuilder(MULTICLASS_SPEC).build(20)
+    assert "Vary length and tone across examples within each class" in user
 
 
 def test_prompt_builder_for_binary():
