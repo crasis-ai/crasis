@@ -10,14 +10,15 @@ from crasis.factory import (
     _BinaryPromptBuilder,
     _MulticlassPromptBuilder,
     _count_existing,
+    _detect_code_language,
     _generate_batch,
+    _is_code_domain,
     _make_client,
     _parse_batch_response,
     _prompt_builder_for,
     generate,
 )
 from crasis.spec import CrasisSpec, TaskType
-
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -74,7 +75,9 @@ def _binary_batch_json(n: int = 4) -> str:
 
 def _multiclass_batch_json(n: int = 4, classes=None) -> str:
     classes = classes or ["billing", "technical", "returns", "general"]
-    examples = [{"text": f"example {i}", "label": classes[i % len(classes)]} for i in range(n)]
+    examples = [
+        {"text": f"example {i}", "label": classes[i % len(classes)]} for i in range(n)
+    ]
     return json.dumps(examples)
 
 
@@ -106,7 +109,10 @@ def test_count_existing_empty_file(tmp_path):
 
 def test_count_existing_counts_lines(tmp_path):
     p = tmp_path / "train.jsonl"
-    lines = [json.dumps({"text": f"t{i}", "label": "positive", "label_id": 1}) for i in range(7)]
+    lines = [
+        json.dumps({"text": f"t{i}", "label": "positive", "label_id": 1})
+        for i in range(7)
+    ]
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
     assert _count_existing(p) == 7
 
@@ -117,7 +123,10 @@ def test_count_existing_missing_file(tmp_path):
 
 def test_count_existing_ignores_blank_lines(tmp_path):
     p = tmp_path / "train.jsonl"
-    p.write_text('{"text":"a","label":"positive","label_id":1}\n\n{"text":"b","label":"negative","label_id":0}\n', encoding="utf-8")
+    p.write_text(
+        '{"text":"a","label":"positive","label_id":1}\n\n{"text":"b","label":"negative","label_id":0}\n',
+        encoding="utf-8",
+    )
     assert _count_existing(p) == 2
 
 
@@ -159,31 +168,37 @@ def test_parse_wrong_json_type_returns_empty():
 
 
 def test_parse_filters_invalid_labels():
-    raw = json.dumps([
-        {"text": "valid", "label": "positive"},
-        {"text": "bad label", "label": "unknown"},
-        {"text": "empty label", "label": ""},
-    ])
+    raw = json.dumps(
+        [
+            {"text": "valid", "label": "positive"},
+            {"text": "bad label", "label": "unknown"},
+            {"text": "empty label", "label": ""},
+        ]
+    )
     results = _parse_batch_response(raw, BINARY_SPEC)
     assert len(results) == 1
     assert results[0]["label"] == "positive"
 
 
 def test_parse_filters_empty_text():
-    raw = json.dumps([
-        {"text": "", "label": "positive"},
-        {"text": "   ", "label": "negative"},
-        {"text": "good text", "label": "positive"},
-    ])
+    raw = json.dumps(
+        [
+            {"text": "", "label": "positive"},
+            {"text": "   ", "label": "negative"},
+            {"text": "good text", "label": "positive"},
+        ]
+    )
     results = _parse_batch_response(raw, BINARY_SPEC)
     assert len(results) == 1
 
 
 def test_parse_label_id_correct_for_binary():
-    raw = json.dumps([
-        {"text": "refund me", "label": "positive"},
-        {"text": "just browsing", "label": "negative"},
-    ])
+    raw = json.dumps(
+        [
+            {"text": "refund me", "label": "positive"},
+            {"text": "just browsing", "label": "negative"},
+        ]
+    )
     results = _parse_batch_response(raw, BINARY_SPEC)
     assert results[0]["label_id"] == BINARY_SPEC.label_names.index("positive")
     assert results[1]["label_id"] == BINARY_SPEC.label_names.index("negative")
@@ -205,7 +220,9 @@ def test_parse_multiclass_response():
 def test_generate_batch_sends_enforce_distillable_text():
     """enforce_distillable_text: True must be in every API call. Non-negotiable."""
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = _make_mock_response(_binary_batch_json(4))
+    mock_client.chat.completions.create.return_value = _make_mock_response(
+        _binary_batch_json(4)
+    )
 
     builder = _BinaryPromptBuilder(BINARY_SPEC)
     _generate_batch(mock_client, BINARY_SPEC, builder, 4)
@@ -220,7 +237,9 @@ def test_generate_batch_uses_openrouter_model():
     from crasis.spec import TaskType
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = _make_mock_response(_binary_batch_json(4))
+    mock_client.chat.completions.create.return_value = _make_mock_response(
+        _binary_batch_json(4)
+    )
 
     builder = _BinaryPromptBuilder(BINARY_SPEC)
     _generate_batch(mock_client, BINARY_SPEC, builder, 4)
@@ -259,6 +278,108 @@ def test_multiclass_prompt_mentions_all_classes():
     _, user = _MulticlassPromptBuilder(MULTICLASS_SPEC).build(20)
     for cls in MULTICLASS_SPEC.task.classes:
         assert cls in user
+
+
+# ---------------------------------------------------------------------------
+# Code-domain prompt scaffold
+# ---------------------------------------------------------------------------
+
+CPP_BINARY_SPEC = CrasisSpec.model_validate(
+    {
+        "name": "platform-dependent-integer-types",
+        "description": (
+            "C++ function code review rule: all integer types must use fixed-width "
+            "types from <cstdint>. The input to classify is a C++ function body."
+        ),
+        "task": {
+            "type": "binary_classification",
+            "trigger": "a variable declaration uses a platform-dependent integer type such as int or long",
+            "ignore": "declarations that use fixed-width cstdint types such as uint8_t or int32_t",
+        },
+        "quality": {"min_accuracy": 0.93},
+        "training": {"volume": 100},
+    }
+)
+
+CPP_MULTICLASS_SPEC = CrasisSpec.model_validate(
+    {
+        "name": "cpp-error-handling-style",
+        "description": "Classifies the error-handling style used in a C++ function body.",
+        "task": {
+            "type": "multiclass",
+            "trigger": "any C++ function body",
+            "ignore": "non-function code",
+            "classes": ["return_code", "exception", "none"],
+        },
+        "quality": {"min_accuracy": 0.88},
+        "training": {"volume": 90},
+    }
+)
+
+
+def test_text_spec_is_not_code_domain():
+    assert _is_code_domain(BINARY_SPEC) is False
+
+
+def test_cpp_spec_is_code_domain():
+    assert _is_code_domain(CPP_BINARY_SPEC) is True
+
+
+def test_detect_code_language_cpp():
+    assert _detect_code_language(CPP_BINARY_SPEC) == "C++"
+
+
+def test_detect_code_language_none_for_text_spec():
+    assert _detect_code_language(BINARY_SPEC) is None
+
+
+def test_binary_prompt_for_code_spec_avoids_message_tone_language():
+    """The old scaffold told the generator to vary 'tone: formal, casual, frustrated,
+    polite' and call each example a 'message' — nonsensical for source code and the
+    documented root cause of false positives on ordinary code (e.g. constructors)
+    across BMS specialists. Code-domain specs must not get that scaffold."""
+    system, user = _BinaryPromptBuilder(CPP_BINARY_SPEC).build(10)
+    combined = f"{system}\n{user}".lower()
+    assert "tone: formal, casual" not in combined
+    assert "standalone message" not in combined
+
+
+def test_binary_prompt_for_code_spec_requests_code():
+    system, user = _BinaryPromptBuilder(CPP_BINARY_SPEC).build(10)
+    combined = f"{system}\n{user}".lower()
+    assert "function body" in combined or "function/method body" in combined
+    assert "c++" in combined
+
+
+def test_binary_prompt_for_code_spec_still_mentions_trigger_and_ignore():
+    _, user = _BinaryPromptBuilder(CPP_BINARY_SPEC).build(10)
+    assert CPP_BINARY_SPEC.task.trigger in user
+    assert CPP_BINARY_SPEC.task.ignore in user
+
+
+def test_binary_prompt_for_text_spec_unchanged():
+    """Non-code specs must keep getting the original text-classifier scaffold."""
+    _, user = _BinaryPromptBuilder(BINARY_SPEC).build(10)
+    assert "Vary tone: formal, casual, frustrated, polite" in user
+    assert "standalone message or text snippet" in user
+
+
+def test_multiclass_prompt_for_code_spec_avoids_tone_language():
+    system, user = _MulticlassPromptBuilder(CPP_MULTICLASS_SPEC).build(30)
+    combined = f"{system}\n{user}".lower()
+    assert "vary length and tone" not in combined
+
+
+def test_multiclass_prompt_for_code_spec_requests_code():
+    system, user = _MulticlassPromptBuilder(CPP_MULTICLASS_SPEC).build(30)
+    combined = f"{system}\n{user}".lower()
+    assert "function" in combined
+    assert "c++" in combined
+
+
+def test_multiclass_prompt_for_text_spec_unchanged():
+    _, user = _MulticlassPromptBuilder(MULTICLASS_SPEC).build(20)
+    assert "Vary length and tone across examples within each class" in user
 
 
 def test_prompt_builder_for_binary():
@@ -358,12 +479,18 @@ def test_generate_no_resume_overwrites(tmp_path):
     out_dir.mkdir()
     out_path = out_dir / "train.jsonl"
     out_path.write_text(
-        "\n".join(json.dumps({"text": f"old{i}", "label": "positive", "label_id": 1}) for i in range(50)) + "\n",
+        "\n".join(
+            json.dumps({"text": f"old{i}", "label": "positive", "label_id": 1})
+            for i in range(50)
+        )
+        + "\n",
         encoding="utf-8",
     )
 
     with _patch_generate_batch(BINARY_SPEC, _binary_batch_json):
-        out = generate(BINARY_SPEC, tmp_path, api_key="fake-key", count=10, resume=False)
+        out = generate(
+            BINARY_SPEC, tmp_path, api_key="fake-key", count=10, resume=False
+        )
 
     lines = [l for l in out.read_text().splitlines() if l.strip()]
     assert len(lines) == 10
@@ -374,7 +501,11 @@ def test_generate_skips_when_already_complete(tmp_path):
     out_dir.mkdir()
     out_path = out_dir / "train.jsonl"
     out_path.write_text(
-        "\n".join(json.dumps({"text": f"t{i}", "label": "positive", "label_id": 1}) for i in range(100)) + "\n",
+        "\n".join(
+            json.dumps({"text": f"t{i}", "label": "positive", "label_id": 1})
+            for i in range(100)
+        )
+        + "\n",
         encoding="utf-8",
     )
 

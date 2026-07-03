@@ -45,9 +45,9 @@ logger = logging.getLogger(__name__)
 #   openai/gpt-4.1-nano                    404 — not actually distillable
 _GENERATOR_MODELS: dict[TaskType, str] = {
     TaskType.binary_classification: "deepseek/deepseek-chat-v3.1",
-    TaskType.multiclass:            "meta-llama/llama-3.3-70b-instruct",
-    TaskType.extraction:            "meta-llama/llama-3.3-70b-instruct",
-    TaskType.sequence:              "meta-llama/llama-3.3-70b-instruct",
+    TaskType.multiclass: "meta-llama/llama-3.3-70b-instruct",
+    TaskType.extraction: "meta-llama/llama-3.3-70b-instruct",
+    TaskType.sequence: "meta-llama/llama-3.3-70b-instruct",
 }
 
 # Examples requested per API call. Higher = fewer calls, larger responses.
@@ -285,6 +285,56 @@ class _PromptBuilder:
         raise NotImplementedError
 
 
+# Phrases that indicate a spec's examples are source code, not natural-language
+# text. Checked against description + trigger + ignore (case-insensitive).
+# When matched, the prompt scaffold switches from chat-message vocabulary
+# ("message", "tone: formal, casual") to code vocabulary ("function body",
+# "syntactically valid"), and — if a specific language is named — pins the
+# generator to emit that language's syntax.
+#
+# Root cause of the pre-fix behavior: specs whose description/trigger/ignore
+# already describe code (e.g. "C++ function body") still got a generic
+# text-classifier prompt wrapped around that text, so the generator produced
+# prose-flavored "messages" instead of realistic source, and negatives never
+# covered the real distribution of clean code (bare constructors, getters,
+# HAL setters). See crasis-ai/crasis issue: BMS specialist verification.
+_CODE_DOMAIN_MARKERS = (
+    "function body",
+    "function bodies",
+    "code review",
+    "source code",
+    "class method",
+    "member function",
+)
+
+_CODE_LANGUAGE_MARKERS: dict[str, str] = {
+    "c++": "C++",
+    "cpp": "C++",
+    "python": "Python",
+    "javascript": "JavaScript",
+    "typescript": "TypeScript",
+    "java": "Java",
+    "rust": "Rust",
+    "go": "Go",
+    " c ": "C",
+    "c99": "C",
+    "c11": "C",
+}
+
+
+def _is_code_domain(spec: CrasisSpec) -> bool:
+    haystack = f"{spec.description} {spec.task.trigger} {spec.task.ignore}".lower()
+    return any(marker in haystack for marker in _CODE_DOMAIN_MARKERS)
+
+
+def _detect_code_language(spec: CrasisSpec) -> str | None:
+    haystack = f" {spec.description} {spec.task.trigger} {spec.task.ignore} ".lower()
+    for marker, label in _CODE_LANGUAGE_MARKERS.items():
+        if marker in haystack:
+            return label
+    return None
+
+
 class _BinaryPromptBuilder(_PromptBuilder):
     """Prompt builder for binary classification tasks."""
 
@@ -294,6 +344,13 @@ class _BinaryPromptBuilder(_PromptBuilder):
         positive_n = half
         negative_n = n - half  # handles odd n
 
+        if _is_code_domain(spec):
+            return self._build_code(spec, n, positive_n, negative_n)
+        return self._build_text(spec, n, positive_n, negative_n)
+
+    def _build_text(
+        self, spec: CrasisSpec, n: int, positive_n: int, negative_n: int
+    ) -> tuple[str, str]:
         system = (
             "You are a training data generator for a text classification specialist model. "
             "You produce realistic, diverse, labeled text examples in JSON format. "
@@ -302,7 +359,8 @@ class _BinaryPromptBuilder(_PromptBuilder):
 
         ignore_line = (
             f"\n- These are always NEGATIVE even if they superficially resemble positives: {spec.task.ignore}"
-            if spec.task.ignore else ""
+            if spec.task.ignore
+            else ""
         )
 
         user = f"""Generate {n} labeled text examples for a binary text classifier.
@@ -336,6 +394,71 @@ Generate exactly {n} examples now:"""
 
         return system, user
 
+    def _build_code(
+        self, spec: CrasisSpec, n: int, positive_n: int, negative_n: int
+    ) -> tuple[str, str]:
+        language = _detect_code_language(spec)
+        lang_line = (
+            f"All examples must be syntactically valid {language}."
+            if language
+            else (
+                "Infer the programming language from the specialist description below and "
+                "write syntactically valid code in that language."
+            )
+        )
+
+        system = (
+            "You are a training data generator for a source-code classification specialist model. "
+            "You produce realistic, diverse, labeled CODE examples (function bodies, not prose) in JSON format. "
+            f"{lang_line} "
+            "Your output must be valid JSON only — no explanation, no markdown, no preamble."
+        )
+
+        ignore_line = (
+            f"\n- These are always NEGATIVE even if they superficially resemble positives: {spec.task.ignore}"
+            if spec.task.ignore
+            else ""
+        )
+
+        user = f"""Generate {n} labeled source-code examples for a binary code classifier.
+
+Specialist description: {spec.description}
+
+POSITIVE examples (label: "positive"):
+- Definition: {spec.task.trigger}
+- Generate {positive_n} positive examples
+
+NEGATIVE examples (label: "negative"):
+- Definition: Realistic, idiomatic clean code that does NOT match the trigger above
+{ignore_line}
+- Generate {negative_n} negative examples
+- Negatives must cover the full range of ordinary, unremarkable code a real codebase
+  contains — constructors, simple getters/accessors, thin wrappers, boilerplate
+  initialization — not just near-miss variants of the positive examples
+
+Requirements:
+- Each example is one complete, realistic function/method body (signature + body),
+  not a sentence, comment, or prose description of code
+- Vary function shape and complexity: mix short one-liner-style functions with
+  longer multi-branch functions
+- Do NOT vary "tone" — this is code, not natural language. Vary naming, control
+  flow shape, and complexity instead
+- Make negatives realistic — ordinary code a competent engineer would actually write,
+  not text engineered only to avoid the trigger
+- No duplicate or near-duplicate examples
+- Do not include a leading comment stating the label (e.g. "// VIOLATION") —
+  the classifier never sees such comments in production
+
+Return ONLY a JSON array, no other text:
+[
+  {{"text": "<complete function body here>", "label": "positive"}},
+  {{"text": "<complete function body here>", "label": "negative"}}
+]
+
+Generate exactly {n} examples now:"""
+
+        return system, user
+
 
 class _MulticlassPromptBuilder(_PromptBuilder):
     """Prompt builder for multiclass tasks."""
@@ -353,6 +476,13 @@ class _MulticlassPromptBuilder(_PromptBuilder):
             class_lines.append(f'- "{cls}" ({per_class} examples){desc_str}')
         class_block = "\n".join(class_lines)
 
+        if _is_code_domain(spec):
+            return self._build_code(spec, n, class_block)
+        return self._build_text(spec, n, class_block)
+
+    def _build_text(
+        self, spec: CrasisSpec, n: int, class_block: str
+    ) -> tuple[str, str]:
         system = (
             "You are a training data generator for a text classification specialist model. "
             "Output valid JSON only — no explanation, no markdown."
@@ -374,6 +504,51 @@ Requirements:
 
 Return ONLY a JSON array:
 [{{"text": "...", "label": "<class_name>"}}, ...]
+
+Generate exactly {n} examples now:"""
+
+        return system, user
+
+    def _build_code(
+        self, spec: CrasisSpec, n: int, class_block: str
+    ) -> tuple[str, str]:
+        language = _detect_code_language(spec)
+        lang_line = (
+            f"All examples must be syntactically valid {language}."
+            if language
+            else (
+                "Infer the programming language from the specialist description below and "
+                "write syntactically valid code in that language."
+            )
+        )
+
+        system = (
+            "You are a training data generator for a source-code classification specialist model. "
+            f"You produce realistic, diverse, labeled CODE examples (function bodies, not prose). {lang_line} "
+            "Output valid JSON only — no explanation, no markdown."
+        )
+
+        user = f"""Generate {n} labeled source-code examples for a multiclass code classifier.
+
+Specialist description: {spec.description}
+Trigger: {spec.task.trigger}
+
+Classes (with definitions and target counts):
+{class_block}
+
+Requirements:
+- Each example is one complete, realistic function/method body (signature + body),
+  not a sentence or prose description of code
+- Each class must be clearly distinguishable from the others based on the definitions above
+- Vary function shape and complexity across examples within each class, not "tone"
+- Include realistic, unremarkable code for each class where the definition allows it —
+  not just examples engineered to be maximally distinctive
+- No duplicate or near-duplicate examples
+- Do not include a leading comment stating the label — the classifier never sees
+  such comments in production
+
+Return ONLY a JSON array:
+[{{"text": "<complete function body here>", "label": "<class_name>"}}, ...]
 
 Generate exactly {n} examples now:"""
 
