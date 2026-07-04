@@ -1,6 +1,7 @@
 """Tests for crasis.factory — synthetic data generation pipeline."""
 
 import json
+import os
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -246,6 +247,45 @@ def test_generate_batch_uses_openrouter_model():
 
     call_kwargs = mock_client.chat.completions.create.call_args.kwargs
     assert call_kwargs["model"] == _GENERATOR_MODELS[TaskType.binary_classification]
+
+
+# ---------------------------------------------------------------------------
+# _MAX_TOKENS — truncated batches are silently dropped (invalid JSON -> []),
+# not retried, so a too-low ceiling manifests as generation never finishing
+# rather than as a visible error. Configurable per-project via env var since
+# specs with longer description/trigger/ignore text need more headroom.
+# ---------------------------------------------------------------------------
+
+
+def test_generate_batch_uses_max_tokens_default():
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = _make_mock_response(
+        _binary_batch_json(4)
+    )
+
+    builder = _BinaryPromptBuilder(BINARY_SPEC)
+    _generate_batch(mock_client, BINARY_SPEC, builder, 4)
+
+    call_kwargs = mock_client.chat.completions.create.call_args.kwargs
+    assert call_kwargs["max_tokens"] == 8192
+
+
+def test_max_tokens_env_var_override():
+    """_MAX_TOKENS is read once at import time, so verify the override in a
+    fresh subprocess rather than reloading crasis.factory in-place — reloading
+    creates a second class object and breaks isinstance checks for every other
+    test in this module that imported the pre-reload classes."""
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [sys.executable, "-c", "from crasis.factory import _MAX_TOKENS; print(_MAX_TOKENS)"],
+        env={**os.environ, "CRASIS_GENERATOR_MAX_TOKENS": "16384"},
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    assert result.stdout.strip() == "16384"
 
 
 # ---------------------------------------------------------------------------
