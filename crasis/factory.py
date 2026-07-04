@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -55,6 +56,15 @@ _BATCH_SIZE = 50
 
 # Concurrent API calls. OpenRouter handles parallel requests well.
 _WORKERS = 4
+
+# Max output tokens per generation call. A batch response that runs out of
+# tokens is truncated mid-JSON and silently dropped by _parse_batch_response
+# (invalid JSON -> []), which does not raise, so it never triggers _fetch's
+# retry-on-exception path — the batch is just lost and re-requested from
+# scratch. Specs with longer description/trigger/ignore text leave the
+# generator less room per example before hitting the ceiling, so this is
+# tunable via env var per-project rather than requiring a code change.
+_MAX_TOKENS = int(os.environ.get("CRASIS_GENERATOR_MAX_TOKENS", "8192"))
 
 
 # ---------------------------------------------------------------------------
@@ -189,7 +199,7 @@ def _generate_batch(
 
     response = client.chat.completions.create(
         model=model,
-        max_tokens=4096,
+        max_tokens=_MAX_TOKENS,
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
